@@ -1,0 +1,38 @@
+---
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { siteConfig } from '../data/site';
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = siteConfig.meta.title,
+	description = siteConfig.meta.description,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+		<link rel="icon" type="image/svg+xml" href={`${siteConfig.basePath}/favicon.svg`} />
+	</head>
+	<body>
+		<a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
+		<div class="page-shell">
+			<Header />
+			<main id="contenido-principal">
+				<slot />
+			</main>
+			<Footer />
+		</div>
+	</body>
+</html>

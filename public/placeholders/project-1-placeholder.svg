@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Proyecto placeholder 1</title>
+  <desc id="desc">Placeholder para caso destacado de modernización de camino.</desc>
+  <rect width="800" height="520" fill="#d8d2c7" />
+  <rect x="64" y="72" width="220" height="300" rx="20" fill="#b7b0a4" />
+  <rect x="320" y="92" width="150" height="280" rx="18" fill="#9ea7b4" />
+  <rect x="500" y="132" width="220" height="240" rx="18" fill="#6d7b90" />
+  <rect x="64" y="406" width="672" height="44" rx="12" fill="#10233f" />
+  <text x="86" y="437" fill="#f6efe4" font-size="24" font-family="Arial, sans-serif">Modernización de camino - placeholder visual</text>
+</svg>

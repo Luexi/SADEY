@@ -1,0 +1,17 @@
+---
+const { as: Tag = 'div', className = '' } = Astro.props as {
+	as?: keyof HTMLElementTagNameMap;
+	className?: string;
+};
+---
+
+<Tag class:list={['container', className]}>
+	<slot />
+</Tag>
+
+<style>
+	.container {
+		width: var(--container-width);
+		margin: 0 auto;
+	}
+</style>

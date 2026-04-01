@@ -1,0 +1,80 @@
+---
+import Card from '../ui/Card.astro';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { differentiators } from '../../data/differentiators';
+---
+
+<section class="why section-shell">
+	<Container>
+		<SectionHeading
+			eyebrow="¿Por qué trabajar con SADEY?"
+			title="Una propuesta enfocada en resolver soporte técnico real para obra y laboratorio"
+			description="Los diferenciales se presentan de forma clara para reforzar la propuesta de valor sin recurrir a promesas infladas ni datos inventados."
+		/>
+
+		<div class="why__grid">
+			{
+				differentiators.map((item) => (
+					<Card className="why__card">
+						<span class="why__icon">{item.icon}</span>
+						<h3>{item.title}</h3>
+						<p>{item.description}</p>
+					</Card>
+				))
+			}
+		</div>
+	</Container>
+</section>
+
+<style>
+	.why__grid {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: var(--space-md);
+		margin-top: var(--space-xl);
+	}
+
+	.why__card {
+		display: grid;
+		gap: var(--space-sm);
+	}
+
+	.why__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 3rem;
+		height: 3rem;
+		border-radius: 999px;
+		background: var(--color-accent-soft);
+		color: var(--color-accent-strong);
+		font-weight: 700;
+	}
+
+	h3,
+	p {
+		margin: 0;
+	}
+
+	h3 {
+		font-family: var(--font-display);
+		font-size: 1.35rem;
+	}
+
+	p {
+		color: var(--color-text-muted);
+	}
+
+	@media (max-width: 980px) {
+		.why__grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 640px) {
+		.why__grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

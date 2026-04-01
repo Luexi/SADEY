@@ -1,0 +1,112 @@
+---
+import Button from '../ui/Button.astro';
+import Card from '../ui/Card.astro';
+import Container from '../ui/Container.astro';
+import { siteConfig } from '../../data/site';
+import { withBase } from '../../utils/paths';
+
+const { hero } = siteConfig;
+---
+
+<section class="hero section-shell" id="inicio">
+	<Container className="hero__grid">
+		<div class="hero__content">
+			<span class="eyebrow">{hero.eyebrow}</span>
+			<h1>{hero.title}</h1>
+			<p>{hero.description}</p>
+
+			<div class="hero__actions">
+				<Button href={siteConfig.whatsappUrl} label={hero.primaryCtaLabel} disabled={!siteConfig.whatsappUrl} />
+				<Button href="#servicios" label={hero.secondaryCtaLabel} variant="ghost" />
+			</div>
+
+			<ul class="hero__highlights">
+				{hero.highlights.map((item) => <li>{item}</li>)}
+			</ul>
+		</div>
+
+		<Card tone="dark" className="hero__media">
+			<img src={withBase(hero.image.src, siteConfig.basePath)} alt={hero.image.alt} loading="eager" />
+		</Card>
+	</Container>
+</section>
+
+<style>
+	.hero {
+		padding-top: var(--space-xl);
+	}
+
+	.hero__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+		gap: var(--space-xl);
+		align-items: center;
+	}
+
+	.hero__content {
+		display: grid;
+		gap: var(--space-md);
+	}
+
+	h1 {
+		margin: 0;
+		max-width: 12ch;
+		font-family: var(--font-display);
+		font-size: clamp(3rem, 6vw, 5.5rem);
+		line-height: 0.95;
+		letter-spacing: -0.05em;
+		color: var(--color-panel);
+	}
+
+	.hero p {
+		margin: 0;
+		max-width: 42rem;
+		font-size: 1.08rem;
+		color: var(--color-text-muted);
+	}
+
+	.hero__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-sm);
+	}
+
+	.hero__highlights {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--space-sm);
+		padding: 0;
+		margin: var(--space-sm) 0 0;
+		list-style: none;
+	}
+
+	.hero__highlights li {
+		padding: 1rem 1.1rem;
+		border-radius: var(--radius-md);
+		background: rgba(255, 255, 255, 0.7);
+		border: 1px solid rgba(16, 35, 63, 0.08);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.hero__media {
+		padding: var(--space-sm);
+	}
+
+	.hero__media img {
+		border-radius: calc(var(--radius-md) - 0.2rem);
+		width: 100%;
+		aspect-ratio: 16 / 10;
+		object-fit: cover;
+	}
+
+	@media (max-width: 1024px) {
+		.hero__grid,
+		.hero__highlights {
+			grid-template-columns: 1fr;
+		}
+
+		h1 {
+			max-width: none;
+		}
+	}
+</style>

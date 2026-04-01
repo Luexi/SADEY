@@ -1,0 +1,72 @@
+---
+import Button from '../ui/Button.astro';
+import Container from '../ui/Container.astro';
+import { siteConfig } from '../../data/site';
+---
+
+<section class="cta section-shell">
+	<Container>
+		<div class="cta__panel">
+			<div class="cta__copy">
+				<span class="eyebrow">Canal de contacto</span>
+				<h2>{siteConfig.cta.title}</h2>
+				<p>{siteConfig.cta.description}</p>
+				<p class="cta__note">{siteConfig.cta.note}</p>
+			</div>
+
+			<div class="cta__actions">
+				<Button href={siteConfig.whatsappUrl} label={siteConfig.cta.primaryLabel} disabled={!siteConfig.whatsappUrl} fullWidth />
+				<Button href="/#inicio" label={siteConfig.cta.secondaryLabel} variant="secondary" fullWidth />
+			</div>
+		</div>
+	</Container>
+</section>
+
+<style>
+	.cta__panel {
+		display: grid;
+		grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+		gap: var(--space-lg);
+		padding: var(--space-xl);
+		border-radius: var(--radius-lg);
+		background: linear-gradient(135deg, var(--color-panel) 0%, var(--color-panel-soft) 100%);
+		color: var(--color-inverse);
+		box-shadow: var(--shadow-card);
+	}
+
+	.cta__copy {
+		display: grid;
+		gap: var(--space-sm);
+	}
+
+	h2,
+	p {
+		margin: 0;
+	}
+
+	h2 {
+		font-family: var(--font-display);
+		font-size: clamp(2rem, 4vw, 3rem);
+		line-height: 1.05;
+	}
+
+	.cta__copy p {
+		color: rgba(248, 244, 236, 0.82);
+	}
+
+	.cta__note {
+		font-size: 0.92rem;
+	}
+
+	.cta__actions {
+		display: grid;
+		align-content: center;
+		gap: var(--space-sm);
+	}
+
+	@media (max-width: 860px) {
+		.cta__panel {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

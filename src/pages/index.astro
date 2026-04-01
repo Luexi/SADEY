@@ -1,0 +1,19 @@
+---
+import About from '../components/sections/About.astro';
+import CTAWhatsApp from '../components/sections/CTAWhatsApp.astro';
+import Hero from '../components/sections/Hero.astro';
+import ProjectsPreview from '../components/sections/ProjectsPreview.astro';
+import ServicesPreview from '../components/sections/ServicesPreview.astro';
+import WhySadey from '../components/sections/WhySadey.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../data/site';
+---
+
+<BaseLayout title={siteConfig.meta.title} description={siteConfig.meta.description}>
+	<Hero />
+	<About />
+	<ServicesPreview />
+	<ProjectsPreview />
+	<WhySadey />
+	<CTAWhatsApp />
+</BaseLayout>

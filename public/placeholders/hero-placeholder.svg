@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder hero SADEY</title>
+  <desc id="desc">Ilustración temporal con textura industrial para el hero principal.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10233f" />
+      <stop offset="100%" stop-color="#2d3e5e" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)" />
+  <g opacity=".15" fill="#fff3df">
+    <rect x="1080" y="120" width="220" height="520" rx="28" />
+    <rect x="1320" y="150" width="150" height="490" rx="24" />
+    <circle cx="920" cy="320" r="96" />
+    <rect x="320" y="520" width="480" height="90" rx="14" />
+  </g>
+  <path d="M0 690c180-120 430-190 720-210 260-18 560 18 880 140v280H0z" fill="#0b162a" opacity=".78" />
+  <text x="120" y="160" fill="#f6efe4" font-size="54" font-family="Georgia, serif">SADEY</text>
+  <text x="120" y="238" fill="#d4b07b" font-size="36" font-family="Arial, sans-serif">Laboratorio para la construcción</text>
+  <text x="120" y="314" fill="#ffffff" font-size="24" font-family="Arial, sans-serif" opacity=".8">Placeholder visual reemplazable para la Fase 2</text>
+</svg>

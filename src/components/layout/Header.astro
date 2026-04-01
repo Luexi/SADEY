@@ -1,0 +1,105 @@
+---
+import Button from '../ui/Button.astro';
+import Container from '../ui/Container.astro';
+import { siteConfig } from '../../data/site';
+import { withBase } from '../../utils/paths';
+---
+
+<header class="site-header">
+	<Container className="site-header__inner">
+		<a class="brand" href={withBase('/#inicio', siteConfig.basePath)} aria-label="Ir al inicio de SADEY">
+			<span class="brand__mark">{siteConfig.logoText}</span>
+			<span class="brand__tag">Laboratorio para la construcción</span>
+		</a>
+
+		<nav aria-label="Navegación principal">
+			<ul class="nav-list">
+				{
+					siteConfig.navigation.map((item) => (
+						<li>
+							<a href={withBase(item.href, siteConfig.basePath)}>{item.label}</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+
+		<div class="site-header__actions">
+			<Button href={siteConfig.whatsappUrl} label="Contacto en preparación" variant="primary" disabled={!siteConfig.whatsappUrl} />
+		</div>
+	</Container>
+</header>
+
+<style>
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		padding: 1rem 0;
+		background: linear-gradient(180deg, rgba(245, 241, 232, 0.92), rgba(245, 241, 232, 0.68));
+		backdrop-filter: blur(14px);
+		border-bottom: 1px solid rgba(16, 35, 63, 0.08);
+	}
+
+	.site-header__inner {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: center;
+		gap: 1.25rem;
+	}
+
+	.brand {
+		display: inline-grid;
+		gap: 0.15rem;
+	}
+
+	.brand__mark {
+		font-family: var(--font-display);
+		font-size: 1.55rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		color: var(--color-panel);
+	}
+
+	.brand__tag {
+		font-size: 0.82rem;
+		color: var(--color-text-muted);
+	}
+
+	nav {
+		justify-self: center;
+	}
+
+	.nav-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+
+	.nav-list a {
+		color: var(--color-text-muted);
+		font-size: 0.96rem;
+	}
+
+	.nav-list a:hover {
+		color: var(--color-panel);
+	}
+
+	@media (max-width: 900px) {
+		.site-header__inner {
+			grid-template-columns: 1fr;
+			justify-items: start;
+		}
+
+		nav {
+			justify-self: start;
+		}
+
+		.site-header__actions {
+			width: 100%;
+		}
+	}
+</style>

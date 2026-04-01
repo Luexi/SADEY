@@ -1,0 +1,105 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	font-family: var(--font-body);
+	background:
+		radial-gradient(circle at top right, rgba(199, 162, 108, 0.16), transparent 24%),
+		linear-gradient(180deg, #f7f3ea 0%, #f1ece2 100%);
+	color: var(--color-text);
+	line-height: 1.6;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+	font: inherit;
+}
+
+button {
+	cursor: pointer;
+}
+
+:focus-visible {
+	outline: 3px solid rgba(199, 162, 108, 0.55);
+	outline-offset: 3px;
+}
+
+.skip-link {
+	position: absolute;
+	left: 1rem;
+	top: -4rem;
+	z-index: 1000;
+	padding: 0.75rem 1rem;
+	background: var(--color-panel);
+	color: var(--color-inverse);
+	border-radius: var(--radius-sm);
+	transition: top var(--transition-base);
+}
+
+.skip-link:focus {
+	top: 1rem;
+}
+
+.page-shell {
+	min-height: 100vh;
+}
+
+.section-shell {
+	padding: var(--space-2xl) 0;
+}
+
+.surface-panel {
+	background: rgba(255, 255, 255, 0.74);
+	backdrop-filter: blur(6px);
+	border: 1px solid rgba(255, 255, 255, 0.55);
+	box-shadow: var(--shadow-soft);
+}
+
+.eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.85rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--color-accent-strong);
+}
+
+.eyebrow::before {
+	content: '';
+	width: 2.5rem;
+	height: 1px;
+	background: currentColor;
+}
+
+.section-intro {
+	max-width: 42rem;
+}
+
+.section-intro p {
+	margin: 0;
+	color: var(--color-text-muted);
+}

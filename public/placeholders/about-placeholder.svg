@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder sobre nosotros</title>
+  <desc id="desc">Imagen temporal para la sección sobre SADEY.</desc>
+  <rect width="900" height="700" rx="32" fill="#e7e2d8" />
+  <rect x="56" y="56" width="788" height="588" rx="24" fill="#10233f" />
+  <rect x="110" y="118" width="320" height="420" rx="20" fill="#213657" />
+  <rect x="470" y="118" width="262" height="210" rx="18" fill="#c9a063" opacity=".92" />
+  <rect x="470" y="360" width="262" height="178" rx="18" fill="#f6efe4" />
+  <text x="500" y="206" fill="#10233f" font-size="28" font-family="Georgia, serif">Apoyo técnico</text>
+  <text x="500" y="246" fill="#10233f" font-size="20" font-family="Arial, sans-serif">Placeholder local</text>
+  <text x="152" y="588" fill="#f6efe4" font-size="30" font-family="Arial, sans-serif">Reemplazar por foto real en Fase 2</text>
+</svg>

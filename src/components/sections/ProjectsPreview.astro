@@ -1,0 +1,107 @@
+---
+import Card from '../ui/Card.astro';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { projects } from '../../data/projects';
+import { siteConfig } from '../../data/site';
+import { withBase } from '../../utils/paths';
+---
+
+<section class="projects section-shell" id="proyectos">
+	<Container>
+		<SectionHeading
+			eyebrow="Casos destacados"
+			title="Proyectos organizados para comunicar experiencia sin sobrecargar la landing"
+			description="Cada caso conserva el detalle completo en datos y muestra una versión resumida para la tarjeta, lista para evolucionar a fichas o páginas dedicadas."
+		/>
+
+		<div class="projects__grid">
+			{
+				projects.map((project) => (
+					<Card tone="dark" className="projects__card">
+						<img src={withBase(project.image.src, siteConfig.basePath)} alt={project.image.alt} loading="lazy" />
+						<div class="projects__copy">
+							<p class="projects__category">{project.category}</p>
+							<h3>{project.title}</h3>
+							<p>{project.summary}</p>
+							{project.contractNumber && <p class="projects__contract">Contrato: {project.contractNumber}</p>}
+							<ul class="projects__tags">
+								{project.tags.map((tag) => <li>{tag}</li>)}
+							</ul>
+						</div>
+					</Card>
+				))
+			}
+		</div>
+	</Container>
+</section>
+
+<style>
+	.projects {
+		background: linear-gradient(180deg, rgba(16, 35, 63, 0.05), rgba(16, 35, 63, 0.11));
+	}
+
+	.projects__grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--space-md);
+		margin-top: var(--space-xl);
+	}
+
+	.projects__card {
+		display: grid;
+		gap: var(--space-md);
+		padding: var(--space-sm);
+	}
+
+	.projects__card img {
+		width: 100%;
+		aspect-ratio: 16 / 10;
+		object-fit: cover;
+		border-radius: var(--radius-sm);
+	}
+
+	.projects__copy {
+		display: grid;
+		gap: 0.75rem;
+		padding: 0 var(--space-sm) var(--space-sm);
+	}
+
+	.projects__copy h3,
+	.projects__copy p {
+		margin: 0;
+	}
+
+	.projects__copy h3 {
+		font-family: var(--font-display);
+		font-size: 1.5rem;
+	}
+
+	.projects__category,
+	.projects__contract {
+		font-size: 0.86rem;
+		color: rgba(248, 244, 236, 0.75);
+	}
+
+	.projects__tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+
+	.projects__tags li {
+		padding: 0.42rem 0.7rem;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.08);
+		font-size: 0.82rem;
+	}
+
+	@media (max-width: 980px) {
+		.projects__grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

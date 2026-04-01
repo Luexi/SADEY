@@ -1,0 +1,65 @@
+---
+import Container from '../ui/Container.astro';
+import { siteConfig } from '../../data/site';
+---
+
+<footer class="site-footer" id="contacto">
+	<Container className="site-footer__inner">
+		<div class="site-footer__brand">
+			<p class="site-footer__title">{siteConfig.logoText}</p>
+			<p>{siteConfig.footerNote}</p>
+		</div>
+
+		<div>
+			<h2>Contacto</h2>
+			<ul>
+				<li>WhatsApp: pendiente de confirmación</li>
+				<li>Correo: {siteConfig.contactEmail || 'por definir'}</li>
+				<li>Dirección: {siteConfig.address || 'por definir'}</li>
+				<li>Dominio final: {siteConfig.domain || 'por definir'}</li>
+			</ul>
+		</div>
+
+		<div>
+			<h2>Notas</h2>
+			<p>La navegación está preparada para migrar de anclas a rutas reales cuando existan subpáginas de servicios, proyectos y contacto.</p>
+		</div>
+	</Container>
+</footer>
+
+<style>
+	.site-footer {
+		padding: var(--space-2xl) 0;
+		background: var(--color-panel);
+		color: var(--color-inverse);
+	}
+
+	.site-footer__inner {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--space-lg);
+	}
+
+	.site-footer__title,
+	h2 {
+		margin: 0 0 var(--space-sm);
+		font-family: var(--font-display);
+		font-size: 1.4rem;
+	}
+
+	p,
+	li {
+		color: rgba(248, 244, 236, 0.8);
+	}
+
+	ul {
+		padding-left: 1.2rem;
+		margin: 0;
+	}
+
+	@media (max-width: 820px) {
+		.site-footer__inner {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

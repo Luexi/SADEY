@@ -1,0 +1,31 @@
+---
+interface Props {
+	tone?: 'light' | 'dark';
+	className?: string;
+}
+
+const { tone = 'light', className = '' } = Astro.props;
+---
+
+<article class:list={['card', `card--${tone}`, className]}>
+	<slot />
+</article>
+
+<style>
+	.card {
+		border-radius: var(--radius-md);
+		padding: var(--space-lg);
+		border: 1px solid var(--color-line);
+		box-shadow: var(--shadow-card);
+	}
+
+	.card--light {
+		background: rgba(255, 255, 255, 0.9);
+	}
+
+	.card--dark {
+		background: linear-gradient(180deg, rgba(16, 35, 63, 0.98), rgba(19, 36, 64, 0.9));
+		border-color: rgba(255, 255, 255, 0.1);
+		color: var(--color-inverse);
+	}
+</style>

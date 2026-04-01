@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Proyecto placeholder 2</title>
+  <desc id="desc">Placeholder para caso destacado de mezcla asfáltica.</desc>
+  <rect width="800" height="520" fill="#10233f" />
+  <rect x="70" y="96" width="660" height="180" rx="26" fill="#24344f" />
+  <rect x="116" y="154" width="568" height="62" rx="12" fill="#c9a063" opacity=".88" />
+  <rect x="70" y="318" width="280" height="118" rx="22" fill="#e7e2d8" />
+  <rect x="382" y="318" width="348" height="118" rx="22" fill="#f6efe4" />
+  <text x="96" y="258" fill="#f6efe4" font-size="28" font-family="Georgia, serif">Adquisición de mezcla asfáltica</text>
+</svg>

@@ -1,0 +1,93 @@
+---
+import { siteConfig } from '../../data/site';
+import { withBase } from '../../utils/paths';
+
+interface Props {
+	href?: string;
+	label: string;
+	variant?: 'primary' | 'secondary' | 'ghost';
+	fullWidth?: boolean;
+	disabled?: boolean;
+	target?: string;
+	rel?: string;
+}
+
+const {
+	href,
+	label,
+	variant = 'primary',
+	fullWidth = false,
+	disabled = false,
+	target,
+	rel,
+} = Astro.props;
+
+const resolvedHref = href ? withBase(href, siteConfig.basePath) : undefined;
+const className = ['button', `button--${variant}`, fullWidth && 'button--full', disabled && 'button--disabled'];
+---
+
+{
+	disabled || !resolvedHref ? (
+		<span class:list={className} aria-disabled="true">
+			{label}
+		</span>
+	) : (
+		<a class:list={className} href={resolvedHref} target={target} rel={rel}>
+			{label}
+		</a>
+	)
+}
+
+<style>
+	.button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 3rem;
+		padding: 0.85rem 1.35rem;
+		border-radius: 999px;
+		border: 1px solid transparent;
+		font-weight: 600;
+		letter-spacing: 0.01em;
+		transition:
+			transform var(--transition-base),
+			background-color var(--transition-base),
+			border-color var(--transition-base),
+			color var(--transition-base);
+	}
+
+	.button:hover {
+		transform: translateY(-1px);
+	}
+
+	.button--primary {
+		background: linear-gradient(135deg, var(--color-accent) 0%, #e0c08d 100%);
+		color: #1b1d24;
+		box-shadow: 0 12px 24px rgba(173, 131, 72, 0.18);
+	}
+
+	.button--secondary {
+		border-color: rgba(255, 255, 255, 0.24);
+		background: rgba(255, 255, 255, 0.08);
+		color: var(--color-inverse);
+	}
+
+	.button--ghost {
+		border-color: var(--color-line);
+		background: rgba(255, 255, 255, 0.65);
+		color: var(--color-text);
+	}
+
+	.button--full {
+		width: 100%;
+	}
+
+	.button--disabled {
+		cursor: default;
+		opacity: 0.65;
+	}
+
+	.button--disabled:hover {
+		transform: none;
+	}
+</style>
