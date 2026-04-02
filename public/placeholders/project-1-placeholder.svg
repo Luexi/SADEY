@@ -1,10 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
-  <title id="title">Proyecto placeholder 1</title>
-  <desc id="desc">Placeholder para caso destacado de modernización de camino.</desc>
-  <rect width="800" height="520" fill="#d8d2c7" />
-  <rect x="64" y="72" width="220" height="300" rx="20" fill="#b7b0a4" />
-  <rect x="320" y="92" width="150" height="280" rx="18" fill="#9ea7b4" />
-  <rect x="500" y="132" width="220" height="240" rx="18" fill="#6d7b90" />
-  <rect x="64" y="406" width="672" height="44" rx="12" fill="#10233f" />
-  <text x="86" y="437" fill="#f6efe4" font-size="24" font-family="Arial, sans-serif">Modernización de camino - placeholder visual</text>
+  <title id="title">Escena abstracta de proyecto carretero</title>
+  <desc id="desc">Composición local inspirada en infraestructura carretera y control de calidad.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d8d6d0" />
+      <stop offset="100%" stop-color="#f3efe7" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#sky)" />
+  <rect x="54" y="352" width="692" height="110" rx="16" fill="#18273a" />
+  <path d="M150 352c26-112 76-192 150-236 48-28 100-34 152-24 82 16 150 78 198 184v76H150z" fill="#9d9588" />
+  <rect x="130" y="180" width="88" height="172" rx="12" fill="#b9b1a5" />
+  <rect x="584" y="202" width="96" height="150" rx="14" fill="#b0b7c1" />
+  <rect x="262" y="118" width="118" height="234" rx="12" fill="#8a93a2" />
+  <rect x="406" y="84" width="128" height="268" rx="14" fill="#6b7687" />
+  <path d="M320 352h160l-40-252h-76z" fill="#d6dce4" opacity=".9" />
+  <path d="M214 440h370" stroke="#d1a960" stroke-width="16" stroke-linecap="round" />
 </svg>

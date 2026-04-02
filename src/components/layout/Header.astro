@@ -6,26 +6,28 @@ import { withBase } from '../../utils/paths';
 ---
 
 <header class="site-header">
-	<Container className="site-header__inner">
-		<a class="brand" href={withBase('/#inicio', siteConfig.basePath)} aria-label="Ir al inicio de SADEY">
-			<span class="brand__mark">{siteConfig.logoText}</span>
-			<span class="brand__tag">Laboratorio para la construcción</span>
-		</a>
+	<Container>
+		<div class="site-header__inner">
+			<a class="site-header__brand" href={withBase('/#inicio', siteConfig.basePath)} aria-label="Ir al inicio de SADEY">
+				<span class="site-header__logo">{siteConfig.logoText}</span>
+				<span class="site-header__tag">Laboratorio para la construcción</span>
+			</a>
 
-		<nav aria-label="Navegación principal">
-			<ul class="nav-list">
-				{
-					siteConfig.navigation.map((item) => (
-						<li>
-							<a href={withBase(item.href, siteConfig.basePath)}>{item.label}</a>
-						</li>
-					))
-				}
-			</ul>
-		</nav>
+			<nav class="site-header__nav" aria-label="Navegación principal">
+				<ul>
+					{
+						siteConfig.navigation.map((item) => (
+							<li>
+								<a href={withBase(item.href, siteConfig.basePath)}>{item.label}</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
 
-		<div class="site-header__actions">
-			<Button href={siteConfig.whatsappUrl} label="Contacto en preparación" variant="primary" disabled={!siteConfig.whatsappUrl} />
+			<div class="site-header__cta">
+				<Button href="#contacto" label="Solicitar información" />
+			</div>
 		</div>
 	</Container>
 </header>
@@ -34,71 +36,92 @@ import { withBase } from '../../utils/paths';
 	.site-header {
 		position: sticky;
 		top: 0;
-		z-index: 20;
+		z-index: 40;
 		padding: 1rem 0;
-		background: linear-gradient(180deg, rgba(245, 241, 232, 0.92), rgba(245, 241, 232, 0.68));
-		backdrop-filter: blur(14px);
-		border-bottom: 1px solid rgba(16, 35, 63, 0.08);
+		background: rgba(8, 17, 35, 0.9);
+		backdrop-filter: blur(20px);
+		box-shadow: 0 18px 38px rgba(8, 17, 35, 0.16);
 	}
 
 	.site-header__inner {
 		display: grid;
 		grid-template-columns: auto 1fr auto;
 		align-items: center;
-		gap: 1.25rem;
+		gap: 1.5rem;
 	}
 
-	.brand {
-		display: inline-grid;
-		gap: 0.15rem;
+	.site-header__brand {
+		display: grid;
+		gap: 0.12rem;
 	}
 
-	.brand__mark {
+	.site-header__logo {
 		font-family: var(--font-display);
-		font-size: 1.55rem;
-		font-weight: 700;
-		letter-spacing: 0.08em;
-		color: var(--color-panel);
+		font-size: 1.42rem;
+		font-weight: 800;
+		letter-spacing: -0.04em;
+		color: var(--color-on-primary);
 	}
 
-	.brand__tag {
-		font-size: 0.82rem;
-		color: var(--color-text-muted);
+	.site-header__tag {
+		font-size: 0.78rem;
+		color: rgba(255, 255, 255, 0.68);
 	}
 
-	nav {
+	.site-header__nav {
 		justify-self: center;
 	}
 
-	.nav-list {
+	.site-header__nav ul {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1rem;
-		padding: 0;
+		align-items: center;
+		justify-content: center;
+		gap: 1.4rem;
 		margin: 0;
+		padding: 0;
 		list-style: none;
 	}
 
-	.nav-list a {
-		color: var(--color-text-muted);
-		font-size: 0.96rem;
+	.site-header__nav a {
+		font-size: 0.82rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.76);
+		transition: color var(--transition-base);
 	}
 
-	.nav-list a:hover {
-		color: var(--color-panel);
+	.site-header__nav a:hover {
+		color: var(--color-secondary-strong);
 	}
 
-	@media (max-width: 900px) {
+	@media (max-width: 920px) {
+		.site-header__inner {
+			grid-template-columns: 1fr auto;
+		}
+
+		.site-header__nav {
+			grid-column: 1 / -1;
+			justify-self: stretch;
+		}
+
+		.site-header__nav ul {
+			justify-content: flex-start;
+			row-gap: 0.8rem;
+		}
+	}
+
+	@media (max-width: 640px) {
 		.site-header__inner {
 			grid-template-columns: 1fr;
-			justify-items: start;
 		}
 
-		nav {
-			justify-self: start;
+		.site-header__cta {
+			width: 100%;
 		}
 
-		.site-header__actions {
+		.site-header__cta :global(.button) {
 			width: 100%;
 		}
 	}

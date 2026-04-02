@@ -1,10 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
-  <title id="title">Proyecto placeholder 3</title>
-  <desc id="desc">Placeholder para caso destacado de reposición de carpeta asfáltica.</desc>
-  <rect width="800" height="520" fill="#ede8de" />
-  <path d="M70 390c84-98 190-168 314-212 126-44 256-58 346-50v176H70z" fill="#10233f" />
-  <rect x="92" y="86" width="170" height="140" rx="20" fill="#b0b8c3" />
-  <rect x="288" y="106" width="210" height="120" rx="20" fill="#c9a063" />
-  <rect x="528" y="72" width="180" height="154" rx="20" fill="#d6d0c4" />
-  <text x="92" y="450" fill="#f6efe4" font-size="26" font-family="Arial, sans-serif">Reposición de carpeta asfáltica</text>
+  <title id="title">Escena abstracta de reposición de carpeta asfáltica</title>
+  <desc id="desc">Composición local inspirada en verificación de carpeta asfáltica y trabajo en sitio.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#efe7db" />
+      <stop offset="100%" stop-color="#ddd4c5" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)" />
+  <path d="M58 422c102-124 232-206 396-248 112-28 220-36 288-30v174H58z" fill="#13223a" />
+  <rect x="90" y="82" width="170" height="154" rx="20" fill="#adb5bf" />
+  <rect x="286" y="110" width="208" height="126" rx="20" fill="#cba15d" />
+  <rect x="526" y="72" width="184" height="164" rx="20" fill="#d7d0c3" />
+  <rect x="548" y="98" width="60" height="120" rx="12" fill="#f4eee4" opacity=".56" />
+  <circle cx="196" cy="336" r="48" fill="#d6a85b" />
+  <circle cx="196" cy="336" r="18" fill="#0e1d34" />
+  <path d="M120 422h412" stroke="#d1a960" stroke-width="16" stroke-linecap="round" />
 </svg>

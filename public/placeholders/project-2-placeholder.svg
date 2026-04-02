@@ -1,10 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
-  <title id="title">Proyecto placeholder 2</title>
-  <desc id="desc">Placeholder para caso destacado de mezcla asfáltica.</desc>
-  <rect width="800" height="520" fill="#10233f" />
-  <rect x="70" y="96" width="660" height="180" rx="26" fill="#24344f" />
-  <rect x="116" y="154" width="568" height="62" rx="12" fill="#c9a063" opacity=".88" />
-  <rect x="70" y="318" width="280" height="118" rx="22" fill="#e7e2d8" />
-  <rect x="382" y="318" width="348" height="118" rx="22" fill="#f6efe4" />
-  <text x="96" y="258" fill="#f6efe4" font-size="28" font-family="Georgia, serif">Adquisición de mezcla asfáltica</text>
+  <title id="title">Escena abstracta de mezcla asfáltica</title>
+  <desc id="desc">Composición local inspirada en producción y control de mezcla asfáltica.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#20395f" />
+      <stop offset="100%" stop-color="#0d1830" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)" />
+  <path d="M0 412c180-128 384-194 620-208 66-4 126-2 180 4v116H0z" fill="#101a2d" />
+  <rect x="72" y="96" width="656" height="162" rx="26" fill="#273d60" />
+  <rect x="118" y="146" width="564" height="62" rx="14" fill="#cfa55f" />
+  <rect x="118" y="314" width="258" height="124" rx="22" fill="#e4ddd2" />
+  <rect x="410" y="314" width="318" height="124" rx="22" fill="#f5efe5" />
+  <rect x="470" y="340" width="160" height="18" rx="8" fill="#cfc7ba" />
+  <rect x="470" y="374" width="198" height="18" rx="8" fill="#cfc7ba" />
+  <rect x="470" y="408" width="132" height="18" rx="8" fill="#cfc7ba" />
 </svg>

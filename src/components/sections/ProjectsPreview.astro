@@ -1,5 +1,4 @@
 ---
-import Card from '../ui/Card.astro';
 import Container from '../ui/Container.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import { projects } from '../../data/projects';
@@ -9,27 +8,31 @@ import { withBase } from '../../utils/paths';
 
 <section class="projects section-shell" id="proyectos">
 	<Container>
-		<SectionHeading
-			eyebrow="Casos destacados"
-			title="Proyectos organizados para comunicar experiencia sin sobrecargar la landing"
-			description="Cada caso conserva el detalle completo en datos y muestra una versión resumida para la tarjeta, lista para evolucionar a fichas o páginas dedicadas."
-		/>
+		<div class="projects__header">
+			<SectionHeading
+				eyebrow="Proyectos recientes"
+				title="Casos reales organizados para mostrar experiencia técnica y control de calidad"
+				description="Cada tarjeta resume proyectos validados de SADEY y mantiene una lectura clara, sobria y estable."
+			/>
+		</div>
 
 		<div class="projects__grid">
 			{
 				projects.map((project) => (
-					<Card tone="dark" className="projects__card">
-						<img src={withBase(project.image.src, siteConfig.basePath)} alt={project.image.alt} loading="lazy" />
-						<div class="projects__copy">
+					<article class="projects__card">
+						<div class="projects__image-wrap">
+							<img src={withBase(project.image.src, siteConfig.basePath)} alt={project.image.alt} loading="lazy" />
+						</div>
+						<div class="projects__body">
 							<p class="projects__category">{project.category}</p>
 							<h3>{project.title}</h3>
-							<p>{project.summary}</p>
+							<p class="projects__summary">{project.summary}</p>
 							{project.contractNumber && <p class="projects__contract">Contrato: {project.contractNumber}</p>}
 							<ul class="projects__tags">
 								{project.tags.map((tag) => <li>{tag}</li>)}
 							</ul>
 						</div>
-					</Card>
+					</article>
 				))
 			}
 		</div>
@@ -38,65 +41,104 @@ import { withBase } from '../../utils/paths';
 
 <style>
 	.projects {
-		background: linear-gradient(180deg, rgba(16, 35, 63, 0.05), rgba(16, 35, 63, 0.11));
+		background:
+			linear-gradient(180deg, rgba(8, 17, 35, 0.98), rgba(11, 23, 48, 1)),
+			var(--color-primary-deep);
+		color: var(--color-on-primary);
+	}
+
+	.projects__header :global(.section-heading h2) {
+		color: var(--color-on-primary);
+	}
+
+	.projects__header :global(.section-intro p) {
+		color: rgba(255, 255, 255, 0.72);
+	}
+
+	.projects__header :global(.eyebrow) {
+		color: var(--color-secondary-strong);
 	}
 
 	.projects__grid {
 		display: grid;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: var(--space-md);
+		gap: 1.2rem;
 		margin-top: var(--space-xl);
 	}
 
 	.projects__card {
-		display: grid;
-		gap: var(--space-md);
-		padding: var(--space-sm);
+		overflow: hidden;
+		border-radius: var(--radius-lg);
+		background: rgba(255, 255, 255, 0.06);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		box-shadow: var(--shadow-card);
 	}
 
-	.projects__card img {
+	.projects__image-wrap {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.projects__image-wrap::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(180deg, transparent 0%, rgba(8, 17, 35, 0.24) 100%);
+	}
+
+	.projects__image-wrap img {
 		width: 100%;
 		aspect-ratio: 16 / 10;
 		object-fit: cover;
-		border-radius: var(--radius-sm);
 	}
 
-	.projects__copy {
+	.projects__body {
 		display: grid;
-		gap: 0.75rem;
-		padding: 0 var(--space-sm) var(--space-sm);
-	}
-
-	.projects__copy h3,
-	.projects__copy p {
-		margin: 0;
-	}
-
-	.projects__copy h3 {
-		font-family: var(--font-display);
-		font-size: 1.5rem;
+		gap: 0.7rem;
+		padding: 1.35rem;
 	}
 
 	.projects__category,
 	.projects__contract {
-		font-size: 0.86rem;
-		color: rgba(248, 244, 236, 0.75);
+		margin: 0;
+		font-size: 0.74rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--color-secondary-strong);
+	}
+
+	h3,
+	.projects__summary {
+		margin: 0;
+	}
+
+	h3 {
+		font-family: var(--font-display);
+		font-size: 1.28rem;
+		line-height: 1.08;
+		color: var(--color-on-primary);
+	}
+
+	.projects__summary {
+		color: rgba(255, 255, 255, 0.74);
 	}
 
 	.projects__tags {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.6rem;
+		gap: 0.55rem;
+		margin: 0.25rem 0 0;
 		padding: 0;
-		margin: 0;
 		list-style: none;
 	}
 
 	.projects__tags li {
-		padding: 0.42rem 0.7rem;
+		padding: 0.42rem 0.65rem;
 		border-radius: 999px;
 		background: rgba(255, 255, 255, 0.08);
-		font-size: 0.82rem;
+		font-size: 0.76rem;
+		color: rgba(255, 255, 255, 0.84);
 	}
 
 	@media (max-width: 980px) {

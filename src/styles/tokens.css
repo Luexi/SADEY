@@ -1,37 +1,46 @@
 :root {
-	--color-bg: #f5f1e8;
-	--color-surface: #fcfaf6;
+	--color-bg: #f3efe7;
+	--color-surface: #faf7f1;
+	--color-surface-alt: #efe9de;
 	--color-surface-strong: #ffffff;
-	--color-panel: #10233f;
-	--color-panel-soft: #1f3354;
-	--color-text: #1d2330;
-	--color-text-muted: #596273;
-	--color-line: rgba(16, 35, 63, 0.12);
-	--color-accent: #c7a26c;
-	--color-accent-strong: #ad8348;
-	--color-accent-soft: rgba(199, 162, 108, 0.18);
-	--color-inverse: #f8f4ec;
-	--font-display: "Georgia", "Times New Roman", serif;
-	--font-body: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-	--space-2xs: 0.5rem;
-	--space-xs: 0.75rem;
+	--color-card: rgba(255, 255, 255, 0.96);
+	--color-card-dark: rgba(16, 28, 54, 0.94);
+	--color-primary: #0b1730;
+	--color-primary-soft: #14274b;
+	--color-primary-deep: #081123;
+	--color-secondary: #b5873f;
+	--color-secondary-strong: #d4ad67;
+	--color-secondary-soft: rgba(181, 135, 63, 0.16);
+	--color-line: rgba(11, 23, 48, 0.12);
+	--color-line-strong: rgba(11, 23, 48, 0.24);
+	--color-on-surface: #182131;
+	--color-on-surface-variant: #525d70;
+	--color-on-primary: #ffffff;
+	--color-muted-inverse: rgba(255, 255, 255, 0.76);
+	--color-accent-gradient: linear-gradient(135deg, #a97830 0%, #d6ae68 100%);
+	--font-display: 'Manrope', system-ui, sans-serif;
+	--font-body: 'Work Sans', system-ui, sans-serif;
+	--space-2xs: 0.4rem;
+	--space-xs: 0.7rem;
 	--space-sm: 1rem;
 	--space-md: 1.5rem;
-	--space-lg: 2rem;
-	--space-xl: 3rem;
-	--space-2xl: 4.5rem;
-	--space-3xl: 6rem;
-	--radius-sm: 0.75rem;
-	--radius-md: 1.25rem;
-	--radius-lg: 2rem;
-	--shadow-soft: 0 20px 50px rgba(10, 20, 35, 0.08);
-	--shadow-card: 0 18px 38px rgba(16, 35, 63, 0.12);
-	--container-width: min(1120px, calc(100vw - 2rem));
-	--transition-base: 180ms ease;
+	--space-lg: 2.25rem;
+	--space-xl: 3.5rem;
+	--space-2xl: 5rem;
+	--space-3xl: 7rem;
+	--radius-sm: 0.35rem;
+	--radius-md: 0.55rem;
+	--radius-lg: 0.9rem;
+	--radius-xl: 1.2rem;
+	--container-width: min(1180px, calc(100vw - 2rem));
+	--shadow-soft: 0 18px 40px rgba(11, 23, 48, 0.08);
+	--shadow-card: 0 26px 64px rgba(11, 23, 48, 0.14);
+	--shadow-button: 0 14px 28px rgba(169, 120, 48, 0.24);
+	--transition-base: 220ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (min-width: 720px) {
+@media (min-width: 768px) {
 	:root {
-		--container-width: min(1120px, calc(100vw - 3rem));
+		--container-width: min(1180px, calc(100vw - 3rem));
 	}
 }

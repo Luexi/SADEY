@@ -1,21 +1,34 @@
 ---
 import Container from '../ui/Container.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
+import { differentiators } from '../../data/differentiators';
 import { siteConfig } from '../../data/site';
 import { withBase } from '../../utils/paths';
 ---
 
 <section class="about section-shell" id="sobre-nosotros">
-	<Container className="about__grid">
-		<div class="about__copy surface-panel">
-			<SectionHeading eyebrow="Quiénes somos" title={siteConfig.about.title} />
-			<div class="about__paragraphs">
-				{siteConfig.about.description.map((paragraph) => <p>{paragraph}</p>)}
-			</div>
-		</div>
+	<Container>
+		<div class="about__grid">
+			<div class="about__content">
+				<SectionHeading eyebrow="Sobre SADEY" title={siteConfig.about.title} />
 
-		<div class="about__image surface-panel">
-			<img src={withBase(siteConfig.about.image.src, siteConfig.basePath)} alt={siteConfig.about.image.alt} loading="lazy" />
+				<div class="about__paragraphs">
+					{siteConfig.about.description.map((paragraph) => <p>{paragraph}</p>)}
+				</div>
+
+				<ul class="about__points">
+					{differentiators.slice(0, 3).map((item) => <li>{item.title}</li>)}
+				</ul>
+			</div>
+
+			<div class="about__visual">
+				<div class="about__frame"></div>
+				<img src={withBase(siteConfig.about.image.src, siteConfig.basePath)} alt={siteConfig.about.image.alt} loading="lazy" />
+				<div class="about__note">
+					<strong>Control de calidad</strong>
+					<span>Para obra, laboratorio y apoyo externo</span>
+				</div>
+			</div>
 		</div>
 	</Container>
 </section>
@@ -23,38 +36,109 @@ import { withBase } from '../../utils/paths';
 <style>
 	.about__grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-		gap: var(--space-lg);
-		align-items: stretch;
+		grid-template-columns: minmax(0, 0.92fr) minmax(340px, 0.88fr);
+		gap: var(--space-xl);
+		align-items: center;
 	}
 
-	.about__copy,
-	.about__image {
-		padding: var(--space-lg);
-		border-radius: var(--radius-lg);
+	.about__content {
+		display: grid;
+		gap: 1.25rem;
 	}
 
 	.about__paragraphs {
 		display: grid;
-		gap: var(--space-sm);
-		margin-top: var(--space-md);
+		gap: 1rem;
 	}
 
 	.about__paragraphs p {
 		margin: 0;
-		color: var(--color-text-muted);
+		font-size: 1rem;
+		color: var(--color-on-surface-variant);
 	}
 
-	.about__image img {
+	.about__points {
+		display: grid;
+		gap: 0.9rem;
+		margin: 0.2rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.about__points li {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		font-weight: 700;
+		color: var(--color-primary);
+	}
+
+	.about__points li::before {
+		content: '';
+		width: 0.7rem;
+		height: 0.7rem;
+		border-radius: 999px;
+		background: var(--color-secondary);
+		box-shadow: 0 0 0 6px rgba(181, 135, 63, 0.12);
+	}
+
+	.about__visual {
+		position: relative;
+	}
+
+	.about__frame {
+		position: absolute;
+		inset: -1rem auto auto -1rem;
+		width: clamp(6rem, 16vw, 9rem);
+		height: clamp(6rem, 16vw, 9rem);
+		border-top: 3px solid rgba(181, 135, 63, 0.32);
+		border-left: 3px solid rgba(181, 135, 63, 0.32);
+	}
+
+	.about__visual img {
 		width: 100%;
-		height: 100%;
-		border-radius: calc(var(--radius-md) - 0.25rem);
+		aspect-ratio: 4 / 3.4;
 		object-fit: cover;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-card);
 	}
 
-	@media (max-width: 900px) {
+	.about__note {
+		position: absolute;
+		right: -1rem;
+		bottom: -1rem;
+		display: grid;
+		gap: 0.3rem;
+		padding: 1.2rem 1.3rem;
+		max-width: 16rem;
+		background: rgba(11, 23, 48, 0.94);
+		color: var(--color-on-primary);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-card);
+	}
+
+	.about__note strong {
+		font-family: var(--font-display);
+		font-size: 1.05rem;
+		color: var(--color-secondary-strong);
+	}
+
+	.about__note span {
+		font-size: 0.86rem;
+		color: rgba(255, 255, 255, 0.76);
+	}
+
+	@media (max-width: 920px) {
 		.about__grid {
 			grid-template-columns: 1fr;
+		}
+
+		.about__visual {
+			order: -1;
+		}
+
+		.about__note {
+			right: 1rem;
 		}
 	}
 </style>

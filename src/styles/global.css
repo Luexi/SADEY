@@ -14,10 +14,17 @@ body {
 	margin: 0;
 	font-family: var(--font-body);
 	background:
-		radial-gradient(circle at top right, rgba(199, 162, 108, 0.16), transparent 24%),
-		linear-gradient(180deg, #f7f3ea 0%, #f1ece2 100%);
-	color: var(--color-text);
-	line-height: 1.6;
+		radial-gradient(circle at top right, rgba(212, 173, 103, 0.16), transparent 22%),
+		linear-gradient(180deg, #f6f1e8 0%, #f2ede4 40%, #f8f5ef 100%);
+	color: var(--color-on-surface);
+	line-height: 1.65;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+	background: rgba(212, 173, 103, 0.32);
+	color: var(--color-primary);
 }
 
 img {
@@ -36,6 +43,9 @@ input,
 textarea,
 select {
 	font: inherit;
+	border: none;
+	background: none;
+	padding: 0;
 }
 
 button {
@@ -43,7 +53,7 @@ button {
 }
 
 :focus-visible {
-	outline: 3px solid rgba(199, 162, 108, 0.55);
+	outline: 3px solid rgba(212, 173, 103, 0.48);
 	outline-offset: 3px;
 }
 
@@ -53,8 +63,8 @@ button {
 	top: -4rem;
 	z-index: 1000;
 	padding: 0.75rem 1rem;
-	background: var(--color-panel);
-	color: var(--color-inverse);
+	background: var(--color-primary);
+	color: var(--color-on-primary);
 	border-radius: var(--radius-sm);
 	transition: top var(--transition-base);
 }
@@ -72,34 +82,38 @@ button {
 }
 
 .surface-panel {
-	background: rgba(255, 255, 255, 0.74);
-	backdrop-filter: blur(6px);
-	border: 1px solid rgba(255, 255, 255, 0.55);
+	background: var(--color-card);
+	border: 1px solid rgba(255, 255, 255, 0.72);
 	box-shadow: var(--shadow-soft);
 }
 
 .eyebrow {
 	display: inline-flex;
 	align-items: center;
-	gap: 0.5rem;
-	font-size: 0.85rem;
-	letter-spacing: 0.14em;
+	gap: 0.7rem;
+	font-size: 0.76rem;
+	font-weight: 700;
+	letter-spacing: 0.18em;
 	text-transform: uppercase;
-	color: var(--color-accent-strong);
+	color: var(--color-secondary);
 }
 
 .eyebrow::before {
 	content: '';
-	width: 2.5rem;
+	width: 3rem;
 	height: 1px;
 	background: currentColor;
 }
 
 .section-intro {
-	max-width: 42rem;
+	max-width: 43rem;
 }
 
 .section-intro p {
 	margin: 0;
-	color: var(--color-text-muted);
+	color: var(--color-on-surface-variant);
+}
+
+.material-symbols-outlined {
+	font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
 }

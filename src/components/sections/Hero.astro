@@ -1,6 +1,5 @@
 ---
 import Button from '../ui/Button.astro';
-import Card from '../ui/Card.astro';
 import Container from '../ui/Container.astro';
 import { siteConfig } from '../../data/site';
 import { withBase } from '../../utils/paths';
@@ -8,105 +7,156 @@ import { withBase } from '../../utils/paths';
 const { hero } = siteConfig;
 ---
 
-<section class="hero section-shell" id="inicio">
-	<Container className="hero__grid">
-		<div class="hero__content">
-			<span class="eyebrow">{hero.eyebrow}</span>
-			<h1>{hero.title}</h1>
-			<p>{hero.description}</p>
-
-			<div class="hero__actions">
-				<Button href={siteConfig.whatsappUrl} label={hero.primaryCtaLabel} disabled={!siteConfig.whatsappUrl} />
-				<Button href="#servicios" label={hero.secondaryCtaLabel} variant="ghost" />
+<section class="hero" id="inicio">
+	<Container>
+		<div class="hero__panel">
+			<div class="hero__media">
+				<img src={withBase(hero.image.src, siteConfig.basePath)} alt={hero.image.alt} loading="eager" />
 			</div>
 
-			<ul class="hero__highlights">
-				{hero.highlights.map((item) => <li>{item}</li>)}
-			</ul>
-		</div>
+			<div class="hero__overlay"></div>
 
-		<Card tone="dark" className="hero__media">
-			<img src={withBase(hero.image.src, siteConfig.basePath)} alt={hero.image.alt} loading="eager" />
-		</Card>
+			<div class="hero__content">
+				<span class="eyebrow">{hero.eyebrow}</span>
+				<h1>
+					{siteConfig.logoText}
+					<span>{hero.title}</span>
+				</h1>
+				<p>{hero.description}</p>
+
+				<div class="hero__actions">
+					<Button href="#contacto" label={hero.primaryCtaLabel} />
+					<Button href="#servicios" label={hero.secondaryCtaLabel} variant="ghost" />
+				</div>
+
+				<ul class="hero__highlights" aria-label="Capacidades destacadas">
+					{hero.highlights.map((item) => <li>{item}</li>)}
+				</ul>
+			</div>
+		</div>
 	</Container>
 </section>
 
 <style>
 	.hero {
-		padding-top: var(--space-xl);
+		padding: 1.15rem 0 var(--space-lg);
 	}
 
-	.hero__grid {
-		display: grid;
-		grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-		gap: var(--space-xl);
-		align-items: center;
+	.hero__panel {
+		position: relative;
+		min-height: clamp(32rem, 75vh, 40rem);
+		overflow: hidden;
+		border-radius: var(--radius-xl);
+		background: var(--color-primary);
+		box-shadow: var(--shadow-card);
+		isolation: isolate;
+	}
+
+	.hero__media,
+	.hero__overlay {
+		position: absolute;
+		inset: 0;
+	}
+
+	.hero__media img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.hero__overlay {
+		background:
+			linear-gradient(90deg, rgba(8, 17, 35, 0.92) 0%, rgba(8, 17, 35, 0.8) 42%, rgba(8, 17, 35, 0.26) 100%),
+			linear-gradient(180deg, rgba(8, 17, 35, 0.26) 0%, rgba(8, 17, 35, 0.74) 100%);
 	}
 
 	.hero__content {
+		position: relative;
+		z-index: 1;
 		display: grid;
-		gap: var(--space-md);
+		gap: 1.2rem;
+		max-width: 38rem;
+		padding: clamp(2rem, 5vw, 4rem);
+		color: var(--color-on-primary);
+	}
+
+	.hero__content .eyebrow {
+		color: var(--color-secondary-strong);
 	}
 
 	h1 {
+		display: grid;
+		gap: 0.35rem;
 		margin: 0;
-		max-width: 12ch;
 		font-family: var(--font-display);
-		font-size: clamp(3rem, 6vw, 5.5rem);
-		line-height: 0.95;
+		font-size: clamp(2.8rem, 5.2vw, 4.9rem);
+		line-height: 0.92;
 		letter-spacing: -0.05em;
-		color: var(--color-panel);
 	}
 
-	.hero p {
+	h1 span {
+		max-width: 11ch;
+		font-size: clamp(2rem, 4.1vw, 3.6rem);
+		line-height: 0.98;
+		color: var(--color-secondary-strong);
+	}
+
+	.hero__content p {
 		margin: 0;
-		max-width: 42rem;
-		font-size: 1.08rem;
-		color: var(--color-text-muted);
+		max-width: 34rem;
+		font-size: 1.02rem;
+		color: rgba(255, 255, 255, 0.84);
 	}
 
 	.hero__actions {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--space-sm);
+		gap: 0.85rem;
+		padding-top: 0.25rem;
 	}
 
 	.hero__highlights {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: var(--space-sm);
-		padding: 0;
-		margin: var(--space-sm) 0 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.8rem 1.2rem;
+		margin: 0;
+		padding: 1rem 0 0;
 		list-style: none;
 	}
 
 	.hero__highlights li {
-		padding: 1rem 1.1rem;
-		border-radius: var(--radius-md);
-		background: rgba(255, 255, 255, 0.7);
-		border: 1px solid rgba(16, 35, 63, 0.08);
-		box-shadow: var(--shadow-soft);
+		position: relative;
+		padding-left: 1rem;
+		font-size: 0.86rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		color: rgba(255, 255, 255, 0.76);
 	}
 
-	.hero__media {
-		padding: var(--space-sm);
+	.hero__highlights li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.55rem;
+		width: 0.4rem;
+		height: 0.4rem;
+		border-radius: 999px;
+		background: var(--color-secondary-strong);
 	}
 
-	.hero__media img {
-		border-radius: calc(var(--radius-md) - 0.2rem);
-		width: 100%;
-		aspect-ratio: 16 / 10;
-		object-fit: cover;
-	}
-
-	@media (max-width: 1024px) {
-		.hero__grid,
-		.hero__highlights {
-			grid-template-columns: 1fr;
+	@media (max-width: 720px) {
+		.hero__panel {
+			min-height: auto;
 		}
 
-		h1 {
+		.hero__overlay {
+			background:
+				linear-gradient(180deg, rgba(8, 17, 35, 0.82) 0%, rgba(8, 17, 35, 0.9) 58%, rgba(8, 17, 35, 0.92) 100%);
+		}
+
+		.hero__content {
 			max-width: none;
+			padding: 2rem 1.4rem;
 		}
 	}
 </style>

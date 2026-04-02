@@ -43,17 +43,21 @@ const className = ['button', `button--${variant}`, fullWidth && 'button--full', 
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		min-height: 3rem;
-		padding: 0.85rem 1.35rem;
-		border-radius: 999px;
+		min-height: 3.15rem;
+		padding: 0.9rem 1.45rem;
+		border-radius: var(--radius-md);
 		border: 1px solid transparent;
-		font-weight: 600;
-		letter-spacing: 0.01em;
+		font-family: var(--font-display);
+		font-size: 0.78rem;
+		font-weight: 800;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
 		transition:
 			transform var(--transition-base),
 			background-color var(--transition-base),
+			color var(--transition-base),
 			border-color var(--transition-base),
-			color var(--transition-base);
+			box-shadow var(--transition-base);
 	}
 
 	.button:hover {
@@ -61,21 +65,34 @@ const className = ['button', `button--${variant}`, fullWidth && 'button--full', 
 	}
 
 	.button--primary {
-		background: linear-gradient(135deg, var(--color-accent) 0%, #e0c08d 100%);
-		color: #1b1d24;
-		box-shadow: 0 12px 24px rgba(173, 131, 72, 0.18);
+		background: var(--color-accent-gradient);
+		color: var(--color-on-primary);
+		box-shadow: var(--shadow-button);
+	}
+
+	.button--primary:hover {
+		box-shadow: 0 18px 34px rgba(169, 120, 48, 0.28);
 	}
 
 	.button--secondary {
-		border-color: rgba(255, 255, 255, 0.24);
-		background: rgba(255, 255, 255, 0.08);
-		color: var(--color-inverse);
+		background: rgba(255, 255, 255, 0.84);
+		border-color: rgba(11, 23, 48, 0.12);
+		color: var(--color-primary);
+	}
+
+	.button--secondary:hover {
+		background: var(--color-surface-strong);
 	}
 
 	.button--ghost {
-		border-color: var(--color-line);
-		background: rgba(255, 255, 255, 0.65);
-		color: var(--color-text);
+		background: rgba(255, 255, 255, 0.08);
+		border-color: rgba(255, 255, 255, 0.2);
+		color: var(--color-on-primary);
+		backdrop-filter: blur(10px);
+	}
+
+	.button--ghost:hover {
+		background: rgba(255, 255, 255, 0.14);
 	}
 
 	.button--full {
@@ -83,11 +100,12 @@ const className = ['button', `button--${variant}`, fullWidth && 'button--full', 
 	}
 
 	.button--disabled {
+		opacity: 0.6;
 		cursor: default;
-		opacity: 0.65;
 	}
 
 	.button--disabled:hover {
 		transform: none;
+		box-shadow: none;
 	}
 </style>
