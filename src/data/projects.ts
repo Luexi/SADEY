@@ -11,8 +11,8 @@ export const projects: ProjectCase[] = [
 		category: 'Concretos, suelos y mezclas',
 		contractNumber: '2025-12-CA-A-030-W-00-2025',
 		image: {
-			src: '/placeholders/project-1-placeholder.svg',
-			alt: 'Composición visual de infraestructura carretera asociada a control de calidad y modernización de camino.',
+			src: '/placeholders/stock/project-1-stock.jpg',
+			alt: 'Infraestructura de concreto relacionada con modernización carretera y control de calidad.',
 		},
 		tags: ['Control de calidad', 'Diseño Marshall', 'Infraestructura carretera'],
 	},
@@ -26,8 +26,8 @@ export const projects: ProjectCase[] = [
 		category: 'Mezcla asfáltica',
 		contractNumber: 'SICT-LPN-27-712-B-2025-034-AGS',
 		image: {
-			src: '/placeholders/project-2-placeholder.svg',
-			alt: 'Composición visual asociada a producción y control de mezcla asfáltica.',
+			src: '/placeholders/stock/project-2-stock.jpg',
+			alt: 'Trabajos de mezcla asfáltica en carretera relacionados con producción y control de calidad.',
 		},
 		tags: ['Mezcla asfáltica', 'Normativa SICT', 'Control de calidad'],
 	},
@@ -41,8 +41,8 @@ export const projects: ProjectCase[] = [
 		category: 'Mezcla asfáltica',
 		contractNumber: null,
 		image: {
-			src: '/placeholders/project-3-placeholder.svg',
-			alt: 'Composición visual asociada a reposición de carpeta asfáltica y verificación en sitio.',
+			src: '/placeholders/stock/project-3-stock.jpg',
+			alt: 'Maquinaria de obra asociada a reposición de carpeta asfáltica y trabajo en sitio.',
 		},
 		tags: ['AMAAC', 'Producción de mezcla', 'Reposición de carpeta'],
 	},

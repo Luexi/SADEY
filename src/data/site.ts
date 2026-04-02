@@ -33,8 +33,8 @@ export const siteConfig: SiteConfig = {
 		primaryCtaLabel: 'Solicitar información',
 		secondaryCtaLabel: 'Explorar servicios',
 		image: {
-			src: '/placeholders/hero-placeholder.svg',
-			alt: 'Composición visual industrial inspirada en laboratorio y control de calidad para construcción.',
+			src: '/placeholders/stock/hero-stock.jpg',
+			alt: 'Infraestructura de concreto relacionada con construcción y trabajo técnico de campo.',
 		},
 	},
 	about: {
@@ -44,8 +44,8 @@ export const siteConfig: SiteConfig = {
 			'Nuestra operación está enfocada en facilitar resultados confiables sin trasladar equipo o personal a largas distancias, optimizando tiempos, costos y logística para el control de calidad en construcción.',
 		],
 		image: {
-			src: '/placeholders/about-placeholder.svg',
-			alt: 'Composición visual sobria asociada a trabajo técnico y verificación de materiales.',
+			src: '/placeholders/stock/about-stock.jpg',
+			alt: 'Equipo técnico de laboratorio asociado a ensaye y verificación de materiales.',
 		},
 	},
 	cta: {
