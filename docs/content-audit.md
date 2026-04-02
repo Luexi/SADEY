@@ -2,9 +2,9 @@
 
 ## Fuentes utilizadas
 
-- Fuente principal: `c:\Users\Luis\Downloads\datos pagina web.txt`
-- Fuente secundaria: `c:\Users\Luis\Downloads\PRUEBAS FISICAS Y QUIMICAS PARA LOS AGREGADOS.pdf`
-- Referencias visuales: dos capturas JPG con branding mixto `MTHA/SADELY`, usadas solo como guía estética
+- Fuente principal: `datos pagina web.txt` en la raíz del repositorio
+- Fuente secundaria: `PRUEBAS FISICAS Y QUIMICAS PARA LOS AGREGADOS.pdf` en la raíz del repositorio
+- Referencias visuales: `40bdfddc-7e1d-4034-afde-edb3989426ba.jpg` y `a513e5d2-b0d6-4b8f-9ba4-cf53e6c77a12.jpg`, conservadas en la raíz como guía estética
 
 ## Qué se corrigió
 
@@ -63,6 +63,16 @@ Ensayes que quedaron contemplados para evolución futura:
 - desgaste Los Ángeles
 - Micro Deval
 - angularidad y partículas trituradas
+
+## Estado de los archivos fuente
+
+Los cuatro insumos originales se conservan en la raíz del repositorio para mantener trazabilidad entre:
+
+- material fuente del cliente
+- contenido estructurado en `src/data/*`
+- futuras iteraciones de diseño y copy
+
+No están conectados directamente al build del sitio.
 
 ## Riesgos editoriales pendientes
 

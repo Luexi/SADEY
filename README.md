@@ -73,6 +73,10 @@ npm run preview
 
 ```text
 /
+├── 40bdfddc-7e1d-4034-afde-edb3989426ba.jpg
+├── a513e5d2-b0d6-4b8f-9ba4-cf53e6c77a12.jpg
+├── datos pagina web.txt
+├── PRUEBAS FISICAS Y QUIMICAS PARA LOS AGREGADOS.pdf
 ├── .github/workflows/deploy.yml
 ├── docs/
 ├── public/
@@ -94,12 +98,25 @@ npm run preview
 └── tsconfig.json
 ```
 
+## Archivos fuente del cliente
+
+En la raíz del repositorio se conservaron estos insumos originales para trazabilidad y futuras iteraciones:
+
+- `datos pagina web.txt`
+- `PRUEBAS FISICAS Y QUIMICAS PARA LOS AGREGADOS.pdf`
+- `40bdfddc-7e1d-4034-afde-edb3989426ba.jpg`
+- `a513e5d2-b0d6-4b8f-9ba4-cf53e6c77a12.jpg`
+
+Estos archivos funcionan como referencia editorial y visual. No son parte del build productivo ni deben tratarse como assets finales del sitio.
+
 ## Dónde editar contenido
 
 - Configuración general, SEO, navegación y placeholders de contacto: `src/data/site.ts`
 - Servicios: `src/data/services.ts`
 - Proyectos/casos destacados: `src/data/projects.ts`
 - Diferenciales: `src/data/differentiators.ts`
+
+El contenido base fue estructurado a partir de `datos pagina web.txt` y del PDF técnico ubicado en la raíz del repositorio.
 
 Toda la landing consume datos desde esos archivos. La idea es que el contenido se pueda actualizar sin tocar la estructura visual.
 
@@ -110,6 +127,8 @@ Toda la landing consume datos desde esos archivos. La idea es que el contenido s
 - Proyectos: `public/placeholders/project-1-placeholder.svg`, `project-2-placeholder.svg`, `project-3-placeholder.svg`
 
 Gemini puede sustituir estos placeholders por imágenes reales sin modificar el modelo de datos ni la composición general.
+
+Las dos imágenes JPG de la raíz se conservan como referencia visual del cliente, no como recursos finales conectados a la landing.
 
 ## Estilos y sistema visual
 

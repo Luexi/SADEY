@@ -10,6 +10,7 @@
 - Placeholders locales
 - Documentación técnica y editorial
 - Deploy preparado para GitHub Pages
+- Conservación en raíz de los archivos fuente TXT, PDF y JPG del cliente
 
 ## Qué no debes romper
 
@@ -81,4 +82,5 @@ No hacer todavía:
 
 - El contenido ya fue depurado desde el TXT original
 - El PDF técnico de agregados se usó como respaldo terminológico, no como bloque visible masivo
+- Las dos imágenes JPG de la raíz son referencia visual, no assets finales conectados al frontend
 - Si quieres ampliar el detalle técnico visible, hazlo de forma contenida y apoyándote en `futureDetails`
