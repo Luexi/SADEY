@@ -2,9 +2,11 @@
 import Container from '../ui/Container.astro';
 import { siteConfig } from '../../data/site';
 import { withBase } from '../../utils/paths';
+
+const { contact } = siteConfig;
 ---
 
-<footer class="site-footer" id="contacto">
+<footer class="site-footer">
 	<Container>
 		<div class="site-footer__inner">
 			<div class="site-footer__brand">
@@ -18,7 +20,9 @@ import { withBase } from '../../utils/paths';
 					{
 						siteConfig.navigation.map((item) => (
 							<li>
-								<a href={withBase(item.href, siteConfig.basePath)}>{item.label}</a>
+								<a href={item.kind === 'external' ? item.href : withBase(item.href, siteConfig.basePath)}>
+									{item.label}
+								</a>
 							</li>
 						))
 					}
@@ -28,10 +32,18 @@ import { withBase } from '../../utils/paths';
 			<div class="site-footer__column">
 				<h2>Contacto</h2>
 				<ul>
-					<li>Canal directo: en confirmación</li>
-					<li>Correo: por confirmar</li>
-					<li>Dirección: por confirmar</li>
-					<li>Dominio: por definir</li>
+					<li>
+						<a href={`tel:${contact.phone}`}>{contact.phoneDisplay}</a>
+					</li>
+					{contact.email && (
+						<li>
+							<a href={`mailto:${contact.email}`}>{contact.email}</a>
+						</li>
+					)}
+					<li>{contact.address}</li>
+					<li>
+						<a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -39,7 +51,7 @@ import { withBase } from '../../utils/paths';
 
 	<Container>
 		<div class="site-footer__bottom">
-			<p>© {new Date().getFullYear()} SADEY. Laboratorio para la construcción.</p>
+			<p>© {new Date().getFullYear()} MTHA SADEY. Laboratorio para la construcción.</p>
 		</div>
 	</Container>
 </footer>

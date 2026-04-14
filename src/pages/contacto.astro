@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import ContactInfo from '../components/sections/ContactInfo.astro';
+import MapBlock from '../components/sections/MapBlock.astro';
+import Button from '../components/ui/Button.astro';
+import Container from '../components/ui/Container.astro';
+import { siteConfig } from '../data/site';
+---
+
+<BaseLayout
+	title={siteConfig.pageMeta.contacto.title}
+	description={siteConfig.pageMeta.contacto.description}
+	canonicalPath="/contacto"
+>
+	<PageHero
+		eyebrow="Contacto"
+		title="Hablemos sobre tu proyecto"
+		description="Contáctanos para solicitar información sobre nuestros servicios de ensaye, control de calidad y apoyo técnico en obra."
+	/>
+
+	<section class="contact-page section-shell">
+		<Container>
+			<div class="contact-page__grid">
+				<div class="contact-page__info">
+					<h2>Datos de contacto</h2>
+					<ContactInfo />
+
+					<div class="contact-page__cta">
+						<Button
+							href={siteConfig.whatsappUrl}
+							label="Escribir por WhatsApp"
+							fullWidth
+							target="_blank"
+							rel="noopener noreferrer"
+						/>
+					</div>
+				</div>
+
+				<div class="contact-page__map">
+					<h2>Ubicación</h2>
+					<MapBlock />
+				</div>
+			</div>
+		</Container>
+	</section>
+</BaseLayout>
+
+<style>
+	.contact-page {
+		background: var(--color-surface);
+	}
+
+	.contact-page__grid {
+		display: grid;
+		grid-template-columns: minmax(280px, 0.45fr) 1fr;
+		gap: var(--space-xl);
+		align-items: start;
+	}
+
+	.contact-page__info {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	h2 {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: 1.4rem;
+		line-height: 1.1;
+		color: var(--color-primary);
+	}
+
+	.contact-page__cta {
+		padding-top: 0.5rem;
+	}
+
+	.contact-page__map {
+		display: grid;
+		gap: 1rem;
+	}
+
+	@media (max-width: 860px) {
+		.contact-page__grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

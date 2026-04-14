@@ -25,11 +25,11 @@ const { hero } = siteConfig;
 				<p>{hero.description}</p>
 
 				<div class="hero__actions">
-					<Button href="#contacto" label={hero.primaryCtaLabel} />
-					<Button href="#servicios" label={hero.secondaryCtaLabel} variant="ghost" />
+					<Button href={siteConfig.whatsappUrl} label={hero.primaryCtaLabel} target="_blank" rel="noopener noreferrer" />
+					<Button href="/servicios" label={hero.secondaryCtaLabel} variant="ghost" />
 				</div>
 
-				<ul class="hero__highlights" aria-label="Capacidades destacadas">
+				<ul class="hero__highlights" aria-label="Fortalezas destacadas">
 					{hero.highlights.map((item) => <li>{item}</li>)}
 				</ul>
 			</div>

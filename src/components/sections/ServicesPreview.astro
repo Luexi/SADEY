@@ -4,48 +4,42 @@ import Container from '../ui/Container.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import { services } from '../../data/services';
 
-const featuredServiceOrder = ['concretos', 'agregados-petreos', 'suelos'];
-const featuredServices = featuredServiceOrder
-	.map((slug) => services.find((service) => service.slug === slug))
-	.filter((service): service is (typeof services)[number] => Boolean(service));
-
 const serviceIcons: Record<string, string> = {
 	concretos: 'science',
 	'agregados-petreos': 'blur_on',
+	'mezcla-asfaltica': 'local_shipping',
 	suelos: 'foundation',
+	siac: 'verified',
 };
 ---
 
 <section class="services section-shell" id="servicios">
 	<Container>
 		<SectionHeading
-			eyebrow="Especialidades técnicas"
-			title="Servicios enfocados en control de calidad, ensaye y apoyo técnico en proyecto"
-			description="SADEY presenta en esta vista las tres capacidades principales que mejor representan su trabajo operativo y técnico."
+			eyebrow="Nuestros servicios"
+			title="Categorías de servicio especializadas en control de calidad y ensaye"
+			description="Conoce las áreas en las que MTHA SADEY brinda apoyo técnico a proyectos de construcción y laboratorios externos."
 			align="center"
 		/>
 
 		<div class="services__grid">
 			{
-				featuredServices.map((service) => (
+				services.map((service) => (
 					<article class="services__card">
 						<div class="services__icon">
 							<span class="material-symbols-outlined" aria-hidden="true">
-								{serviceIcons[service.slug] ?? 'construction'}
+								{serviceIcons[service.slug] ?? service.icon ?? 'construction'}
 							</span>
 						</div>
 						<h3>{service.title}</h3>
 						<p class="services__summary">{service.shortDescription}</p>
-						<ul>
-							{service.bullets.map((bullet) => <li>{bullet}</li>)}
-						</ul>
 					</article>
 				))
 			}
 		</div>
 
 		<div class="services__actions">
-			<Button href="#proyectos" label="Ver proyectos recientes" variant="secondary" />
+			<Button href="/servicios" label="Ver todos los servicios" variant="secondary" />
 		</div>
 	</Container>
 </section>
@@ -57,15 +51,15 @@ const serviceIcons: Record<string, string> = {
 
 	.services__grid {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 		gap: 1.25rem;
 		margin-top: var(--space-xl);
 	}
 
 	.services__card {
 		display: grid;
-		gap: 0.9rem;
-		padding: 2rem 1.75rem;
+		gap: 0.75rem;
+		padding: 1.5rem 1.35rem;
 		background: var(--color-surface-strong);
 		border-radius: var(--radius-lg);
 		box-shadow: var(--shadow-soft);
@@ -75,15 +69,15 @@ const serviceIcons: Record<string, string> = {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 3.4rem;
-		height: 3.4rem;
+		width: 3rem;
+		height: 3rem;
 		border-radius: 999px;
 		background: var(--color-secondary-soft);
 		color: var(--color-secondary);
 	}
 
 	.services__icon :global(.material-symbols-outlined) {
-		font-size: 1.55rem;
+		font-size: 1.4rem;
 	}
 
 	h3,
@@ -93,39 +87,14 @@ const serviceIcons: Record<string, string> = {
 
 	h3 {
 		font-family: var(--font-display);
-		font-size: 1.34rem;
-		line-height: 1.08;
+		font-size: 1.15rem;
+		line-height: 1.1;
 		color: var(--color-primary);
 	}
 
-	.services__summary,
-	li {
+	.services__summary {
 		color: var(--color-on-surface-variant);
-	}
-
-	ul {
-		display: grid;
-		gap: 0.7rem;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	li {
-		position: relative;
-		padding-left: 1rem;
-		font-size: 0.95rem;
-	}
-
-	li::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0.68rem;
-		width: 0.35rem;
-		height: 0.35rem;
-		border-radius: 999px;
-		background: var(--color-secondary);
+		font-size: 0.92rem;
 	}
 
 	.services__actions {
@@ -134,7 +103,7 @@ const serviceIcons: Record<string, string> = {
 		margin-top: var(--space-lg);
 	}
 
-	@media (max-width: 980px) {
+	@media (max-width: 640px) {
 		.services__grid {
 			grid-template-columns: 1fr;
 		}

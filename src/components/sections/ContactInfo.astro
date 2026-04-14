@@ -1,0 +1,97 @@
+---
+import { siteConfig } from '../../data/site';
+
+const { contact } = siteConfig;
+---
+
+<div class="contact-info">
+	<div class="contact-info__item">
+		<div class="contact-info__icon">
+			<span class="material-symbols-outlined" aria-hidden="true">phone</span>
+		</div>
+		<div>
+			<h3>Teléfono</h3>
+			<a href={`tel:${contact.phone}`}>{contact.phoneDisplay}</a>
+		</div>
+	</div>
+
+	<div class="contact-info__item">
+		<div class="contact-info__icon">
+			<span class="material-symbols-outlined" aria-hidden="true">chat</span>
+		</div>
+		<div>
+			<h3>WhatsApp</h3>
+			<a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">Enviar mensaje</a>
+		</div>
+	</div>
+
+	<div class="contact-info__item">
+		<div class="contact-info__icon">
+			<span class="material-symbols-outlined" aria-hidden="true">location_on</span>
+		</div>
+		<div>
+			<h3>Dirección</h3>
+			<p>{contact.address}</p>
+		</div>
+	</div>
+
+	{contact.email && (
+		<div class="contact-info__item">
+			<div class="contact-info__icon">
+				<span class="material-symbols-outlined" aria-hidden="true">mail</span>
+			</div>
+			<div>
+				<h3>Correo</h3>
+				<a href={`mailto:${contact.email}`}>{contact.email}</a>
+			</div>
+		</div>
+	)}
+</div>
+
+<style>
+	.contact-info {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.contact-info__item {
+		display: flex;
+		gap: 1rem;
+		align-items: flex-start;
+	}
+
+	.contact-info__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 3rem;
+		height: 3rem;
+		border-radius: 999px;
+		background: var(--color-secondary-soft);
+		color: var(--color-secondary);
+	}
+
+	.contact-info__icon :global(.material-symbols-outlined) {
+		font-size: 1.35rem;
+	}
+
+	h3 {
+		margin: 0 0 0.25rem;
+		font-family: var(--font-display);
+		font-size: 0.95rem;
+		font-weight: 700;
+		color: var(--color-primary);
+	}
+
+	p,
+	a {
+		margin: 0;
+		font-size: 0.95rem;
+		color: var(--color-on-surface-variant);
+	}
+
+	a:hover {
+		color: var(--color-secondary);
+	}
+</style>

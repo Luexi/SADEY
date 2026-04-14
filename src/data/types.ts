@@ -1,9 +1,15 @@
-export type LinkKind = 'anchor' | 'route';
+export type LinkKind = 'anchor' | 'route' | 'external';
 
 export interface NavigationItem {
 	label: string;
 	href: string;
 	kind: LinkKind;
+}
+
+export interface PageMeta {
+	title: string;
+	description: string;
+	ogImage?: string;
 }
 
 export interface HeroData {
@@ -36,6 +42,16 @@ export interface CtaData {
 	note: string;
 }
 
+export interface ContactData {
+	phone: string;
+	phoneDisplay: string;
+	address: string;
+	whatsappUrl: string;
+	whatsappNumber: string;
+	email: string;
+	mapQuery: string;
+}
+
 export interface SocialLink {
 	label: string;
 	url: string;
@@ -50,15 +66,21 @@ export interface SiteConfig {
 	whatsappUrl: string;
 	domain: string;
 	socialLinks: SocialLink[];
-	meta: {
-		title: string;
-		description: string;
-	};
+	meta: PageMeta;
 	navigation: NavigationItem[];
+	headerCta: NavigationItem;
 	hero: HeroData;
 	about: AboutData;
 	cta: CtaData;
+	contact: ContactData;
 	footerNote: string;
+	pageMeta: Record<string, PageMeta>;
+}
+
+export interface GalleryImage {
+	src: string;
+	alt: string;
+	caption?: string;
 }
 
 export interface ServiceItem {
@@ -67,6 +89,8 @@ export interface ServiceItem {
 	shortDescription: string;
 	bullets: string[];
 	futureDetails?: string[];
+	icon?: string;
+	metaDescription?: string;
 }
 
 export interface ProjectCase {
@@ -81,6 +105,8 @@ export interface ProjectCase {
 		alt: string;
 	};
 	tags: string[];
+	gallery: GalleryImage[];
+	metaDescription?: string;
 }
 
 export interface DifferentiatorItem {

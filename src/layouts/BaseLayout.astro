@@ -7,12 +7,22 @@ import '../styles/global.css';
 interface Props {
 	title?: string;
 	description?: string;
+	ogImage?: string;
+	ogType?: string;
+	canonicalPath?: string;
 }
 
 const {
 	title = siteConfig.meta.title,
 	description = siteConfig.meta.description,
+	ogImage,
+	ogType = 'website',
+	canonicalPath,
 } = Astro.props;
+
+const canonicalUrl = canonicalPath
+	? `${siteConfig.siteUrl}${siteConfig.basePath}${canonicalPath}`
+	: `${siteConfig.siteUrl}${siteConfig.basePath}/`;
 ---
 
 <!doctype html>
@@ -24,10 +34,26 @@ const {
 		<meta name="description" content={description} />
 		<meta name="theme-color" content="#0b1730" />
 		<title>{title}</title>
+		<link rel="canonical" href={canonicalUrl} />
 		<link rel="icon" type="image/svg+xml" href={`${siteConfig.basePath}/favicon.svg`} />
+
+		<!-- Open Graph -->
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content={ogType} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:site_name" content="MTHA SADEY" />
+		{ogImage && <meta property="og:image" content={`${siteConfig.siteUrl}${siteConfig.basePath}${ogImage}`} />}
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+
+		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Work_Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 	</head>
 	<body>

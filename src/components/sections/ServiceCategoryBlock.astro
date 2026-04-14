@@ -1,0 +1,136 @@
+---
+import type { ServiceItem } from '../../data/types';
+
+interface Props {
+	service: ServiceItem;
+}
+
+const { service } = Astro.props;
+---
+
+<article class="service-category" id={service.slug}>
+	<div class="service-category__header">
+		<div class="service-category__icon">
+			<span class="material-symbols-outlined" aria-hidden="true">
+				{service.icon ?? 'construction'}
+			</span>
+		</div>
+		<div class="service-category__intro">
+			<h2>{service.title}</h2>
+			<p>{service.shortDescription}</p>
+		</div>
+	</div>
+
+	<div class="service-category__details">
+		<div class="service-category__column">
+			<h3>Servicios principales</h3>
+			<ul>
+				{service.bullets.map((bullet) => <li>{bullet}</li>)}
+			</ul>
+		</div>
+
+		{service.futureDetails && service.futureDetails.length > 0 && (
+			<div class="service-category__column">
+				<h3>Ensayes y pruebas específicas</h3>
+				<ul class="service-category__details-list">
+					{service.futureDetails.map((detail) => <li>{detail}</li>)}
+				</ul>
+			</div>
+		)}
+	</div>
+</article>
+
+<style>
+	.service-category {
+		display: grid;
+		gap: 1.5rem;
+		padding: 2rem 1.75rem;
+		background: var(--color-surface-strong);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.service-category__header {
+		display: flex;
+		gap: 1.25rem;
+		align-items: flex-start;
+	}
+
+	.service-category__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 3.4rem;
+		height: 3.4rem;
+		border-radius: 999px;
+		background: var(--color-secondary-soft);
+		color: var(--color-secondary);
+	}
+
+	.service-category__icon :global(.material-symbols-outlined) {
+		font-size: 1.55rem;
+	}
+
+	.service-category__intro {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.service-category__intro h2 {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: 1.4rem;
+		line-height: 1.1;
+		color: var(--color-primary);
+	}
+
+	.service-category__intro p {
+		margin: 0;
+		color: var(--color-on-surface-variant);
+	}
+
+	.service-category__details {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 1.5rem;
+		padding-top: 0.5rem;
+		border-top: 1px solid var(--color-line);
+	}
+
+	.service-category__column h3 {
+		margin: 0 0 0.75rem;
+		font-family: var(--font-display);
+		font-size: 0.88rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-secondary);
+	}
+
+	ul {
+		display: grid;
+		gap: 0.6rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	li {
+		position: relative;
+		padding-left: 1rem;
+		font-size: 0.95rem;
+		color: var(--color-on-surface-variant);
+	}
+
+	li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.68rem;
+		width: 0.3rem;
+		height: 0.3rem;
+		border-radius: 999px;
+		background: var(--color-secondary);
+	}
+</style>

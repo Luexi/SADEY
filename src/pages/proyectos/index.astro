@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import Container from '../../components/ui/Container.astro';
+import { projects } from '../../data/projects';
+import { siteConfig } from '../../data/site';
+import { withBase } from '../../utils/paths';
+---
+
+<BaseLayout
+	title={siteConfig.pageMeta.proyectos.title}
+	description={siteConfig.pageMeta.proyectos.description}
+	canonicalPath="/proyectos"
+>
+	<PageHero
+		eyebrow="Proyectos"
+		title="Experiencia técnica respaldada por proyectos reales"
+		description="Cada ficha resume el alcance del apoyo técnico brindado por MTHA SADEY en control de calidad, ensaye y diseño de mezclas."
+	/>
+
+	<section class="projects-index section-shell">
+		<Container>
+			<div class="projects-index__grid">
+				{
+					projects.map((project) => (
+						<a class="projects-index__card" href={withBase(`/proyectos/${project.slug}`, siteConfig.basePath)}>
+							<div class="projects-index__image-wrap">
+								<img src={withBase(project.image.src, siteConfig.basePath)} alt={project.image.alt} loading="lazy" />
+							</div>
+							<div class="projects-index__body">
+								<p class="projects-index__category">{project.category}</p>
+								<h2>{project.title}</h2>
+								<p class="projects-index__summary">{project.summary}</p>
+								{project.contractNumber && (
+									<p class="projects-index__contract">Contrato: {project.contractNumber}</p>
+								)}
+								<ul class="projects-index__tags">
+									{project.tags.map((tag) => <li>{tag}</li>)}
+								</ul>
+								<span class="projects-index__link-hint">Ver detalle del proyecto →</span>
+							</div>
+						</a>
+					))
+				}
+			</div>
+		</Container>
+	</section>
+</BaseLayout>
+
+<style>
+	.projects-index {
+		background: var(--color-surface);
+	}
+
+	.projects-index__grid {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.projects-index__card {
+		display: grid;
+		grid-template-columns: minmax(240px, 0.45fr) 1fr;
+		overflow: hidden;
+		border-radius: var(--radius-lg);
+		background: var(--color-surface-strong);
+		box-shadow: var(--shadow-soft);
+		border: 1px solid var(--color-line);
+		transition: transform var(--transition-base), box-shadow var(--transition-base);
+	}
+
+	.projects-index__card:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.projects-index__image-wrap {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.projects-index__image-wrap img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		min-height: 200px;
+	}
+
+	.projects-index__body {
+		display: grid;
+		gap: 0.65rem;
+		padding: 1.5rem;
+		align-content: start;
+	}
+
+	.projects-index__category,
+	.projects-index__contract {
+		margin: 0;
+		font-size: 0.74rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--color-secondary);
+	}
+
+	h2 {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: 1.3rem;
+		line-height: 1.1;
+		color: var(--color-primary);
+	}
+
+	.projects-index__summary {
+		margin: 0;
+		color: var(--color-on-surface-variant);
+	}
+
+	.projects-index__tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.projects-index__tags li {
+		padding: 0.35rem 0.6rem;
+		border-radius: 999px;
+		background: var(--color-surface-alt);
+		font-size: 0.74rem;
+		font-weight: 600;
+		color: var(--color-on-surface-variant);
+	}
+
+	.projects-index__link-hint {
+		font-size: 0.84rem;
+		font-weight: 700;
+		color: var(--color-secondary);
+	}
+
+	@media (max-width: 720px) {
+		.projects-index__card {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

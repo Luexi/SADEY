@@ -1,28 +1,20 @@
-# SADEY - Landing corporativa
+# MTHA SADEY - Sitio web corporativo
 
-Landing page corporativa para SADEY construida con Astro como sitio estático, preparada para desplegarse en GitHub Pages y para refinarse visualmente en una siguiente iteración.
+Sitio web corporativo multipágina para MTHA SADEY construido con Astro como sitio estático, desplegado en GitHub Pages.
 
-Estado actual: `Fase 1 completada`
+Estado actual: `Fase 3 completada — Reestructuración multipágina + SEO básico`
 
 ## Objetivo del proyecto
 
-Esta fase entrega la base técnica y editorial del sitio:
-
-- arquitectura ordenada y escalable
-- contenido inicial corregido y estructurado
-- placeholders locales reemplazables
-- estilos globales con tokens CSS
-- despliegue automático en GitHub Pages desde `main`
-- documentación de handoff para la Fase 2
-
-La Fase 1 no incluye formulario funcional, logo final, branding definitivo ni subpáginas reales.
+Presentar las capacidades, servicios y proyectos de MTHA SADEY con una arquitectura web profesional, escalable y lista para crecer.
 
 ## Stack
 
-- Astro
+- Astro 6
 - TypeScript
-- CSS nativo con variables de diseño
+- CSS nativo con variables de diseño (tokens)
 - GitHub Actions + GitHub Pages
+- @astrojs/sitemap
 
 ## Requisitos
 
@@ -39,192 +31,125 @@ npm run build
 npm run preview
 ```
 
-## Desarrollo local
+## Estructura del sitio (rutas)
 
-1. Instala dependencias:
-
-```bash
-npm install
-```
-
-2. Inicia el servidor local:
-
-```bash
-npm run dev
-```
-
-3. Abre `http://localhost:4321/SADEY/` si quieres validar el proyecto con `base` activo, o la URL local indicada por Astro durante desarrollo.
-
-## Build de producción
-
-```bash
-npm run build
-```
-
-El sitio compilado queda en `dist/`.
-
-Para revisarlo localmente como se publicará:
-
-```bash
-npm run preview
-```
+| Ruta | Descripción |
+|------|-------------|
+| `/` | Portada: hero, nosotros, preview de servicios y proyectos, CTA |
+| `/servicios` | Página completa de servicios agrupados por categoría |
+| `/proyectos` | Índice de proyectos con fichas navegables |
+| `/proyectos/[slug]` | Ficha individual de proyecto con galería preparada |
+| `/contacto` | Datos de contacto reales, mapa y WhatsApp |
 
 ## Estructura del proyecto
 
 ```text
 /
-├── 40bdfddc-7e1d-4034-afde-edb3989426ba.jpg
-├── a513e5d2-b0d6-4b8f-9ba4-cf53e6c77a12.jpg
-├── datos pagina web.txt
-├── PRUEBAS FISICAS Y QUIMICAS PARA LOS AGREGADOS.pdf
 ├── .github/workflows/deploy.yml
-├── docs/
 ├── public/
+│   ├── assets/
+│   │   ├── branding/          ← logo futuro
+│   │   ├── projects/          ← fotos por proyecto (por slug)
+│   │   └── services/          ← imágenes de servicio
+│   ├── placeholders/
+│   │   └── stock/
 │   ├── favicon.svg
-│   └── placeholders/
+│   └── robots.txt
 ├── src/
 │   ├── components/
-│   │   ├── layout/
-│   │   ├── sections/
-│   │   └── ui/
+│   │   ├── layout/            Header, Footer
+│   │   ├── sections/          Hero, About, PageHero, ServicesPreview,
+│   │   │                      ServiceCategoryBlock, ProjectsPreview,
+│   │   │                      ProjectDetailHero, ContactInfo, MapBlock,
+│   │   │                      CTAWhatsApp
+│   │   └── ui/                Button, Card, Container, SectionHeading,
+│   │                          EmptyGalleryState
 │   ├── data/
+│   │   ├── types.ts
+│   │   ├── site.ts            Config global, navegación, SEO, contacto
+│   │   ├── services.ts        5 categorías de servicio
+│   │   ├── projects.ts        Proyectos con galería preparada
+│   │   └── differentiators.ts Diferenciadores de marca
 │   ├── layouts/
+│   │   └── BaseLayout.astro   Layout con SEO (OG, canonical, Twitter)
 │   ├── pages/
+│   │   ├── index.astro
+│   │   ├── servicios.astro
+│   │   ├── contacto.astro
+│   │   └── proyectos/
+│   │       ├── index.astro
+│   │       └── [slug].astro
 │   ├── styles/
+│   │   ├── tokens.css
+│   │   └── global.css
 │   └── utils/
+│       └── paths.ts
 ├── astro.config.mjs
 ├── package.json
 ├── roadmap.md
 └── tsconfig.json
 ```
 
-## Archivos fuente del cliente
-
-En la raíz del repositorio se conservaron estos insumos originales para trazabilidad y futuras iteraciones:
-
-- `datos pagina web.txt`
-- `PRUEBAS FISICAS Y QUIMICAS PARA LOS AGREGADOS.pdf`
-- `40bdfddc-7e1d-4034-afde-edb3989426ba.jpg`
-- `a513e5d2-b0d6-4b8f-9ba4-cf53e6c77a12.jpg`
-
-Estos archivos funcionan como referencia editorial y visual. No son parte del build productivo ni deben tratarse como assets finales del sitio.
-
 ## Dónde editar contenido
 
-- Configuración general, SEO, navegación y placeholders de contacto: `src/data/site.ts`
+- Configuración general, SEO, navegación y contacto: `src/data/site.ts`
 - Servicios: `src/data/services.ts`
-- Proyectos/casos destacados: `src/data/projects.ts`
-- Diferenciales: `src/data/differentiators.ts`
+- Proyectos: `src/data/projects.ts`
+- Diferenciadores: `src/data/differentiators.ts`
 
-El contenido base fue estructurado a partir de `datos pagina web.txt` y del PDF técnico ubicado en la raíz del repositorio.
+Toda la landing consume datos desde esos archivos. El contenido se puede actualizar sin tocar la estructura visual.
 
-Toda la landing consume datos desde esos archivos. La idea es que el contenido se pueda actualizar sin tocar la estructura visual.
+## Dónde integrar el logo
 
-## Dónde reemplazar imágenes
+El header actualmente muestra el nombre como texto. Para reemplazarlo por el logo:
 
-- Hero: `public/placeholders/hero-placeholder.svg`
-- Sobre nosotros: `public/placeholders/about-placeholder.svg`
-- Proyectos: `public/placeholders/project-1-placeholder.svg`, `project-2-placeholder.svg`, `project-3-placeholder.svg`
+1. Coloca el archivo en `public/assets/branding/logo.svg`
+2. Edita `src/components/layout/Header.astro`
+3. Sigue las instrucciones del comentario HTML en el componente
 
-Gemini puede sustituir estos placeholders por imágenes reales sin modificar el modelo de datos ni la composición general.
+## Dónde agregar fotos de proyecto
 
-Las dos imágenes JPG de la raíz se conservan como referencia visual del cliente, no como recursos finales conectados a la landing.
+1. Crea una carpeta en `public/assets/projects/<slug>/`
+2. Agrega las imágenes
+3. Edita `src/data/projects.ts` para llenar el array `gallery` del proyecto
 
-## Estilos y sistema visual
+## Dónde reemplazar imágenes placeholder
 
-- Tokens globales: `src/styles/tokens.css`
-- Base global y utilidades: `src/styles/global.css`
-
-Los componentes tienen estilos encapsulados y apoyos mínimos desde globales. Para refinar la estética en Fase 2, conviene empezar por tokens y después ajustar los estilos de sección.
+- Hero: `public/placeholders/stock/hero-stock.jpg`
+- Sobre nosotros: `public/placeholders/stock/about-stock.jpg`
+- Proyectos: `public/placeholders/stock/project-*-stock.jpg`
 
 ## GitHub Pages
 
-La configuración actual asume publicación en:
+Configuración actual:
 
 - `site`: `https://luexi.github.io`
 - `base`: `/SADEY`
 
-Esto permite que el repositorio `SADEY` funcione correctamente como sitio de proyecto dentro de GitHub Pages.
+### Deploy
 
-### Archivos clave de deploy
+En el repositorio: `Settings > Pages > Source` → `GitHub Actions`
 
-- Configuración Astro: `astro.config.mjs`
-- Workflow: `.github/workflows/deploy.yml`
-
-### Qué hacer en GitHub
-
-En el repositorio, entra a:
-
-`Settings > Pages > Source`
-
-y deja seleccionada la opción:
-
-`GitHub Actions`
-
-### Si los assets salen rotos en GitHub Pages
-
-Revisa esto en orden:
+### Si los assets salen rotos
 
 1. Que `base` siga siendo `/SADEY` en `astro.config.mjs`
 2. Que `basePath` siga siendo `/SADEY` en `src/data/site.ts`
-3. Que los enlaces internos y assets usen la utilidad `withBase()` o rutas relativas correctas
+3. Que los enlaces usen `withBase()` de `src/utils/paths.ts`
 4. Que el workflow esté ejecutándose sobre `main`
-5. Que Pages esté configurado para publicar desde `GitHub Actions`
 
-## Dónde cambiar el base path
+## SEO implementado
 
-- Configuración de build y rutas públicas: `astro.config.mjs`
-- Configuración usada por navegación, CTA y assets locales: `src/data/site.ts`
-
-Ambos valores deben mantenerse sincronizados mientras el proyecto se publique como `https://luexi.github.io/SADEY`.
-
-## Dónde cambiar el dominio cuando llegue el momento
-
-1. Actualiza `site` en `astro.config.mjs`
-2. Cambia `basePath` en `src/data/site.ts` a `''`
-3. Elimina `base` de `astro.config.mjs`
-4. Agrega `public/CNAME`
-5. Configura el dominio en GitHub Pages
-
-## Migración futura a dominio propio
-
-Cuando exista dominio propio:
-
-1. Agrega `public/CNAME` con el dominio final, por ejemplo `www.tudominio.com`
-2. Cambia `site` en `astro.config.mjs` al dominio final
-3. Cambia `basePath` en `src/data/site.ts` a `''`
-4. Elimina `base` de `astro.config.mjs`
-5. Revisa cualquier enlace interno que antes dependiera de `/SADEY`
-6. Configura DNS y HTTPS desde GitHub Pages
-
-GitHub indica que, cuando Pages se publica con un workflow personalizado, el dominio debe gestionarse desde la configuración del repositorio y el `CNAME` en `public/`.
-
-## Handoff entre Codex y Gemini
-
-Codex dejó lista la base técnica, editorial y de despliegue.
-
-Gemini debe enfocarse en:
-
-- refinamiento visual
-- ritmo vertical
-- hero
-- tarjetas
-- tipografía
-- paleta fina
-- tratamiento de placeholders e imágenes reales
-
-Gemini no debe romper:
-
-- el modelo de datos en `src/data/*`
-- el deploy a GitHub Pages
-- el `base` actual
-- la estructura semántica y accesible
-
-Consulta `docs/handoff-phase-2-gemini.md` antes de modificar el diseño.
+- `<title>` único por página
+- `<meta name="description">` por página
+- Open Graph (`og:title`, `og:description`, `og:url`, `og:type`, `og:site_name`)
+- Twitter Card
+- `<link rel="canonical">` por página
+- `robots.txt`
+- Sitemap automático (`@astrojs/sitemap`)
+- Headings con jerarquía correcta (un solo `<h1>` por página)
 
 ## Documentación adicional
 
 - Roadmap del proyecto: `roadmap.md`
-- Auditoría editorial y de contenido: `docs/content-audit.md`
+- Auditoría editorial: `docs/content-audit.md`
 - Decisiones técnicas: `docs/decisions.md`
-- Handoff para la Fase 2: `docs/handoff-phase-2-gemini.md`

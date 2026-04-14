@@ -15,6 +15,9 @@ export const projects: ProjectCase[] = [
 			alt: 'Infraestructura de concreto relacionada con modernización carretera y control de calidad.',
 		},
 		tags: ['Control de calidad', 'Diseño Marshall', 'Infraestructura carretera'],
+		gallery: [],
+		metaDescription:
+			'Modernización carretera Igualapa - Chilixlahuaca - Alacatlatzala: control de calidad de concretos, suelos y mezclas por MTHA SADEY.',
 	},
 	{
 		slug: 'adquisicion-mezcla-asfaltica',
@@ -30,6 +33,9 @@ export const projects: ProjectCase[] = [
 			alt: 'Trabajos de mezcla asfáltica en carretera relacionados con producción y control de calidad.',
 		},
 		tags: ['Mezcla asfáltica', 'Normativa SICT', 'Control de calidad'],
+		gallery: [],
+		metaDescription:
+			'Adquisición de mezcla asfáltica: diseño Marshall y control de calidad con normativa SICT por MTHA SADEY.',
 	},
 	{
 		slug: 'reposicion-carpeta-asfaltica',
@@ -45,5 +51,8 @@ export const projects: ProjectCase[] = [
 			alt: 'Maquinaria de obra asociada a reposición de carpeta asfáltica y trabajo en sitio.',
 		},
 		tags: ['AMAAC', 'Producción de mezcla', 'Reposición de carpeta'],
+		gallery: [],
+		metaDescription:
+			'Reposición de carpeta asfáltica: diseño Marshall, normativa SICT y protocolo AMAAC por MTHA SADEY.',
 	},
 ];

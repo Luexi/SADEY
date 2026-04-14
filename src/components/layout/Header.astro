@@ -8,7 +8,12 @@ import { withBase } from '../../utils/paths';
 <header class="site-header">
 	<Container>
 		<div class="site-header__inner">
-			<a class="site-header__brand" href={withBase('/#inicio', siteConfig.basePath)} aria-label="Ir al inicio de SADEY">
+			<!-- Logo slot: replace the text below with an <img> when the final logo is ready.
+			     Expected location: public/assets/branding/logo.svg or logo.png
+			     Replace: <span class="site-header__logo">{siteConfig.logoText}</span>
+			     With:    <img src={withBase('/assets/branding/logo.svg', siteConfig.basePath)} alt="MTHA SADEY" class="site-header__logo-img" />
+			-->
+			<a class="site-header__brand" href={withBase('/', siteConfig.basePath)} aria-label="Ir al inicio de MTHA SADEY">
 				<span class="site-header__logo">{siteConfig.logoText}</span>
 				<span class="site-header__tag">Laboratorio para la construcción</span>
 			</a>
@@ -18,7 +23,9 @@ import { withBase } from '../../utils/paths';
 					{
 						siteConfig.navigation.map((item) => (
 							<li>
-								<a href={withBase(item.href, siteConfig.basePath)}>{item.label}</a>
+								<a href={item.kind === 'external' ? item.href : withBase(item.href, siteConfig.basePath)}>
+									{item.label}
+								</a>
 							</li>
 						))
 					}
@@ -26,7 +33,12 @@ import { withBase } from '../../utils/paths';
 			</nav>
 
 			<div class="site-header__cta">
-				<Button href="#contacto" label="Solicitar información" />
+				<Button
+					href={siteConfig.headerCta.href}
+					label={siteConfig.headerCta.label}
+					target="_blank"
+					rel="noopener noreferrer"
+				/>
 			</div>
 		</div>
 	</Container>

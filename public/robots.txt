@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://luexi.github.io/SADEY/sitemap-index.xml

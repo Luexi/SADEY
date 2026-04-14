@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import ServiceCategoryBlock from '../components/sections/ServiceCategoryBlock.astro';
+import CTAWhatsApp from '../components/sections/CTAWhatsApp.astro';
+import Container from '../components/ui/Container.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import { services } from '../data/services';
+import { differentiators } from '../data/differentiators';
+import { siteConfig } from '../data/site';
+---
+
+<BaseLayout
+	title={siteConfig.pageMeta.servicios.title}
+	description={siteConfig.pageMeta.servicios.description}
+	canonicalPath="/servicios"
+>
+	<PageHero
+		eyebrow="Servicios"
+		title="Categorías de servicio especializadas en ensaye y control de calidad"
+		description="MTHA SADEY brinda servicios técnicos agrupados en cinco categorías principales. Cada una está orientada a resolver necesidades reales de obra, laboratorio y gestión de calidad."
+	/>
+
+	<section class="services-list section-shell">
+		<Container>
+			<div class="services-list__grid">
+				{services.map((service) => (
+					<ServiceCategoryBlock service={service} />
+				))}
+			</div>
+		</Container>
+	</section>
+
+	<section class="why section-shell">
+		<Container>
+			<SectionHeading
+				eyebrow="¿Por qué MTHA SADEY?"
+				title="Razones claras para trabajar con nosotros"
+				align="center"
+			/>
+
+			<div class="why__grid">
+				{differentiators.map((item) => (
+					<article class="why__card">
+						<span class="why__icon">{item.icon}</span>
+						<h3>{item.title}</h3>
+						<p>{item.description}</p>
+					</article>
+				))}
+			</div>
+		</Container>
+	</section>
+
+	<CTAWhatsApp />
+</BaseLayout>
+
+<style>
+	.services-list {
+		background: var(--color-surface);
+	}
+
+	.services-list__grid {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	/* Why section — relocated from WhySadey component */
+	.why {
+		background: var(--color-bg);
+	}
+
+	.why__grid {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 1rem;
+		margin-top: var(--space-xl);
+	}
+
+	.why__card {
+		display: grid;
+		gap: 0.8rem;
+		padding: 1.5rem;
+		background: var(--color-surface-strong);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.why__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.9rem;
+		height: 2.9rem;
+		border-radius: 999px;
+		background: var(--color-secondary-soft);
+		font-family: var(--font-display);
+		font-weight: 800;
+		color: var(--color-secondary);
+	}
+
+	.why__card h3,
+	.why__card p {
+		margin: 0;
+	}
+
+	.why__card h3 {
+		font-family: var(--font-display);
+		font-size: 1.15rem;
+		line-height: 1.08;
+		color: var(--color-primary);
+	}
+
+	.why__card p {
+		color: var(--color-on-surface-variant);
+	}
+
+	@media (max-width: 980px) {
+		.why__grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 640px) {
+		.why__grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

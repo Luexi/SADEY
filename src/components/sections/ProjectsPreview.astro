@@ -1,4 +1,5 @@
 ---
+import Button from '../ui/Button.astro';
 import Container from '../ui/Container.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import { projects } from '../../data/projects';
@@ -11,15 +12,15 @@ import { withBase } from '../../utils/paths';
 		<div class="projects__header">
 			<SectionHeading
 				eyebrow="Proyectos recientes"
-				title="Casos reales organizados para mostrar experiencia técnica y control de calidad"
-				description="Cada tarjeta resume proyectos validados de SADEY y mantiene una lectura clara, sobria y estable."
+				title="Experiencia técnica respaldada por resultados en campo"
+				description="Proyectos reales donde MTHA SADEY ha brindado servicios de ensaye, control de calidad y apoyo técnico."
 			/>
 		</div>
 
 		<div class="projects__grid">
 			{
 				projects.map((project) => (
-					<article class="projects__card">
+					<a class="projects__card" href={withBase(`/proyectos/${project.slug}`, siteConfig.basePath)}>
 						<div class="projects__image-wrap">
 							<img src={withBase(project.image.src, siteConfig.basePath)} alt={project.image.alt} loading="lazy" />
 						</div>
@@ -27,14 +28,15 @@ import { withBase } from '../../utils/paths';
 							<p class="projects__category">{project.category}</p>
 							<h3>{project.title}</h3>
 							<p class="projects__summary">{project.summary}</p>
-							{project.contractNumber && <p class="projects__contract">Contrato: {project.contractNumber}</p>}
-							<ul class="projects__tags">
-								{project.tags.map((tag) => <li>{tag}</li>)}
-							</ul>
+							<span class="projects__link-hint">Ver proyecto →</span>
 						</div>
-					</article>
+					</a>
 				))
 			}
+		</div>
+
+		<div class="projects__actions">
+			<Button href="/proyectos" label="Ver todos los proyectos" variant="ghost" />
 		</div>
 	</Container>
 </section>
@@ -67,11 +69,18 @@ import { withBase } from '../../utils/paths';
 	}
 
 	.projects__card {
+		display: block;
 		overflow: hidden;
 		border-radius: var(--radius-lg);
 		background: rgba(255, 255, 255, 0.06);
 		border: 1px solid rgba(255, 255, 255, 0.08);
 		box-shadow: var(--shadow-card);
+		transition: transform var(--transition-base), box-shadow var(--transition-base);
+	}
+
+	.projects__card:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 32px 72px rgba(11, 23, 48, 0.22);
 	}
 
 	.projects__image-wrap {
@@ -98,8 +107,7 @@ import { withBase } from '../../utils/paths';
 		padding: 1.35rem;
 	}
 
-	.projects__category,
-	.projects__contract {
+	.projects__category {
 		margin: 0;
 		font-size: 0.74rem;
 		font-weight: 700;
@@ -124,21 +132,17 @@ import { withBase } from '../../utils/paths';
 		color: rgba(255, 255, 255, 0.74);
 	}
 
-	.projects__tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.55rem;
-		margin: 0.25rem 0 0;
-		padding: 0;
-		list-style: none;
+	.projects__link-hint {
+		font-size: 0.82rem;
+		font-weight: 700;
+		color: var(--color-secondary-strong);
+		letter-spacing: 0.04em;
 	}
 
-	.projects__tags li {
-		padding: 0.42rem 0.65rem;
-		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.08);
-		font-size: 0.76rem;
-		color: rgba(255, 255, 255, 0.84);
+	.projects__actions {
+		display: flex;
+		justify-content: center;
+		margin-top: var(--space-lg);
 	}
 
 	@media (max-width: 980px) {

@@ -1,0 +1,54 @@
+---
+// Empty gallery state — shown when project.gallery is empty.
+// Ready to be replaced by a real gallery component in a future iteration.
+---
+
+<div class="empty-gallery">
+	<div class="empty-gallery__icon">
+		<span class="material-symbols-outlined" aria-hidden="true">photo_library</span>
+	</div>
+	<p class="empty-gallery__title">Galería próximamente</p>
+	<p class="empty-gallery__note">Las imágenes de este proyecto se integrarán en una próxima actualización.</p>
+</div>
+
+<style>
+	.empty-gallery {
+		display: grid;
+		justify-items: center;
+		gap: 0.75rem;
+		padding: 3rem 2rem;
+		border: 2px dashed var(--color-line);
+		border-radius: var(--radius-lg);
+		text-align: center;
+	}
+
+	.empty-gallery__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 4rem;
+		height: 4rem;
+		border-radius: 999px;
+		background: var(--color-secondary-soft);
+		color: var(--color-secondary);
+	}
+
+	.empty-gallery__icon :global(.material-symbols-outlined) {
+		font-size: 1.8rem;
+	}
+
+	.empty-gallery__title {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: 1.15rem;
+		font-weight: 700;
+		color: var(--color-primary);
+	}
+
+	.empty-gallery__note {
+		margin: 0;
+		max-width: 28rem;
+		font-size: 0.9rem;
+		color: var(--color-on-surface-variant);
+	}
+</style>

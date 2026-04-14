@@ -1,0 +1,57 @@
+---
+import Container from '../ui/Container.astro';
+
+interface Props {
+	eyebrow?: string;
+	title: string;
+	description?: string;
+}
+
+const { eyebrow, title, description } = Astro.props;
+---
+
+<section class="page-hero">
+	<Container>
+		<div class="page-hero__content">
+			{eyebrow && <span class="eyebrow">{eyebrow}</span>}
+			<h1>{title}</h1>
+			{description && <p>{description}</p>}
+		</div>
+	</Container>
+</section>
+
+<style>
+	.page-hero {
+		padding: var(--space-2xl) 0 var(--space-xl);
+		background:
+			linear-gradient(180deg, rgba(8, 17, 35, 0.98), rgba(11, 23, 48, 1)),
+			var(--color-primary-deep);
+		color: var(--color-on-primary);
+	}
+
+	.page-hero__content {
+		display: grid;
+		gap: 1rem;
+		max-width: 48rem;
+	}
+
+	.page-hero__content .eyebrow {
+		color: var(--color-secondary-strong);
+	}
+
+	h1 {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+		line-height: 1.04;
+		letter-spacing: -0.04em;
+		color: var(--color-on-primary);
+	}
+
+	p {
+		margin: 0;
+		max-width: 40rem;
+		font-size: 1.05rem;
+		color: rgba(255, 255, 255, 0.76);
+	}
+</style>
