@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import type { GalleryImage } from '../../data/types';
 
 interface Props {
@@ -8,6 +8,21 @@ interface Props {
 }
 
 const { images, groupId = 'gallery' } = Astro.props;
+
+const processed = await Promise.all(
+	images.map(async (img) => {
+		const full = await getImage({
+			src: img.src,
+			widths: [960, 1600],
+			format: 'webp',
+		});
+		return {
+			alt: img.alt,
+			fullSrc: full.src,
+			fullSrcset: full.srcSet.attribute,
+		};
+	}),
+);
 ---
 
 <div class="gallery" data-gallery-group={groupId}>
@@ -18,13 +33,16 @@ const { images, groupId = 'gallery' } = Astro.props;
 					type="button"
 					class="gallery__trigger"
 					data-gallery-index={i}
+					data-full-src={processed[i].fullSrc}
+					data-full-srcset={processed[i].fullSrcset}
+					data-full-alt={processed[i].alt}
 					aria-label={`Abrir imagen ${i + 1} de ${images.length}: ${img.alt}`}
 				>
 					<Image
 						src={img.src}
 						alt={img.alt}
-						widths={[320, 480, 640]}
-						sizes="(max-width: 640px) 50vw, (max-width: 1080px) 33vw, 300px"
+						widths={[360, 640]}
+						sizes="(max-width: 640px) 45vw, (max-width: 1080px) 30vw, 240px"
 						loading={i < 6 ? 'eager' : 'lazy'}
 						class="gallery__thumb"
 					/>
@@ -38,19 +56,7 @@ const { images, groupId = 'gallery' } = Astro.props;
 			<button type="button" class="gallery__close" aria-label="Cerrar visor">✕</button>
 			<button type="button" class="gallery__nav gallery__nav--prev" aria-label="Imagen anterior">‹</button>
 			<figure class="gallery__figure">
-				<div class="gallery__slides">
-					{images.map((img, i) => (
-						<Image
-							src={img.src}
-							alt={img.alt}
-							widths={[640, 960, 1280, 1600]}
-							sizes="100vw"
-							loading="lazy"
-							class="gallery__full"
-							data-gallery-slide={i}
-						/>
-					))}
-				</div>
+				<img class="gallery__full" alt="" sizes="100vw" />
 				<figcaption class="gallery__caption" aria-live="polite"></figcaption>
 			</figure>
 			<button type="button" class="gallery__nav gallery__nav--next" aria-label="Imagen siguiente">›</button>
@@ -63,25 +69,30 @@ const { images, groupId = 'gallery' } = Astro.props;
 		const containers = document.querySelectorAll<HTMLElement>('.gallery');
 		containers.forEach((container) => {
 			const dialog = container.querySelector<HTMLDialogElement>('.gallery__dialog');
-			const triggers = container.querySelectorAll<HTMLButtonElement>('.gallery__trigger');
-			const slides = container.querySelectorAll<HTMLImageElement>('.gallery__full');
+			const triggers = Array.from(
+				container.querySelectorAll<HTMLButtonElement>('.gallery__trigger'),
+			);
+			const fullImg = container.querySelector<HTMLImageElement>('.gallery__full');
 			const caption = container.querySelector<HTMLElement>('.gallery__caption');
 			const prevBtn = container.querySelector<HTMLButtonElement>('.gallery__nav--prev');
 			const nextBtn = container.querySelector<HTMLButtonElement>('.gallery__nav--next');
 			const closeBtn = container.querySelector<HTMLButtonElement>('.gallery__close');
 
-			if (!dialog || !slides.length) return;
+			if (!dialog || !fullImg || triggers.length === 0) return;
 
 			let current = 0;
 
 			const show = (index: number) => {
-				current = (index + slides.length) % slides.length;
-				slides.forEach((slide, i) => {
-					slide.classList.toggle('is-active', i === current);
-				});
+				current = (index + triggers.length) % triggers.length;
+				const trigger = triggers[current];
+				const src = trigger.dataset.fullSrc ?? '';
+				const srcset = trigger.dataset.fullSrcset ?? '';
+				const alt = trigger.dataset.fullAlt ?? '';
+				fullImg.src = src;
+				if (srcset) fullImg.srcset = srcset;
+				fullImg.alt = alt;
 				if (caption) {
-					const altText = slides[current]?.getAttribute('alt') ?? '';
-					caption.textContent = `${current + 1} / ${slides.length} · ${altText}`;
+					caption.textContent = `${current + 1} / ${triggers.length} · ${alt}`;
 				}
 			};
 
@@ -229,27 +240,11 @@ const { images, groupId = 'gallery' } = Astro.props;
 		margin: 0;
 	}
 
-	.gallery__slides {
-		position: relative;
+	.gallery__full {
 		width: 100%;
 		height: 100%;
 		min-height: 0;
-	}
-
-	.gallery__full {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
 		object-fit: contain;
-		opacity: 0;
-		transition: opacity 0.22s ease;
-		pointer-events: none;
-	}
-
-	.gallery__full.is-active {
-		opacity: 1;
-		pointer-events: auto;
 	}
 
 	.gallery__caption {
