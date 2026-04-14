@@ -1,4 +1,42 @@
-import type { ProjectCase } from './types';
+import type { ImageMetadata } from 'astro';
+import type { GalleryImage, ProjectCase } from './types';
+
+type ImageModule = { default: ImageMetadata };
+
+const adquisicionImages = import.meta.glob<ImageModule>(
+	'../assets/projects/adquisicion-mezcla/*.jpeg',
+	{ eager: true },
+);
+const amaacImages = import.meta.glob<ImageModule>(
+	'../assets/projects/reposicion-amaac/*.jpeg',
+	{ eager: true },
+);
+const chilixxImages = import.meta.glob<ImageModule>(
+	'../assets/projects/modernizacion-chilixx/*.jpeg',
+	{ eager: true },
+);
+
+function buildGallery(
+	modules: Record<string, ImageModule>,
+	altPrefix: string,
+): GalleryImage[] {
+	return Object.entries(modules)
+		.sort(([a], [b]) => a.localeCompare(b))
+		.map(([, mod], i) => ({
+			src: mod.default,
+			alt: `${altPrefix} — registro visual ${i + 1}`,
+		}));
+}
+
+const adquisicionGallery = buildGallery(
+	adquisicionImages,
+	'Adquisición de mezcla asfáltica',
+);
+const amaacGallery = buildGallery(amaacImages, 'Reposición de carpeta asfáltica');
+const chilixxGallery = buildGallery(
+	chilixxImages,
+	'Modernización Igualapa - Chilixlahuaca - Alacatlatzala',
+);
 
 export const projects: ProjectCase[] = [
 	{
@@ -11,11 +49,11 @@ export const projects: ProjectCase[] = [
 		category: 'Concretos, suelos y mezclas',
 		contractNumber: '2025-12-CA-A-030-W-00-2025',
 		image: {
-			src: '/placeholders/stock/project-1-stock.jpg',
-			alt: 'Infraestructura de concreto relacionada con modernización carretera y control de calidad.',
+			src: chilixxGallery[0].src,
+			alt: 'Modernización carretera Igualapa - Chilixlahuaca - Alacatlatzala: trabajos en obra.',
 		},
 		tags: ['Control de calidad', 'Diseño Marshall', 'Infraestructura carretera'],
-		gallery: [],
+		gallery: chilixxGallery,
 		metaDescription:
 			'Modernización carretera Igualapa - Chilixlahuaca - Alacatlatzala: control de calidad de concretos, suelos y mezclas por MTHA SADEY.',
 	},
@@ -29,11 +67,11 @@ export const projects: ProjectCase[] = [
 		category: 'Mezcla asfáltica',
 		contractNumber: 'SICT-LPN-27-712-B-2025-034-AGS',
 		image: {
-			src: '/placeholders/stock/project-2-stock.jpg',
-			alt: 'Trabajos de mezcla asfáltica en carretera relacionados con producción y control de calidad.',
+			src: adquisicionGallery[0].src,
+			alt: 'Trabajos de adquisición y control de calidad de mezcla asfáltica.',
 		},
 		tags: ['Mezcla asfáltica', 'Normativa SICT', 'Control de calidad'],
-		gallery: [],
+		gallery: adquisicionGallery,
 		metaDescription:
 			'Adquisición de mezcla asfáltica: diseño Marshall y control de calidad con normativa SICT por MTHA SADEY.',
 	},
@@ -47,11 +85,11 @@ export const projects: ProjectCase[] = [
 		category: 'Mezcla asfáltica',
 		contractNumber: null,
 		image: {
-			src: '/placeholders/stock/project-3-stock.jpg',
-			alt: 'Maquinaria de obra asociada a reposición de carpeta asfáltica y trabajo en sitio.',
+			src: amaacGallery[0].src,
+			alt: 'Trabajos de reposición de carpeta asfáltica bajo protocolo AMAAC.',
 		},
 		tags: ['AMAAC', 'Producción de mezcla', 'Reposición de carpeta'],
-		gallery: [],
+		gallery: amaacGallery,
 		metaDescription:
 			'Reposición de carpeta asfáltica: diseño Marshall, normativa SICT y protocolo AMAAC por MTHA SADEY.',
 	},

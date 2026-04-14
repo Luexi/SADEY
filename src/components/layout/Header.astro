@@ -1,20 +1,24 @@
 ---
+import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
 import Container from '../ui/Container.astro';
 import { siteConfig } from '../../data/site';
 import { withBase } from '../../utils/paths';
+import logo from '../../assets/branding/logo.png';
 ---
 
 <header class="site-header">
 	<Container>
 		<div class="site-header__inner">
-			<!-- Logo slot: replace the text below with an <img> when the final logo is ready.
-			     Expected location: public/assets/branding/logo.svg or logo.png
-			     Replace: <span class="site-header__logo">{siteConfig.logoText}</span>
-			     With:    <img src={withBase('/assets/branding/logo.svg', siteConfig.basePath)} alt="MTHA SADEY" class="site-header__logo-img" />
-			-->
 			<a class="site-header__brand" href={withBase('/', siteConfig.basePath)} aria-label="Ir al inicio de MTHA SADEY">
-				<span class="site-header__logo">{siteConfig.logoText}</span>
+				<Image
+					src={logo}
+					alt="MTHA SADEY"
+					class="site-header__logo-img"
+					widths={[160, 240, 320, 420]}
+					sizes="(max-width: 640px) 140px, 200px"
+					loading="eager"
+				/>
 				<span class="site-header__tag">Laboratorio para la construcción</span>
 			</a>
 
@@ -67,12 +71,11 @@ import { withBase } from '../../utils/paths';
 		gap: 0.12rem;
 	}
 
-	.site-header__logo {
-		font-family: var(--font-display);
-		font-size: 1.42rem;
-		font-weight: 800;
-		letter-spacing: -0.04em;
-		color: var(--color-on-primary);
+	.site-header__logo-img {
+		display: block;
+		height: clamp(2.1rem, 3.4vw, 2.7rem);
+		width: auto;
+		object-fit: contain;
 	}
 
 	.site-header__tag {

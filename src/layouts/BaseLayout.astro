@@ -15,7 +15,7 @@ interface Props {
 const {
 	title = siteConfig.meta.title,
 	description = siteConfig.meta.description,
-	ogImage,
+	ogImage = '/assets/og/og-default.jpg',
 	ogType = 'website',
 	canonicalPath,
 } = Astro.props;
@@ -23,6 +23,7 @@ const {
 const canonicalUrl = canonicalPath
 	? `${siteConfig.siteUrl}${siteConfig.basePath}${canonicalPath}`
 	: `${siteConfig.siteUrl}${siteConfig.basePath}/`;
+const ogImageUrl = `${siteConfig.siteUrl}${siteConfig.basePath}${ogImage}`;
 ---
 
 <!doctype html>
@@ -43,12 +44,13 @@ const canonicalUrl = canonicalPath
 		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:site_name" content="MTHA SADEY" />
-		{ogImage && <meta property="og:image" content={`${siteConfig.siteUrl}${siteConfig.basePath}${ogImage}`} />}
+		<meta property="og:image" content={ogImageUrl} />
 
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
 
 		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">

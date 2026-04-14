@@ -1,4 +1,5 @@
 import type { SiteConfig } from './types';
+import heroImage from '../assets/hero/hero-main.jpeg';
 
 const WHATSAPP_NUMBER = '5217441751913';
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesa solicitar información sobre los servicios de MTHA SADEY.')}`;
@@ -41,8 +42,8 @@ export const siteConfig: SiteConfig = {
 		primaryCtaLabel: 'Solicitar información',
 		secondaryCtaLabel: 'Explorar servicios',
 		image: {
-			src: '/placeholders/stock/hero-stock.jpg',
-			alt: 'Infraestructura de concreto relacionada con construcción y trabajo técnico de campo.',
+			src: heroImage,
+			alt: 'Trabajo de laboratorio y control de calidad en obra por MTHA SADEY.',
 		},
 	},
 	about: {

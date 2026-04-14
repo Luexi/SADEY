@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
 import Container from '../ui/Container.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
@@ -22,7 +23,13 @@ import { withBase } from '../../utils/paths';
 				projects.map((project) => (
 					<a class="projects__card" href={withBase(`/proyectos/${project.slug}`, siteConfig.basePath)}>
 						<div class="projects__image-wrap">
-							<img src={withBase(project.image.src, siteConfig.basePath)} alt={project.image.alt} loading="lazy" />
+							<Image
+								src={project.image.src}
+								alt={project.image.alt}
+								widths={[480, 720, 960]}
+								sizes="(max-width: 980px) 100vw, 33vw"
+								loading="lazy"
+							/>
 						</div>
 						<div class="projects__body">
 							<p class="projects__category">{project.category}</p>
@@ -95,7 +102,7 @@ import { withBase } from '../../utils/paths';
 		background: linear-gradient(180deg, transparent 0%, rgba(8, 17, 35, 0.24) 100%);
 	}
 
-	.projects__image-wrap img {
+	.projects__image-wrap :global(img) {
 		width: 100%;
 		aspect-ratio: 16 / 10;
 		object-fit: cover;

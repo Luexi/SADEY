@@ -1,3 +1,5 @@
+import type { ImageMetadata } from 'astro';
+
 export type LinkKind = 'anchor' | 'route' | 'external';
 
 export interface NavigationItem {
@@ -20,7 +22,7 @@ export interface HeroData {
 	primaryCtaLabel: string;
 	secondaryCtaLabel: string;
 	image: {
-		src: string;
+		src: ImageMetadata;
 		alt: string;
 	};
 }
@@ -78,7 +80,7 @@ export interface SiteConfig {
 }
 
 export interface GalleryImage {
-	src: string;
+	src: ImageMetadata;
 	alt: string;
 	caption?: string;
 }
@@ -101,7 +103,7 @@ export interface ProjectCase {
 	category: string;
 	contractNumber: string | null;
 	image: {
-		src: string;
+		src: ImageMetadata;
 		alt: string;
 	};
 	tags: string[];

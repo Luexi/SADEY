@@ -2,11 +2,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectDetailHero from '../../components/sections/ProjectDetailHero.astro';
 import EmptyGalleryState from '../../components/ui/EmptyGalleryState.astro';
+import Gallery from '../../components/ui/Gallery.astro';
 import Button from '../../components/ui/Button.astro';
 import Container from '../../components/ui/Container.astro';
 import SectionHeading from '../../components/ui/SectionHeading.astro';
 import { projects } from '../../data/projects';
 import { siteConfig } from '../../data/site';
+import { withBase } from '../../utils/paths';
 import type { ProjectCase } from '../../data/types';
 
 export function getStaticPaths() {
@@ -23,6 +25,9 @@ interface Props {
 const { project } = Astro.props;
 const pageTitle = `${project.title} | MTHA SADEY`;
 const pageDescription = project.metaDescription || project.summary;
+const hasVideo = project.slug === 'adquisicion-mezcla-asfaltica';
+const videoUrl = withBase('/assets/video/adquisicion-mezcla.mp4', siteConfig.basePath);
+const posterUrl = withBase('/assets/video/adquisicion-mezcla-poster.jpg', siteConfig.basePath);
 ---
 
 <BaseLayout
@@ -72,6 +77,27 @@ const pageDescription = project.metaDescription || project.summary;
 		</Container>
 	</section>
 
+	{hasVideo && (
+		<section class="project-video section-shell">
+			<Container>
+				<SectionHeading
+					eyebrow="Registro en obra"
+					title="Video del proceso"
+				/>
+				<video
+					class="project-video__player"
+					controls
+					preload="metadata"
+					poster={posterUrl}
+					playsinline
+				>
+					<source src={videoUrl} type="video/mp4" />
+					Tu navegador no soporta la reproducción de video HTML5.
+				</video>
+			</Container>
+		</section>
+	)}
+
 	<section class="project-gallery section-shell">
 		<Container>
 			<SectionHeading
@@ -79,14 +105,7 @@ const pageDescription = project.metaDescription || project.summary;
 				title="Registro visual"
 			/>
 			{project.gallery.length > 0 ? (
-				<div class="project-gallery__grid">
-					{project.gallery.map((img) => (
-						<figure class="project-gallery__item">
-							<img src={img.src} alt={img.alt} loading="lazy" />
-							{img.caption && <figcaption>{img.caption}</figcaption>}
-						</figure>
-					))}
-				</div>
+				<Gallery images={project.gallery} groupId={project.slug} />
 			) : (
 				<div class="project-gallery__empty">
 					<EmptyGalleryState />
@@ -172,35 +191,26 @@ const pageDescription = project.metaDescription || project.summary;
 		gap: 0.7rem;
 	}
 
+	.project-video {
+		background: var(--color-surface);
+	}
+
+	.project-video__player {
+		display: block;
+		width: 100%;
+		max-width: 960px;
+		margin: var(--space-lg) auto 0;
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-soft);
+		background: #000;
+	}
+
 	.project-gallery {
 		background: var(--color-bg);
 	}
 
 	.project-gallery__empty {
 		margin-top: var(--space-lg);
-	}
-
-	.project-gallery__grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-		gap: 1rem;
-		margin-top: var(--space-lg);
-	}
-
-	.project-gallery__item {
-		margin: 0;
-	}
-
-	.project-gallery__item img {
-		width: 100%;
-		border-radius: var(--radius-md);
-		box-shadow: var(--shadow-soft);
-	}
-
-	.project-gallery__item figcaption {
-		margin-top: 0.5rem;
-		font-size: 0.85rem;
-		color: var(--color-on-surface-variant);
 	}
 
 	@media (max-width: 860px) {
