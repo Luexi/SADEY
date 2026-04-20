@@ -21,9 +21,9 @@
 	--gradient-dark: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-deep) 100%);
 	--gradient-dark-angled: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-deep) 100%);
 	--gradient-hero-radial: radial-gradient(circle at 12% 88%, rgba(214, 174, 104, 0.22) 0%, rgba(11, 23, 48, 0) 55%);
-	--font-display: 'Fraunces', ui-serif, Georgia, serif;
-	--font-body: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
-	--font-numeric: 'Geist Mono', ui-monospace, 'SFMono-Regular', monospace;
+	--font-display: 'Manrope', system-ui, sans-serif;
+	--font-body: 'Work Sans', system-ui, sans-serif;
+	--font-numeric: ui-monospace, 'SFMono-Regular', Consolas, monospace;
 	--text-eyebrow: 0.76rem;
 	--text-small: 0.88rem;
 	--text-body: 1rem;

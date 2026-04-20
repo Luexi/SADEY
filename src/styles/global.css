@@ -13,7 +13,6 @@ html {
 body {
 	margin: 0;
 	font-family: var(--font-body);
-	font-feature-settings: 'ss01', 'ss02', 'cv11';
 	background:
 		radial-gradient(circle at top right, rgba(212, 173, 103, 0.16), transparent 22%),
 		linear-gradient(180deg, #f6f1e8 0%, #f2ede4 40%, #f8f5ef 100%);
@@ -42,8 +41,6 @@ body::before {
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: var(--font-display);
-	font-optical-sizing: auto;
-	font-variation-settings: 'SOFT' 50;
 	letter-spacing: var(--tracking-tight);
 	text-wrap: balance;
 	line-height: 1.08;
