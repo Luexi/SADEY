@@ -1,8 +1,8 @@
-# SADEY LABORATORIO PARA LA CONSTRUCCIÓN - Sitio web corporativo
+# SADEY LABORATORIO PARA LA CONSTRUCCIÓN — Sitio web corporativo
 
-Sitio web corporativo multipágina para SADEY LABORATORIO PARA LA CONSTRUCCIÓN (logotipo: MTHA), construido con Astro como sitio estático y desplegado en GitHub Pages.
+Sitio web corporativo multipágina para **SADEY LABORATORIO PARA LA CONSTRUCCIÓN** (logotipo: MTHA), construido con Astro como sitio estático y desplegado en GitHub Pages.
 
-Estado actual: `Fase 4 completada — Assets reales, branding corregido y pruebas específicas`
+Estado actual: sitio en producción con branding refinado, servicios consolidados bajo "Pruebas específicas" y sección de Suelos con paneles desplegables por capa.
 
 ## Objetivo del proyecto
 
@@ -11,10 +11,10 @@ Presentar las pruebas específicas, servicios y proyectos de SADEY LABORATORIO c
 ## Stack
 
 - Astro 6
-- TypeScript
+- TypeScript 5
 - CSS nativo con variables de diseño (tokens)
 - GitHub Actions + GitHub Pages
-- @astrojs/sitemap
+- `@astrojs/sitemap`
 
 ## Requisitos
 
@@ -38,7 +38,7 @@ npm run preview
 | `/` | Portada: hero, nosotros, preview de servicios y proyectos, CTA |
 | `/servicios` | Página completa de servicios agrupados por categoría |
 | `/proyectos` | Índice de proyectos con fichas navegables |
-| `/proyectos/[slug]` | Ficha individual de proyecto con galería preparada |
+| `/proyectos/[slug]` | Ficha individual de proyecto con galería |
 | `/contacto` | Datos de contacto reales, mapa y WhatsApp |
 
 ## Estructura del proyecto
@@ -48,27 +48,32 @@ npm run preview
 ├── .github/workflows/deploy.yml
 ├── public/
 │   ├── assets/
-│   │   ├── branding/          ← logo futuro
 │   │   ├── projects/          ← fotos por proyecto (por slug)
 │   │   └── services/          ← imágenes de servicio
-│   ├── placeholders/
-│   │   └── stock/
+│   ├── placeholders/stock/
 │   ├── favicon.svg
 │   └── robots.txt
 ├── src/
+│   ├── assets/
+│   │   ├── about/
+│   │   ├── branding/          ← logo.png (MTHA)
+│   │   ├── hero/
+│   │   └── projects/
 │   ├── components/
 │   │   ├── layout/            Header, Footer
-│   │   ├── sections/          Hero, About, PageHero, ServicesPreview,
-│   │   │                      ServiceCategoryBlock, ProjectsPreview,
-│   │   │                      ProjectDetailHero, ContactInfo, MapBlock,
-│   │   │                      CTAWhatsApp
-│   │   └── ui/                Button, Card, Container, SectionHeading,
-│   │                          EmptyGalleryState
+│   │   ├── sections/          Hero, About, WhySadey, PageHero,
+│   │   │                      ServicesPreview, ServiceCategoryBlock,
+│   │   │                      ProjectsPreview, ProjectDetailHero,
+│   │   │                      ContactInfo, MapBlock, CTAWhatsApp
+│   │   └── ui/                Button, Card, Container, Gallery,
+│   │                          SectionHeading, EmptyGalleryState
 │   ├── data/
-│   │   ├── types.ts
-│   │   ├── site.ts            Config global, navegación, SEO, contacto
-│   │   ├── services.ts        5 categorías de servicio
-│   │   ├── projects.ts        Proyectos con galería preparada
+│   │   ├── types.ts           SiteConfig, ServiceItem, TestsByCapa,
+│   │   │                      ProjectCase, DifferentiatorItem
+│   │   ├── site.ts            Config global, navegación, SEO, contacto,
+│   │   │                      brandName / brandTagline
+│   │   ├── services.ts        5 categorías con pruebas específicas
+│   │   ├── projects.ts        Proyectos con galería
 │   │   └── differentiators.ts Diferenciadores de marca
 │   ├── layouts/
 │   │   └── BaseLayout.astro   Layout con SEO (OG, canonical, Twitter)
@@ -83,37 +88,68 @@ npm run preview
 │   │   ├── tokens.css
 │   │   └── global.css
 │   └── utils/
-│       └── paths.ts
+│       └── paths.ts           withBase() para GitHub Pages
 ├── astro.config.mjs
 ├── package.json
 ├── roadmap.md
 └── tsconfig.json
 ```
 
+## Identidad visual
+
+### Header
+
+- Logo MTHA (imagen) a la izquierda, ampliado.
+- Palabra **SADEY** en blanco al costado del logo, alineada con el texto del badge.
+- En pantallas ≤480px se oculta el wordmark para dejar sólo el icono.
+
+### Hero
+
+- Bloque de marca apilado: **SADEY** grande en dorado + **LABORATORIO PARA LA CONSTRUCCIÓN** debajo en tracking amplio (semántica `<h1>`).
+- Logo MTHA decorativo a la derecha del panel del hero.
+- Sin CTA primario; queda únicamente "Explorar servicios" como secundario.
+- `brandName` y `brandTagline` viven en `src/data/site.ts` y son la fuente única de verdad del wordmark.
+
+### Servicios (página `/servicios`)
+
+Cada categoría (Concretos, Agregados pétreos, Mezcla asfáltica, Suelos, SIAC) se renderiza con `ServiceCategoryBlock`:
+
+- Descripción corta en la cabecera.
+- Una sola columna bajo el rubro **Pruebas específicas** (o el label custom definido en `detailsLabel`).
+- **Suelos** es un caso especial: en lugar de una lista plana, muestra 7 paneles `<details>` desplegables (uno por capa). Las pruebas específicas por capa se definen en el campo `testsByCapa[]` y se llenan conforme el cliente manda el detalle. Un script inline abre automáticamente el panel correspondiente si la URL llega con hash `#capa-<slug>`.
+- **SIAC** reutiliza `futureDetails` con `detailsLabel: "Servicios incluidos"` al ser un servicio y no una lista de ensayes.
+
 ## Dónde editar contenido
 
-- Configuración general, SEO, navegación y contacto: `src/data/site.ts`
-- Servicios: `src/data/services.ts`
-- Proyectos: `src/data/projects.ts`
-- Diferenciadores: `src/data/differentiators.ts`
+| Qué | Archivo |
+| --- | --- |
+| Nombre de marca, tagline, SEO global, navegación, contacto, hero copy | [`src/data/site.ts`](src/data/site.ts) |
+| Pruebas específicas por servicio | [`src/data/services.ts`](src/data/services.ts) |
+| Pruebas específicas **por capa de suelos** | `testsByCapa[].tests` dentro de la entrada `suelos` en [`src/data/services.ts`](src/data/services.ts) |
+| Proyectos y galerías | [`src/data/projects.ts`](src/data/projects.ts) |
+| Diferenciadores de marca | [`src/data/differentiators.ts`](src/data/differentiators.ts) |
+| Tipos compartidos | [`src/data/types.ts`](src/data/types.ts) |
 
 Toda la landing consume datos desde esos archivos. El contenido se puede actualizar sin tocar la estructura visual.
 
 ## Dónde actualizar el logo
 
-El logo real (MTHA) vive en `src/assets/branding/logo.png` y se renderiza vía `<Image>` de Astro en `src/components/layout/Header.astro`. Para reemplazarlo, sobreescribe ese archivo con un nuevo PNG/SVG y ajusta `widths`/`sizes` si cambia la proporción.
+El logo MTHA vive en `src/assets/branding/logo.png` y se renderiza vía `<Image>` de Astro en dos lugares:
+
+- `src/components/layout/Header.astro` (tamaño clamp 3rem–4.2rem)
+- `src/components/sections/Hero.astro` (tamaño clamp 9rem–17rem, decorativo a la derecha)
+
+Para reemplazarlo, sobreescribe ese archivo con un nuevo PNG/SVG. Astro regenera los tamaños responsivos automáticamente.
 
 ## Dónde agregar fotos de proyecto
 
-1. Crea una carpeta en `public/assets/projects/<slug>/`
-2. Agrega las imágenes
-3. Edita `src/data/projects.ts` para llenar el array `gallery` del proyecto
+1. Crea una carpeta en `public/assets/projects/<slug>/` o coloca los archivos en `src/assets/projects/<slug>/` (preferible, para que pasen por `<Image>`).
+2. Edita `src/data/projects.ts` para llenar el array `gallery` del proyecto.
 
 ## Dónde reemplazar imágenes placeholder
 
-- Hero: `public/placeholders/stock/hero-stock.jpg`
-- Sobre nosotros: `public/placeholders/stock/about-stock.jpg`
-- Proyectos: `public/placeholders/stock/project-*-stock.jpg`
+- Hero: `src/assets/hero/hero-main.jpeg`
+- Sobre nosotros: `src/assets/about/about-main.jpg`
 
 ## GitHub Pages
 
@@ -124,7 +160,8 @@ Configuración actual:
 
 ### Deploy
 
-En el repositorio: `Settings > Pages > Source` → `GitHub Actions`
+Automático en cada push a `main` vía `.github/workflows/deploy.yml`.
+En el repositorio: `Settings > Pages > Source` → `GitHub Actions`.
 
 ### Si los assets salen rotos
 
@@ -142,10 +179,10 @@ En el repositorio: `Settings > Pages > Source` → `GitHub Actions`
 - `<link rel="canonical">` por página
 - `robots.txt`
 - Sitemap automático (`@astrojs/sitemap`)
-- Headings con jerarquía correcta (un solo `<h1>` por página)
+- Jerarquía de headings con un solo `<h1>` por página
 
 ## Documentación adicional
 
-- Roadmap del proyecto: `roadmap.md`
-- Auditoría editorial: `docs/content-audit.md`
-- Decisiones técnicas: `docs/decisions.md`
+- Roadmap del proyecto: [`roadmap.md`](roadmap.md)
+- Auditoría editorial: [`docs/content-audit.md`](docs/content-audit.md)
+- Decisiones técnicas: [`docs/decisions.md`](docs/decisions.md)
