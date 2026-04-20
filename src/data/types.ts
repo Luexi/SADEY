@@ -31,7 +31,7 @@ export interface AboutData {
 	title: string;
 	description: string[];
 	image: {
-		src: string;
+		src: ImageMetadata;
 		alt: string;
 	};
 }
@@ -63,6 +63,7 @@ export interface SiteConfig {
 	siteUrl: string;
 	basePath: string;
 	logoText: string;
+	logoTextShort?: string;
 	contactEmail: string;
 	address: string;
 	whatsappUrl: string;

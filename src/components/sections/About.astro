@@ -1,16 +1,16 @@
 ---
+import { Image } from 'astro:assets';
 import Container from '../ui/Container.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import { differentiators } from '../../data/differentiators';
 import { siteConfig } from '../../data/site';
-import { withBase } from '../../utils/paths';
 ---
 
 <section class="about section-shell" id="sobre-nosotros">
 	<Container>
 		<div class="about__grid">
 			<div class="about__content">
-				<SectionHeading eyebrow="Sobre MTHA SADEY" title={siteConfig.about.title} />
+				<SectionHeading eyebrow="Sobre SADEY LABORATORIO" title={siteConfig.about.title} />
 
 				<div class="about__paragraphs">
 					{siteConfig.about.description.map((paragraph) => <p>{paragraph}</p>)}
@@ -23,7 +23,13 @@ import { withBase } from '../../utils/paths';
 
 			<div class="about__visual">
 				<div class="about__frame"></div>
-				<img src={withBase(siteConfig.about.image.src, siteConfig.basePath)} alt={siteConfig.about.image.alt} loading="lazy" />
+				<Image
+					src={siteConfig.about.image.src}
+					alt={siteConfig.about.image.alt}
+					widths={[480, 720, 960]}
+					sizes="(max-width: 920px) 100vw, 44vw"
+					loading="lazy"
+				/>
 				<div class="about__note">
 					<strong>Control de calidad</strong>
 					<span>Para obra, laboratorio y apoyo externo</span>
@@ -95,7 +101,7 @@ import { withBase } from '../../utils/paths';
 		border-left: 3px solid rgba(181, 135, 63, 0.32);
 	}
 
-	.about__visual img {
+	.about__visual :global(img) {
 		width: 100%;
 		aspect-ratio: 4 / 3.4;
 		object-fit: cover;

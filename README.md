@@ -1,12 +1,12 @@
-# MTHA SADEY - Sitio web corporativo
+# SADEY LABORATORIO PARA LA CONSTRUCCIÓN - Sitio web corporativo
 
-Sitio web corporativo multipágina para MTHA SADEY construido con Astro como sitio estático, desplegado en GitHub Pages.
+Sitio web corporativo multipágina para SADEY LABORATORIO PARA LA CONSTRUCCIÓN (logotipo: MTHA), construido con Astro como sitio estático y desplegado en GitHub Pages.
 
-Estado actual: `Fase 3 completada — Reestructuración multipágina + SEO básico`
+Estado actual: `Fase 4 completada — Assets reales, branding corregido y pruebas específicas`
 
 ## Objetivo del proyecto
 
-Presentar las capacidades, servicios y proyectos de MTHA SADEY con una arquitectura web profesional, escalable y lista para crecer.
+Presentar las pruebas específicas, servicios y proyectos de SADEY LABORATORIO con una arquitectura web profesional, escalable y lista para crecer.
 
 ## Stack
 
@@ -99,13 +99,9 @@ npm run preview
 
 Toda la landing consume datos desde esos archivos. El contenido se puede actualizar sin tocar la estructura visual.
 
-## Dónde integrar el logo
+## Dónde actualizar el logo
 
-El header actualmente muestra el nombre como texto. Para reemplazarlo por el logo:
-
-1. Coloca el archivo en `public/assets/branding/logo.svg`
-2. Edita `src/components/layout/Header.astro`
-3. Sigue las instrucciones del comentario HTML en el componente
+El logo real (MTHA) vive en `src/assets/branding/logo.png` y se renderiza vía `<Image>` de Astro en `src/components/layout/Header.astro`. Para reemplazarlo, sobreescribe ese archivo con un nuevo PNG/SVG y ajusta `widths`/`sizes` si cambia la proporción.
 
 ## Dónde agregar fotos de proyecto
 

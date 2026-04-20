@@ -23,15 +23,15 @@ const { service } = Astro.props;
 
 	<div class="service-category__details">
 		<div class="service-category__column">
-			<h3>Servicios principales</h3>
+			<h3>Alcance</h3>
 			<ul>
 				{service.bullets.map((bullet) => <li>{bullet}</li>)}
 			</ul>
 		</div>
 
 		{service.futureDetails && service.futureDetails.length > 0 && (
-			<div class="service-category__column">
-				<h3>Ensayes y pruebas específicas</h3>
+			<div class={`service-category__column service-category__column--wide${service.futureDetails.length > 10 ? ' service-category__column--dense' : ''}`}>
+				<h3>Pruebas específicas</h3>
 				<ul class="service-category__details-list">
 					{service.futureDetails.map((detail) => <li>{detail}</li>)}
 				</ul>
@@ -132,5 +132,25 @@ const { service } = Astro.props;
 		height: 0.3rem;
 		border-radius: 999px;
 		background: var(--color-secondary);
+	}
+
+	.service-category__column--wide {
+		grid-column: 1 / -1;
+	}
+
+	.service-category__column--dense .service-category__details-list {
+		column-count: 2;
+		column-gap: 1.75rem;
+	}
+
+	.service-category__column--dense .service-category__details-list li {
+		break-inside: avoid;
+		page-break-inside: avoid;
+	}
+
+	@media (max-width: 720px) {
+		.service-category__column--dense .service-category__details-list {
+			column-count: 1;
+		}
 	}
 </style>

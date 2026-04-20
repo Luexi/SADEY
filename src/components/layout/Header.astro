@@ -10,16 +10,19 @@ import logo from '../../assets/branding/logo.png';
 <header class="site-header">
 	<Container>
 		<div class="site-header__inner">
-			<a class="site-header__brand" href={withBase('/', siteConfig.basePath)} aria-label="Ir al inicio de MTHA SADEY">
+			<a class="site-header__brand" href={withBase('/', siteConfig.basePath)} aria-label={`Ir al inicio de ${siteConfig.logoText}`}>
 				<Image
 					src={logo}
-					alt="MTHA SADEY"
+					alt="MTHA"
 					class="site-header__logo-img"
-					widths={[240, 420]}
-					sizes="(max-width: 640px) 140px, 200px"
+					widths={[180, 320]}
+					sizes="(max-width: 640px) 110px, 160px"
 					loading="eager"
 				/>
-				<span class="site-header__tag">Laboratorio para la construcción</span>
+				<span class="site-header__name">
+					<span class="site-header__name-long">{siteConfig.logoText}</span>
+					<span class="site-header__name-short">{siteConfig.logoTextShort ?? siteConfig.logoText}</span>
+				</span>
 			</a>
 
 			<nav class="site-header__nav" aria-label="Navegación principal">
@@ -67,8 +70,10 @@ import logo from '../../assets/branding/logo.png';
 	}
 
 	.site-header__brand {
-		display: grid;
-		gap: 0.12rem;
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		text-decoration: none;
 	}
 
 	.site-header__logo-img {
@@ -76,11 +81,35 @@ import logo from '../../assets/branding/logo.png';
 		height: clamp(2.1rem, 3.4vw, 2.7rem);
 		width: auto;
 		object-fit: contain;
+		flex-shrink: 0;
 	}
 
-	.site-header__tag {
-		font-size: 0.78rem;
-		color: rgba(255, 255, 255, 0.68);
+	.site-header__name {
+		display: inline-flex;
+		align-items: center;
+		font-family: var(--font-display);
+		font-weight: 800;
+		letter-spacing: 0.04em;
+		line-height: 1.05;
+		color: var(--color-on-primary);
+	}
+
+	.site-header__name-long,
+	.site-header__name-short {
+		font-size: clamp(0.78rem, 1.1vw, 0.95rem);
+	}
+
+	.site-header__name-short {
+		display: none;
+	}
+
+	@media (max-width: 1040px) {
+		.site-header__name-long {
+			display: none;
+		}
+		.site-header__name-short {
+			display: inline;
+		}
 	}
 
 	.site-header__nav {

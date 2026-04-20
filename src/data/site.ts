@@ -1,22 +1,24 @@
 import type { SiteConfig } from './types';
 import heroImage from '../assets/hero/hero-main.jpeg';
+import aboutImage from '../assets/about/about-main.jpg';
 
 const WHATSAPP_NUMBER = '5217441751913';
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesa solicitar información sobre los servicios de MTHA SADEY.')}`;
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesa solicitar información sobre los servicios de SADEY LABORATORIO.')}`;
 
 export const siteConfig: SiteConfig = {
 	siteUrl: 'https://luexi.github.io',
 	basePath: '/SADEY',
-	logoText: 'MTHA SADEY',
+	logoText: 'SADEY LABORATORIO PARA LA CONSTRUCCIÓN',
+	logoTextShort: 'SADEY LABORATORIO',
 	contactEmail: '',
 	address: 'AV. FIDEL VELAZQUEZ S/N, EL COLOSO INFONAVIT, C.P. 39810, ACAPULCO DE JUAREZ, GUERRERO',
 	whatsappUrl: WHATSAPP_URL,
 	domain: '',
 	socialLinks: [],
 	meta: {
-		title: 'MTHA SADEY | Laboratorio para la construcción',
+		title: 'SADEY LABORATORIO | Laboratorio para la construcción',
 		description:
-			'Servicios de ensaye para construcción, control de calidad en obra y apoyo técnico especializado para laboratorios externos. Concretos, agregados pétreos, mezcla asfáltica, suelos y SIAC.',
+			'SADEY LABORATORIO brinda pruebas específicas para construcción, control de calidad en obra y apoyo técnico a laboratorios externos. Concretos, agregados pétreos, mezcla asfáltica, suelos y SIAC.',
 	},
 	navigation: [
 		{ label: 'Inicio', href: '/', kind: 'route' },
@@ -31,9 +33,9 @@ export const siteConfig: SiteConfig = {
 	},
 	hero: {
 		eyebrow: 'Laboratorio para la construcción',
-		title: 'Ensayes y apoyo técnico confiable para obra, laboratorio y control de calidad.',
+		title: 'SADEY LABORATORIO',
 		description:
-			'MTHA SADEY brinda servicios de ensaye para construcción y soporte especializado a laboratorios externos que requieren pruebas específicas fuera de su zona habitual de operación.',
+			'Pruebas específicas, control de calidad y apoyo técnico a laboratorios externos que requieren ensayes en proyectos ubicados fuera de su zona habitual de operación.',
 		highlights: [
 			'Apoyo a otros laboratorios',
 			'Servicios en obra y laboratorio',
@@ -43,24 +45,24 @@ export const siteConfig: SiteConfig = {
 		secondaryCtaLabel: 'Explorar servicios',
 		image: {
 			src: heroImage,
-			alt: 'Trabajo de laboratorio y control de calidad en obra por MTHA SADEY.',
+			alt: 'Trabajo de laboratorio y control de calidad en obra.',
 		},
 	},
 	about: {
 		title: 'Apoyo técnico serio para proyectos y laboratorios externos',
 		description: [
-			'En MTHA SADEY ofrecemos servicios de ensaye orientados a respaldar a laboratorios externos que necesitan pruebas específicas en proyectos ubicados fuera de su zona de operación.',
-			'Nuestra operación está enfocada en facilitar resultados confiables sin trasladar equipo o personal a largas distancias, optimizando tiempos, costos y logística para el control de calidad en construcción.',
+			'En SADEY LABORATORIO PARA LA CONSTRUCCIÓN ofrecemos servicios de ensaye enfocados en apoyar a laboratorios externos que requieren la realización de pruebas específicas en proyectos ubicados fuera de su zona de operación.',
+			'Nuestro objetivo es facilitar la obtención de resultados confiables sin necesidad de trasladar equipo o personal a largas distancias, optimizando tiempos, costos y logística en proyectos de construcción.',
 		],
 		image: {
-			src: '/placeholders/stock/about-stock.jpg',
-			alt: 'Equipo técnico de laboratorio asociado a ensaye y verificación de materiales.',
+			src: aboutImage,
+			alt: 'Equipo SADEY LABORATORIO en ruta de trabajo hacia la obra.',
 		},
 	},
 	cta: {
 		title: 'Coordinemos el apoyo técnico que requiere tu proyecto',
 		description:
-			'Contáctanos por WhatsApp para solicitar información sobre nuestros servicios de ensaye, control de calidad y apoyo técnico en obra.',
+			'Contáctanos por WhatsApp para solicitar información sobre nuestras pruebas específicas, control de calidad y apoyo técnico en obra.',
 		primaryLabel: 'Escribir por WhatsApp',
 		secondaryLabel: 'Ver datos de contacto',
 		note: 'Respuesta ágil en horario laboral.',
@@ -75,22 +77,22 @@ export const siteConfig: SiteConfig = {
 		mapQuery: 'AV.+FIDEL+VELAZQUEZ,+EL+COLOSO+INFONAVIT,+ACAPULCO+DE+JUAREZ,+GUERRERO,+MEXICO',
 	},
 	footerNote:
-		'Servicios de ensaye para construcción con enfoque en apoyo técnico, control de calidad y operación en obra o laboratorio.',
+		'Pruebas específicas y control de calidad para construcción, con enfoque en apoyo técnico y operación en obra o laboratorio.',
 	pageMeta: {
 		servicios: {
-			title: 'Servicios | MTHA SADEY',
+			title: 'Servicios | SADEY LABORATORIO',
 			description:
-				'Categorías de servicio de MTHA SADEY: concretos, agregados pétreos, mezcla asfáltica, suelos y SIAC. Ensayes, control de calidad y apoyo técnico especializado.',
+				'Pruebas específicas por categoría en SADEY LABORATORIO: concretos, agregados pétreos, mezcla asfáltica, suelos y SIAC. Ensayes, control de calidad y apoyo técnico especializado.',
 		},
 		proyectos: {
-			title: 'Proyectos | MTHA SADEY',
+			title: 'Proyectos | SADEY LABORATORIO',
 			description:
-				'Proyectos recientes de MTHA SADEY en control de calidad, diseño Marshall y apoyo técnico para infraestructura carretera y obra civil.',
+				'Proyectos recientes de SADEY LABORATORIO en control de calidad, diseño Marshall y apoyo técnico para infraestructura carretera y obra civil.',
 		},
 		contacto: {
-			title: 'Contacto | MTHA SADEY',
+			title: 'Contacto | SADEY LABORATORIO',
 			description:
-				'Contacta a MTHA SADEY para solicitar información sobre servicios de ensaye y control de calidad. WhatsApp, teléfono y dirección en Acapulco, Guerrero.',
+				'Contacta a SADEY LABORATORIO para solicitar información sobre pruebas específicas y control de calidad. WhatsApp, teléfono y dirección en Acapulco, Guerrero.',
 		},
 	},
 };

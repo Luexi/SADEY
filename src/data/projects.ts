@@ -1,5 +1,8 @@
 import type { ImageMetadata } from 'astro';
 import type { GalleryImage, ProjectCase } from './types';
+import adquisicionCover from '../assets/projects/adquisicion-mezcla/_cover.webp';
+import chilixxCover from '../assets/projects/modernizacion-chilixx/_cover.webp';
+import reposicionCover from '../assets/projects/reposicion-amaac/_cover.webp';
 
 type ImageModule = { default: ImageMetadata };
 
@@ -49,13 +52,13 @@ export const projects: ProjectCase[] = [
 		category: 'Concretos, suelos y mezclas',
 		contractNumber: '2025-12-CA-A-030-W-00-2025',
 		image: {
-			src: chilixxGallery[0].src,
+			src: chilixxCover,
 			alt: 'Modernización carretera Igualapa - Chilixlahuaca - Alacatlatzala: trabajos en obra.',
 		},
 		tags: ['Control de calidad', 'Diseño Marshall', 'Infraestructura carretera'],
 		gallery: chilixxGallery,
 		metaDescription:
-			'Modernización carretera Igualapa - Chilixlahuaca - Alacatlatzala: control de calidad de concretos, suelos y mezclas por MTHA SADEY.',
+			'Modernización carretera Igualapa - Chilixlahuaca - Alacatlatzala: control de calidad de concretos, suelos y mezclas.',
 	},
 	{
 		slug: 'adquisicion-mezcla-asfaltica',
@@ -67,13 +70,13 @@ export const projects: ProjectCase[] = [
 		category: 'Mezcla asfáltica',
 		contractNumber: 'SICT-LPN-27-712-B-2025-034-AGS',
 		image: {
-			src: adquisicionGallery[0].src,
-			alt: 'Trabajos de adquisición y control de calidad de mezcla asfáltica.',
+			src: adquisicionCover,
+			alt: 'Planta de producción de mezcla asfáltica en operación — Adquisición de mezcla.',
 		},
 		tags: ['Mezcla asfáltica', 'Normativa SICT', 'Control de calidad'],
 		gallery: adquisicionGallery,
 		metaDescription:
-			'Adquisición de mezcla asfáltica: diseño Marshall y control de calidad con normativa SICT por MTHA SADEY.',
+			'Adquisición de mezcla asfáltica: diseño Marshall y control de calidad con normativa SICT.',
 	},
 	{
 		slug: 'reposicion-carpeta-asfaltica',
@@ -85,12 +88,12 @@ export const projects: ProjectCase[] = [
 		category: 'Mezcla asfáltica',
 		contractNumber: null,
 		image: {
-			src: amaacGallery[0].src,
-			alt: 'Trabajos de reposición de carpeta asfáltica bajo protocolo AMAAC.',
+			src: reposicionCover,
+			alt: 'Reposición de carpeta asfáltica: personal SADEY LABORATORIO supervisando carga en camión.',
 		},
 		tags: ['AMAAC', 'Producción de mezcla', 'Reposición de carpeta'],
 		gallery: amaacGallery,
 		metaDescription:
-			'Reposición de carpeta asfáltica: diseño Marshall, normativa SICT y protocolo AMAAC por MTHA SADEY.',
+			'Reposición de carpeta asfáltica: diseño Marshall, normativa SICT y protocolo AMAAC.',
 	},
 ];
