@@ -2,7 +2,7 @@ import type { SiteConfig } from './types';
 import heroImage from '../assets/hero/hero-main.jpeg';
 import aboutImage from '../assets/about/about-main.jpg';
 
-const WHATSAPP_NUMBER = '5217441751913';
+const WHATSAPP_NUMBER = '527531200374';
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesa solicitar información sobre los servicios de SADEY LABORATORIO.')}`;
 
 export const siteConfig: SiteConfig = {
@@ -20,7 +20,7 @@ export const siteConfig: SiteConfig = {
 	meta: {
 		title: 'SADEY LABORATORIO | Laboratorio para la construcción',
 		description:
-			'SADEY LABORATORIO brinda pruebas específicas para construcción, control de calidad en obra y apoyo técnico a laboratorios externos. Concretos, agregados pétreos, mezcla asfáltica, suelos y SIAC.',
+			'SADEY LABORATORIO brinda pruebas específicas para construcción, control de calidad en obra y apoyo técnico a laboratorios externos. Concretos, agregados pétreos, mezcla asfáltica, terracerías y SIAC.',
 	},
 	navigation: [
 		{ label: 'Inicio', href: '/', kind: 'route' },
@@ -70,8 +70,8 @@ export const siteConfig: SiteConfig = {
 		note: 'Respuesta ágil en horario laboral.',
 	},
 	contact: {
-		phone: '+527441751913',
-		phoneDisplay: '+52 1 744 175 1913',
+		phone: '+527531200374',
+		phoneDisplay: '+52 753 120 0374',
 		address: 'AV. FIDEL VELAZQUEZ S/N, EL COLOSO INFONAVIT, C.P. 39810, ACAPULCO DE JUAREZ, GUERRERO',
 		whatsappUrl: WHATSAPP_URL,
 		whatsappNumber: WHATSAPP_NUMBER,
@@ -84,7 +84,7 @@ export const siteConfig: SiteConfig = {
 		servicios: {
 			title: 'Servicios | SADEY LABORATORIO',
 			description:
-				'Pruebas específicas por categoría en SADEY LABORATORIO: concretos, agregados pétreos, mezcla asfáltica, suelos y SIAC. Ensayes, control de calidad y apoyo técnico especializado.',
+				'Pruebas específicas por categoría en SADEY LABORATORIO: concretos, agregados pétreos, mezcla asfáltica, terracerías y SIAC. Ensayes, control de calidad y apoyo técnico especializado.',
 		},
 		proyectos: {
 			title: 'Proyectos | SADEY LABORATORIO',

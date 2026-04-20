@@ -19,7 +19,10 @@ import logo from '../../assets/branding/logo.png';
 					sizes="(max-width: 640px) 150px, 220px"
 					loading="eager"
 				/>
-				<span class="site-header__wordmark">{siteConfig.brandName}</span>
+				<span class="site-header__brand-text">
+					<span class="site-header__wordmark">{siteConfig.brandName}</span>
+					<span class="site-header__tagline">{siteConfig.brandTagline}</span>
+				</span>
 			</a>
 
 			<nav class="site-header__nav" aria-label="Navegación principal">
@@ -81,6 +84,13 @@ import logo from '../../assets/branding/logo.png';
 		flex-shrink: 0;
 	}
 
+	.site-header__brand-text {
+		display: flex;
+		flex-direction: column;
+		gap: 0.18rem;
+		line-height: 1;
+	}
+
 	.site-header__wordmark {
 		font-family: var(--font-display);
 		font-size: clamp(1.3rem, 2.1vw, 1.75rem);
@@ -88,11 +98,26 @@ import logo from '../../assets/branding/logo.png';
 		letter-spacing: 0.08em;
 		line-height: 1;
 		color: #ffffff;
-		transform: translateY(0.18em);
+	}
+
+	.site-header__tagline {
+		font-family: var(--font-display);
+		font-size: clamp(0.6rem, 0.9vw, 0.72rem);
+		font-weight: 600;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: #ffffff;
+		white-space: nowrap;
+	}
+
+	@media (max-width: 640px) {
+		.site-header__tagline {
+			display: none;
+		}
 	}
 
 	@media (max-width: 480px) {
-		.site-header__wordmark {
+		.site-header__brand-text {
 			display: none;
 		}
 	}

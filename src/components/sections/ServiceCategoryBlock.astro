@@ -38,9 +38,14 @@ const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureD
 						</summary>
 						<div class="service-category__capa-content">
 							{capa.tests.length > 0 ? (
-								<ul>
-									{capa.tests.map((test) => <li>{test}</li>)}
-								</ul>
+								<ol class="service-category__tests-grid">
+									{capa.tests.map((test, idx) => (
+										<li class="service-category__test-card">
+											<span class="service-category__test-number">{String(idx + 1).padStart(2, '0')}</span>
+											<span class="service-category__test-name">{test}</span>
+										</li>
+									))}
+								</ol>
 							) : (
 								<p class="service-category__capa-empty">Pruebas por confirmar.</p>
 							)}
@@ -265,30 +270,51 @@ const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureD
 		padding: 0 1rem 1rem;
 	}
 
-	.service-category__capa-content ul {
+	.service-category__tests-grid {
 		display: grid;
-		gap: 0.5rem;
+		grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+		gap: 0.65rem 0.85rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.service-category__capa-content li {
-		position: relative;
-		padding-left: 1rem;
-		font-size: 0.92rem;
-		color: var(--color-on-surface-variant);
+	.service-category__test-card {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		align-items: center;
+		gap: 0.85rem;
+		padding: 0.75rem 0.95rem;
+		background: var(--color-surface-strong);
+		border: 1px solid var(--color-line);
+		border-radius: var(--radius-md);
+		transition:
+			transform var(--transition-base),
+			box-shadow var(--transition-base),
+			border-color var(--transition-base);
 	}
 
-	.service-category__capa-content li::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0.6rem;
-		width: 0.3rem;
-		height: 0.3rem;
-		border-radius: 999px;
-		background: var(--color-secondary);
+	.service-category__test-card:hover {
+		transform: translateY(-2px);
+		border-color: rgba(181, 135, 63, 0.35);
+		box-shadow: var(--shadow-xs);
+	}
+
+	.service-category__test-number {
+		font-family: var(--font-display);
+		font-size: 1rem;
+		font-weight: 800;
+		letter-spacing: 0.04em;
+		color: var(--color-secondary-strong);
+		min-width: 1.6rem;
+		text-align: right;
+		line-height: 1;
+	}
+
+	.service-category__test-name {
+		font-size: 0.9rem;
+		line-height: 1.3;
+		color: var(--color-on-surface);
 	}
 
 	.service-category__capa-empty {
@@ -301,6 +327,12 @@ const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureD
 	@media (max-width: 720px) {
 		.service-category__details-list--dense {
 			column-count: 1;
+		}
+	}
+
+	@media (max-width: 560px) {
+		.service-category__tests-grid {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>

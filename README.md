@@ -2,7 +2,7 @@
 
 Sitio web corporativo multipágina para **SADEY LABORATORIO PARA LA CONSTRUCCIÓN** (logotipo: MTHA), construido con Astro como sitio estático y desplegado en GitHub Pages.
 
-Estado actual: sitio en producción con branding refinado, servicios consolidados bajo "Pruebas específicas" y sección de Suelos con paneles desplegables por capa.
+Estado actual: sitio en producción con branding refinado, servicios consolidados bajo "Pruebas específicas" y sección de Terracerías con paneles desplegables por capa y pruebas en formato de cards numeradas.
 
 ## Objetivo del proyecto
 
@@ -112,11 +112,11 @@ npm run preview
 
 ### Servicios (página `/servicios`)
 
-Cada categoría (Concretos, Agregados pétreos, Mezcla asfáltica, Suelos, SIAC) se renderiza con `ServiceCategoryBlock`:
+Cada categoría (Concretos, Agregados pétreos, Mezcla asfáltica, Terracerías, SIAC) se renderiza con `ServiceCategoryBlock`:
 
 - Descripción corta en la cabecera.
 - Una sola columna bajo el rubro **Pruebas específicas** (o el label custom definido en `detailsLabel`).
-- **Suelos** es un caso especial: en lugar de una lista plana, muestra 7 paneles `<details>` desplegables (uno por capa). Las pruebas específicas por capa se definen en el campo `testsByCapa[]` y se llenan conforme el cliente manda el detalle. Un script inline abre automáticamente el panel correspondiente si la URL llega con hash `#capa-<slug>`.
+- **Terracerías** es un caso especial: en lugar de una lista plana, muestra 7 paneles `<details>` desplegables (uno por capa). Las pruebas específicas por capa se definen en el campo `testsByCapa[]` y se renderizan como una grilla de cards numeradas (`01`, `02`, …) con hover dorado. Un script inline abre automáticamente el panel correspondiente si la URL llega con hash `#capa-<slug>`.
 - **SIAC** reutiliza `futureDetails` con `detailsLabel: "Servicios incluidos"` al ser un servicio y no una lista de ensayes.
 
 ## Dónde editar contenido
@@ -125,7 +125,7 @@ Cada categoría (Concretos, Agregados pétreos, Mezcla asfáltica, Suelos, SIAC)
 | --- | --- |
 | Nombre de marca, tagline, SEO global, navegación, contacto, hero copy | [`src/data/site.ts`](src/data/site.ts) |
 | Pruebas específicas por servicio | [`src/data/services.ts`](src/data/services.ts) |
-| Pruebas específicas **por capa de suelos** | `testsByCapa[].tests` dentro de la entrada `suelos` en [`src/data/services.ts`](src/data/services.ts) |
+| Pruebas específicas **por capa de terracerías** | `testsByCapa[].tests` dentro de la entrada `terracerias` en [`src/data/services.ts`](src/data/services.ts) |
 | Proyectos y galerías | [`src/data/projects.ts`](src/data/projects.ts) |
 | Diferenciadores de marca | [`src/data/differentiators.ts`](src/data/differentiators.ts) |
 | Tipos compartidos | [`src/data/types.ts`](src/data/types.ts) |
