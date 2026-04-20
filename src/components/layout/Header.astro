@@ -66,7 +66,7 @@ import logo from '../../assets/branding/logo.png';
 		display: grid;
 		grid-template-columns: auto 1fr auto;
 		align-items: center;
-		gap: 1.5rem;
+		gap: 1.25rem;
 	}
 
 	.site-header__brand {
@@ -87,9 +87,10 @@ import logo from '../../assets/branding/logo.png';
 	.site-header__name {
 		display: inline-flex;
 		align-items: center;
-		font-family: var(--font-display);
-		font-weight: 800;
-		letter-spacing: 0.04em;
+		font-family: var(--font-body);
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
 		line-height: 1.05;
 		color: var(--color-on-primary);
 	}
@@ -103,7 +104,7 @@ import logo from '../../assets/branding/logo.png';
 		display: none;
 	}
 
-	@media (max-width: 1040px) {
+	@media (max-width: 1280px) {
 		.site-header__name-long {
 			display: none;
 		}
@@ -118,13 +119,14 @@ import logo from '../../assets/branding/logo.png';
 
 	.site-header__nav ul {
 		display: flex;
-		flex-wrap: wrap;
+		flex-wrap: nowrap;
 		align-items: center;
 		justify-content: center;
-		gap: 1.4rem;
+		gap: clamp(0.9rem, 1.5vw, 1.4rem);
 		margin: 0;
 		padding: 0;
 		list-style: none;
+		white-space: nowrap;
 	}
 
 	.site-header__nav a {
@@ -151,6 +153,7 @@ import logo from '../../assets/branding/logo.png';
 		}
 
 		.site-header__nav ul {
+			flex-wrap: wrap;
 			justify-content: flex-start;
 			row-gap: 0.8rem;
 		}

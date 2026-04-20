@@ -81,8 +81,24 @@ import { siteConfig } from '../data/site';
 		gap: 0.8rem;
 		padding: 1.5rem;
 		background: var(--color-surface-strong);
+		border: 1px solid transparent;
 		border-radius: var(--radius-lg);
-		box-shadow: var(--shadow-soft);
+		box-shadow: var(--shadow-sm);
+		transition:
+			transform var(--transition-base),
+			box-shadow var(--transition-base),
+			border-color var(--transition-base);
+	}
+
+	.why__card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-card-hover);
+		border-color: rgba(181, 135, 63, 0.28);
+	}
+
+	.why__card:hover .why__icon {
+		background: var(--color-accent-gradient);
+		color: var(--color-on-primary);
 	}
 
 	.why__icon {
@@ -94,8 +110,11 @@ import { siteConfig } from '../data/site';
 		border-radius: 999px;
 		background: var(--color-secondary-soft);
 		font-family: var(--font-display);
-		font-weight: 800;
+		font-weight: 700;
 		color: var(--color-secondary);
+		transition:
+			background var(--transition-base),
+			color var(--transition-base);
 	}
 
 	.why__card h3,
