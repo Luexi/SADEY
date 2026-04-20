@@ -64,6 +64,8 @@ export interface SiteConfig {
 	basePath: string;
 	logoText: string;
 	logoTextShort?: string;
+	brandName: string;
+	brandTagline: string;
 	contactEmail: string;
 	address: string;
 	whatsappUrl: string;
@@ -86,12 +88,20 @@ export interface GalleryImage {
 	caption?: string;
 }
 
+export interface TestsByCapa {
+	capaSlug: string;
+	capaTitle: string;
+	tests: string[];
+}
+
 export interface ServiceItem {
 	slug: string;
 	title: string;
 	shortDescription: string;
-	bullets: string[];
+	bullets?: string[];
 	futureDetails?: string[];
+	detailsLabel?: string;
+	testsByCapa?: TestsByCapa[];
 	icon?: string;
 	metaDescription?: string;
 }

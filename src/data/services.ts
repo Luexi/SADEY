@@ -7,10 +7,12 @@ export const services: ServiceItem[] = [
 		icon: 'science',
 		shortDescription:
 			'Pruebas específicas y seguimiento para el control de calidad de concretos en laboratorio y en obra.',
-		bullets: [
-			'Control de calidad de materiales',
-			'Apoyo técnico para proyectos en ejecución',
-			'Integración sencilla a esquemas de laboratorio externo',
+		futureDetails: [
+			'Revenimiento del Concreto Fresco',
+			'Resistencia a la Compresión Simple de Cilindro de Concreto',
+			'Resistencia a la Tensión de Cilindros de Concreto',
+			'Peso volumétrico',
+			'Diseño de Concreto Hidráulico Método ACI',
 		],
 		metaDescription:
 			'Pruebas específicas y control de calidad de concretos en laboratorio y obra.',
@@ -21,11 +23,6 @@ export const services: ServiceItem[] = [
 		icon: 'blur_on',
 		shortDescription:
 			'Pruebas específicas para materiales pétreos destinados a terracerías y mezclas asfálticas.',
-		bullets: [
-			'Muestreo y preparación de muestras',
-			'Ensayes físicos y químicos de laboratorio',
-			'Control de calidad en obra',
-		],
 		futureDetails: [
 			'Muestreo de Materiales para Terracerías / Muestreo de Materiales Pétreos para Mezclas Asfálticas',
 			'Secado, Disgregado y Cuarteo de Muestras',
@@ -63,10 +60,19 @@ export const services: ServiceItem[] = [
 		icon: 'local_shipping',
 		shortDescription:
 			'Diseño Marshall y pruebas específicas de control de calidad para mezclas asfálticas conforme a la normativa vigente del proyecto.',
-		bullets: [
+		futureDetails: [
+			'Muestreo de Materiales Pétreos para Mezclas Asfálticas',
+			'Muestreo de Mezcla asfáltica',
+			'Contenido de Cemento o Residuo Asfáltico en Mezclas Asfálticas mediante Extracción por Centrifugado',
+			'Vacíos de Aire en la Mezcla Asfáltica',
+			'Vacíos en el Agregado Mineral',
+			'Vacíos Ocupados por el Asfalto',
+			'Proporción Filler - Asfalto',
+			'Susceptibilidad a la Humedad',
+			'Susceptibilidad a la Humedad y a la Deformación Permanente por Rodera',
+			'Extracción de Núcleos',
 			'Diseño Marshall',
-			'Control de calidad en producción y colocación',
-			'Apoyo para proyectos con normativa SICT y protocolos AMAAC',
+			'Diseño Protocolo AMAAC',
 		],
 		metaDescription:
 			'Diseño Marshall y pruebas específicas de mezcla asfáltica con normativa SICT y AMAAC.',
@@ -77,13 +83,18 @@ export const services: ServiceItem[] = [
 		icon: 'foundation',
 		shortDescription:
 			'Pruebas específicas para evaluación y control de materiales de terracería, compactación y comportamiento en sitio.',
-		bullets: [
-			'Servicios en laboratorio y directamente en obra',
-			'Seguimiento para control de compactación',
-			'Apoyo técnico para toma de decisiones operativas',
+		detailsLabel: 'Capas',
+		testsByCapa: [
+			{ capaSlug: 'terraplenes-acceso-puentes', capaTitle: 'Terraplenes de Acceso en Puentes', tests: [] },
+			{ capaSlug: 'cuerpo-terraplen', capaTitle: 'Cuerpo de Terraplén', tests: [] },
+			{ capaSlug: 'capa-subyacente', capaTitle: 'Capa Subyacente', tests: [] },
+			{ capaSlug: 'capa-subrasante', capaTitle: 'Capa Subrasante', tests: [] },
+			{ capaSlug: 'subbase', capaTitle: 'Subbase', tests: [] },
+			{ capaSlug: 'base-hidraulica', capaTitle: 'Base hidráulica', tests: [] },
+			{ capaSlug: 'base-tratada', capaTitle: 'Base tratada', tests: [] },
 		],
 		metaDescription:
-			'Pruebas específicas de suelos para terracerías, compactación y control de calidad en obra.',
+			'Pruebas específicas de suelos por capa: terraplenes, subbase, base hidráulica y base tratada.',
 	},
 	{
 		slug: 'siac',
@@ -91,7 +102,8 @@ export const services: ServiceItem[] = [
 		icon: 'verified',
 		shortDescription:
 			'Soporte documental y operativo para ordenar la información del laboratorio y facilitar la gestión del proyecto.',
-		bullets: [
+		detailsLabel: 'Servicios incluidos',
+		futureDetails: [
 			'Elaboración de reportes de laboratorio para estimaciones',
 			'Soluciones en el manejo de la plataforma',
 		],

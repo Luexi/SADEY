@@ -13,16 +13,13 @@ import logo from '../../assets/branding/logo.png';
 			<a class="site-header__brand" href={withBase('/', siteConfig.basePath)} aria-label={`Ir al inicio de ${siteConfig.logoText}`}>
 				<Image
 					src={logo}
-					alt="MTHA"
+					alt={siteConfig.logoText}
 					class="site-header__logo-img"
-					widths={[180, 320]}
-					sizes="(max-width: 640px) 110px, 160px"
+					widths={[240, 480, 640]}
+					sizes="(max-width: 640px) 150px, 220px"
 					loading="eager"
 				/>
-				<span class="site-header__name">
-					<span class="site-header__name-long">{siteConfig.logoText}</span>
-					<span class="site-header__name-short">{siteConfig.logoTextShort ?? siteConfig.logoText}</span>
-				</span>
+				<span class="site-header__wordmark">{siteConfig.brandName}</span>
 			</a>
 
 			<nav class="site-header__nav" aria-label="Navegación principal">
@@ -78,37 +75,25 @@ import logo from '../../assets/branding/logo.png';
 
 	.site-header__logo-img {
 		display: block;
-		height: clamp(2.1rem, 3.4vw, 2.7rem);
+		height: clamp(3rem, 5vw, 4.2rem);
 		width: auto;
 		object-fit: contain;
 		flex-shrink: 0;
 	}
 
-	.site-header__name {
-		display: inline-flex;
-		align-items: center;
+	.site-header__wordmark {
 		font-family: var(--font-display);
+		font-size: clamp(1.3rem, 2.1vw, 1.75rem);
 		font-weight: 800;
-		letter-spacing: 0.04em;
-		line-height: 1.05;
-		color: var(--color-on-primary);
+		letter-spacing: 0.08em;
+		line-height: 1;
+		color: #ffffff;
+		transform: translateY(-0.12em);
 	}
 
-	.site-header__name-long,
-	.site-header__name-short {
-		font-size: clamp(0.78rem, 1.1vw, 0.95rem);
-	}
-
-	.site-header__name-short {
-		display: none;
-	}
-
-	@media (max-width: 1280px) {
-		.site-header__name-long {
+	@media (max-width: 480px) {
+		.site-header__wordmark {
 			display: none;
-		}
-		.site-header__name-short {
-			display: inline;
 		}
 	}
 

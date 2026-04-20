@@ -10,6 +10,8 @@ export const siteConfig: SiteConfig = {
 	basePath: '/SADEY',
 	logoText: 'SADEY LABORATORIO PARA LA CONSTRUCCIÓN',
 	logoTextShort: 'SADEY LABORATORIO',
+	brandName: 'SADEY',
+	brandTagline: 'Laboratorio para la Construcción',
 	contactEmail: '',
 	address: 'AV. FIDEL VELAZQUEZ S/N, EL COLOSO INFONAVIT, C.P. 39810, ACAPULCO DE JUAREZ, GUERRERO',
 	whatsappUrl: WHATSAPP_URL,

@@ -6,6 +6,9 @@ interface Props {
 }
 
 const { service } = Astro.props;
+const detailsLabel = service.detailsLabel ?? 'Pruebas específicas';
+const hasCapas = Array.isArray(service.testsByCapa) && service.testsByCapa.length > 0;
+const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureDetails.length > 0;
 ---
 
 <article class="service-category" id={service.slug}>
@@ -21,24 +24,64 @@ const { service } = Astro.props;
 		</div>
 	</div>
 
-	<div class="service-category__details">
-		<div class="service-category__column">
-			<h3>Alcance</h3>
-			<ul>
-				{service.bullets.map((bullet) => <li>{bullet}</li>)}
+	{hasCapas && (
+		<div class="service-category__body">
+			<h3 class="service-category__rubric">{detailsLabel}</h3>
+			<p class="service-category__hint">Selecciona una capa para ver las pruebas específicas que le corresponden.</p>
+
+			<div class="service-category__capa-panels">
+				{service.testsByCapa!.map((capa) => (
+					<details class="service-category__capa" id={`capa-${capa.capaSlug}`}>
+						<summary>
+							<span class="service-category__capa-title">{capa.capaTitle}</span>
+							<span class="material-symbols-outlined service-category__capa-chevron" aria-hidden="true">expand_more</span>
+						</summary>
+						<div class="service-category__capa-content">
+							{capa.tests.length > 0 ? (
+								<ul>
+									{capa.tests.map((test) => <li>{test}</li>)}
+								</ul>
+							) : (
+								<p class="service-category__capa-empty">Pruebas por confirmar.</p>
+							)}
+						</div>
+					</details>
+				))}
+			</div>
+		</div>
+	)}
+
+	{!hasCapas && hasFutureDetails && (
+		<div class="service-category__body">
+			<h3 class="service-category__rubric">{detailsLabel}</h3>
+			<ul class={`service-category__details-list${service.futureDetails!.length > 10 ? ' service-category__details-list--dense' : ''}`}>
+				{service.futureDetails!.map((detail) => <li>{detail}</li>)}
 			</ul>
 		</div>
-
-		{service.futureDetails && service.futureDetails.length > 0 && (
-			<div class={`service-category__column service-category__column--wide${service.futureDetails.length > 10 ? ' service-category__column--dense' : ''}`}>
-				<h3>Pruebas específicas</h3>
-				<ul class="service-category__details-list">
-					{service.futureDetails.map((detail) => <li>{detail}</li>)}
-				</ul>
-			</div>
-		)}
-	</div>
+	)}
 </article>
+
+{hasCapas && (
+	<script is:inline>
+		(() => {
+			const openFromHash = () => {
+				const hash = window.location.hash;
+				if (!hash || !hash.startsWith('#capa-')) return;
+				const target = document.querySelector(hash);
+				if (target && target.tagName === 'DETAILS') {
+					target.open = true;
+					target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
+			};
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', openFromHash);
+			} else {
+				openFromHash();
+			}
+			window.addEventListener('hashchange', openFromHash);
+		})();
+	</script>
+)}
 
 <style>
 	.service-category {
@@ -101,16 +144,15 @@ const { service } = Astro.props;
 		color: var(--color-on-surface-variant);
 	}
 
-	.service-category__details {
+	.service-category__body {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-		gap: 1.5rem;
+		gap: 1rem;
 		padding-top: 0.5rem;
 		border-top: 1px solid var(--color-line);
 	}
 
-	.service-category__column h3 {
-		margin: 0 0 0.75rem;
+	.service-category__rubric {
+		margin: 0;
 		font-family: var(--font-body);
 		font-size: 0.82rem;
 		font-weight: 600;
@@ -119,15 +161,13 @@ const { service } = Astro.props;
 		color: var(--color-secondary);
 	}
 
-	li {
-		transition: color var(--transition-base);
+	.service-category__hint {
+		margin: 0;
+		font-size: 0.88rem;
+		color: var(--color-on-surface-variant);
 	}
 
-	.service-category__details-list li:hover {
-		color: var(--color-on-surface);
-	}
-
-	ul {
+	.service-category__details-list {
 		display: grid;
 		gap: 0.6rem;
 		margin: 0;
@@ -135,14 +175,15 @@ const { service } = Astro.props;
 		list-style: none;
 	}
 
-	li {
+	.service-category__details-list li {
 		position: relative;
 		padding-left: 1rem;
 		font-size: 0.95rem;
 		color: var(--color-on-surface-variant);
+		transition: color var(--transition-base);
 	}
 
-	li::before {
+	.service-category__details-list li::before {
 		content: '';
 		position: absolute;
 		left: 0;
@@ -153,22 +194,112 @@ const { service } = Astro.props;
 		background: var(--color-secondary);
 	}
 
-	.service-category__column--wide {
-		grid-column: 1 / -1;
+	.service-category__details-list li:hover {
+		color: var(--color-on-surface);
 	}
 
-	.service-category__column--dense .service-category__details-list {
+	.service-category__details-list--dense {
 		column-count: 2;
 		column-gap: 1.75rem;
 	}
 
-	.service-category__column--dense .service-category__details-list li {
+	.service-category__details-list--dense li {
 		break-inside: avoid;
 		page-break-inside: avoid;
 	}
 
+	.service-category__capa-panels {
+		display: grid;
+		gap: 0.5rem;
+		margin-top: 0.5rem;
+	}
+
+	.service-category__capa {
+		border: 1px solid var(--color-line);
+		border-radius: var(--radius-md, 0.6rem);
+		background: var(--color-surface);
+		overflow: hidden;
+		transition: border-color var(--transition-base), box-shadow var(--transition-base);
+	}
+
+	.service-category__capa[open] {
+		border-color: rgba(181, 135, 63, 0.35);
+		box-shadow: var(--shadow-sm);
+	}
+
+	.service-category__capa:target {
+		border-color: var(--color-secondary);
+	}
+
+	.service-category__capa > summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.85rem 1rem;
+		list-style: none;
+		cursor: pointer;
+		font-weight: 600;
+		color: var(--color-primary);
+	}
+
+	.service-category__capa > summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.service-category__capa-title {
+		font-size: 0.98rem;
+	}
+
+	.service-category__capa-chevron {
+		font-size: 1.3rem !important;
+		color: var(--color-secondary);
+		transition: transform var(--transition-base);
+	}
+
+	.service-category__capa[open] .service-category__capa-chevron {
+		transform: rotate(180deg);
+	}
+
+	.service-category__capa-content {
+		padding: 0 1rem 1rem;
+	}
+
+	.service-category__capa-content ul {
+		display: grid;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.service-category__capa-content li {
+		position: relative;
+		padding-left: 1rem;
+		font-size: 0.92rem;
+		color: var(--color-on-surface-variant);
+	}
+
+	.service-category__capa-content li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.6rem;
+		width: 0.3rem;
+		height: 0.3rem;
+		border-radius: 999px;
+		background: var(--color-secondary);
+	}
+
+	.service-category__capa-empty {
+		margin: 0;
+		font-size: 0.9rem;
+		color: var(--color-on-surface-variant);
+		font-style: italic;
+	}
+
 	@media (max-width: 720px) {
-		.service-category__column--dense .service-category__details-list {
+		.service-category__details-list--dense {
 			column-count: 1;
 		}
 	}
