@@ -4,6 +4,26 @@ import Container from '../ui/Container.astro';
 import { siteConfig } from '../../data/site';
 import { withBase } from '../../utils/paths';
 import logo from '../../assets/branding/logo.png';
+
+const currentPath = (() => {
+	const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+	const normalizedBase = siteConfig.basePath === '/' ? '' : siteConfig.basePath.replace(/\/$/, '');
+
+	if (!normalizedBase || !pathname.startsWith(normalizedBase)) {
+		return pathname;
+	}
+
+	const withoutBase = pathname.slice(normalizedBase.length) || '/';
+	return withoutBase.startsWith('/') ? withoutBase : `/${withoutBase}`;
+})();
+
+const isActiveNavItem = (href: string) => {
+	if (href === '/') {
+		return currentPath === '/';
+	}
+
+	return currentPath === href || currentPath.startsWith(`${href}/`);
+};
 ---
 
 <header class="site-header">
@@ -29,7 +49,11 @@ import logo from '../../assets/branding/logo.png';
 					{
 						siteConfig.navigation.map((item) => (
 							<li>
-								<a href={item.kind === 'external' ? item.href : withBase(item.href, siteConfig.basePath)}>
+								<a
+									href={item.kind === 'external' ? item.href : withBase(item.href, siteConfig.basePath)}
+									class:list={{ 'site-header__nav-link--active': item.kind === 'route' && isActiveNavItem(item.href) }}
+									aria-current={item.kind === 'route' && isActiveNavItem(item.href) ? 'page' : undefined}
+								>
 									{item.label}
 								</a>
 							</li>
@@ -115,17 +139,30 @@ import logo from '../../assets/branding/logo.png';
 
 	.site-header__nav a {
 		display: inline-flex;
-		padding: 0.25rem 0;
+		padding: 0.38rem 0.72rem;
 		font-size: 0.82rem;
 		font-weight: 700;
 		letter-spacing: 0.12em;
 		text-transform: uppercase;
+		border: 1px solid transparent;
+		border-radius: 999px;
 		color: rgba(255, 255, 255, 0.76);
-		transition: color var(--transition-base);
+		transition:
+			color var(--transition-base),
+			border-color var(--transition-base),
+			background-color var(--transition-base),
+			box-shadow var(--transition-base);
 	}
 
 	.site-header__nav a:hover {
 		color: var(--color-secondary-strong);
+	}
+
+	.site-header__nav a.site-header__nav-link--active {
+		color: var(--color-secondary-strong);
+		border-color: rgba(214, 174, 104, 0.72);
+		background: rgba(214, 174, 104, 0.08);
+		box-shadow: inset 0 0 0 1px rgba(214, 174, 104, 0.14);
 	}
 
 	@media (max-width: 640px) {
