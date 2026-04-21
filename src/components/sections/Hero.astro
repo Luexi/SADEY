@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import Button from '../ui/Button.astro';
 import Container from '../ui/Container.astro';
 import { siteConfig } from '../../data/site';
 
@@ -24,15 +23,14 @@ const { hero } = siteConfig;
 			<div class="hero__overlay"></div>
 
 			<div class="hero__content">
-				<h1 class="hero__brand">
-					<span class="hero__brand-name">{siteConfig.brandName}</span>
-					<span class="hero__brand-tagline">{siteConfig.brandTagline}</span>
+				<div class="hero__badge">
+					<span class="badge__pulse"></span>
+					{siteConfig.brandName}
+				</div>
+				<h1 class="hero__brand-question">
+					¿A qué nos <br/><span class="text-gradient">dedicamos?</span>
 				</h1>
 				<p>{hero.description}</p>
-
-				<div class="hero__actions">
-					<Button href="/servicios" label={hero.secondaryCtaLabel} variant="ghost" />
-				</div>
 
 				<ul class="hero__highlights" aria-label="Fortalezas destacadas">
 					{hero.highlights.map((item) => <li>{item}</li>)}
@@ -97,30 +95,59 @@ const { hero } = siteConfig;
 		color: var(--color-on-primary);
 	}
 
-	.hero__brand {
-		display: flex;
-		flex-direction: column;
-		gap: 0.35rem;
-		margin: 0;
-		line-height: 1;
-	}
-
-	.hero__brand-name {
-		font-family: var(--font-display);
-		font-size: clamp(3rem, 8vw, 5.5rem);
-		font-weight: 800;
-		line-height: 0.9;
-		letter-spacing: 0.02em;
-		color: var(--color-secondary-strong);
-	}
-
-	.hero__brand-tagline {
-		font-family: var(--font-display);
-		font-size: clamp(0.85rem, 1.35vw, 1.15rem);
+	.hero__badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 0.35rem 1rem;
+		width: max-content;
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 999px;
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		font-size: 0.75rem;
 		font-weight: 600;
-		letter-spacing: 0.22em;
+		letter-spacing: 0.15em;
 		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.9);
+		margin-bottom: 0.5rem;
+		box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.1);
+	}
+
+	.badge__pulse {
+		display: block;
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background-color: var(--color-secondary-strong);
+		box-shadow: 0 0 0 0 rgba(214, 174, 104, 0.7);
+		animation: pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+	}
+
+	@keyframes pulse {
+		to {
+			box-shadow: 0 0 0 10px rgba(214, 174, 104, 0);
+		}
+	}
+
+	.hero__brand-question {
+		font-family: var(--font-display);
+		font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+		font-weight: 800;
+		line-height: 1.05;
+		letter-spacing: -0.01em;
+		margin: 0;
 		color: var(--color-on-primary);
+	}
+
+	.text-gradient {
+		background: linear-gradient(135deg, #ffffff 0%, var(--color-secondary-strong) 40%, rgba(214, 174, 104, 0.7) 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		color: transparent;
+		display: inline-block;
 	}
 
 	.hero__content p {
@@ -128,13 +155,6 @@ const { hero } = siteConfig;
 		max-width: 34rem;
 		font-size: 1.02rem;
 		color: rgba(255, 255, 255, 0.84);
-	}
-
-	.hero__actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.85rem;
-		padding-top: 0.25rem;
 	}
 
 	.hero__highlights {
@@ -181,8 +201,8 @@ const { hero } = siteConfig;
 			padding: 2rem 1.4rem;
 		}
 
-		.hero__brand-tagline {
-			letter-spacing: 0.18em;
+		.hero__badge {
+			display: none;
 		}
 	}
 </style>
