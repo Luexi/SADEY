@@ -14,9 +14,9 @@ const { contact } = siteConfig;
 				<p class="site-footer__note">{siteConfig.footerNote}</p>
 			</div>
 
-			<div class="site-footer__column">
-				<h2>Navegación</h2>
-				<ul>
+			<div class="site-footer__column site-footer__column--nav">
+				<h2>Navegacion</h2>
+				<ul class="site-footer__nav-list">
 					{
 						siteConfig.navigation.map((item) => (
 							<li>
@@ -29,20 +29,26 @@ const { contact } = siteConfig;
 				</ul>
 			</div>
 
-			<div class="site-footer__column">
+			<div class="site-footer__column site-footer__column--contact">
 				<h2>Contacto</h2>
-				<ul>
+				<ul class="site-footer__contact-list">
 					<li>
+						<span class="site-footer__label">Tel</span>
 						<a href={`tel:${contact.phone}`}>{contact.phoneDisplay}</a>
 					</li>
 					{contact.email && (
 						<li>
+							<span class="site-footer__label">Email</span>
 							<a href={`mailto:${contact.email}`}>{contact.email}</a>
 						</li>
 					)}
-					<li>{contact.address}</li>
 					<li>
-						<a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+						<span class="site-footer__label">Direccion</span>
+						<span>{contact.address}</span>
+					</li>
+					<li>
+						<span class="site-footer__label">WhatsApp</span>
+						<a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">Abrir chat</a>
 					</li>
 				</ul>
 			</div>
@@ -51,14 +57,14 @@ const { contact } = siteConfig;
 
 	<Container>
 		<div class="site-footer__bottom">
-			<p>© {new Date().getFullYear()} SADEY LABORATORIO PARA LA CONSTRUCCIÓN.</p>
+			<p>© {new Date().getFullYear()} SADEY LABORATORIO PARA LA CONSTRUCCION.</p>
 		</div>
 	</Container>
 </footer>
 
 <style>
 	.site-footer {
-		padding: var(--space-2xl) 0 var(--space-lg);
+		padding: var(--space-xl) 0 var(--space-md);
 		background:
 			linear-gradient(180deg, rgba(8, 17, 35, 0.98), rgba(8, 17, 35, 1)),
 			var(--color-primary-deep);
@@ -67,36 +73,83 @@ const { contact } = siteConfig;
 
 	.site-footer__inner {
 		display: grid;
-		grid-template-columns: 1.3fr 0.75fr 0.9fr;
-		gap: var(--space-lg);
+		grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.82fr) minmax(0, 1fr);
+		gap: var(--space-md);
+		align-items: start;
 	}
 
 	.site-footer__logo,
 	.site-footer__column h2 {
-		margin: 0 0 1rem;
+		margin: 0 0 0.7rem;
 		font-family: var(--font-display);
-		font-size: 1.28rem;
+		font-size: 1.02rem;
 		line-height: 1.1;
 	}
 
 	.site-footer__note,
 	.site-footer__column li,
 	.site-footer__column a,
-	.site-footer__bottom p {
+	.site-footer__bottom p,
+	.site-footer__contact-list span:last-child {
 		color: var(--color-muted-inverse);
 	}
 
+	.site-footer__brand,
+	.site-footer__column {
+		display: grid;
+		gap: 0.45rem;
+	}
+
 	.site-footer__note {
-		max-width: 30rem;
+		max-width: 28rem;
 		margin: 0;
+		font-size: 0.94rem;
+		line-height: 1.5;
 	}
 
 	.site-footer__column ul {
-		display: grid;
-		gap: 0.75rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
+	}
+
+	.site-footer__nav-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.55rem;
+	}
+
+	.site-footer__nav-list li {
+		display: flex;
+	}
+
+	.site-footer__nav-list a {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.48rem 0.82rem;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.06);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		font-size: 0.9rem;
+	}
+
+	.site-footer__contact-list {
+		display: grid;
+		gap: 0.6rem;
+	}
+
+	.site-footer__contact-list li {
+		display: grid;
+		gap: 0.14rem;
+	}
+
+	.site-footer__label {
+		font-size: 0.66rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: rgba(214, 174, 104, 0.82);
 	}
 
 	.site-footer__column a:hover {
@@ -104,19 +157,42 @@ const { contact } = siteConfig;
 	}
 
 	.site-footer__bottom {
-		padding-top: var(--space-lg);
-		margin-top: var(--space-lg);
+		padding-top: var(--space-md);
+		margin-top: var(--space-md);
 		border-top: 1px solid rgba(255, 255, 255, 0.12);
 	}
 
 	.site-footer__bottom p {
 		margin: 0;
-		font-size: 0.88rem;
+		font-size: 0.84rem;
 	}
 
 	@media (max-width: 860px) {
+		.site-footer {
+			padding: var(--space-lg) 0 var(--space-sm);
+		}
+
 		.site-footer__inner {
 			grid-template-columns: 1fr;
+			gap: 1.15rem;
+		}
+
+		.site-footer__note {
+			max-width: none;
+		}
+
+		.site-footer__nav-list a {
+			padding: 0.44rem 0.72rem;
+			font-size: 0.86rem;
+		}
+
+		.site-footer__contact-list {
+			gap: 0.5rem;
+		}
+
+		.site-footer__bottom {
+			padding-top: var(--space-sm);
+			margin-top: var(--space-sm);
 		}
 	}
 </style>

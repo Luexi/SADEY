@@ -1,78 +1,81 @@
-# Decisiones técnicas
+# Decisiones tecnicas
 
 ## Stack y enfoque general
 
-Se eligió Astro como framework principal para mantener el proyecto:
+Se eligio Astro como framework principal para mantener el proyecto:
 
-- estático
-- rápido
-- fácil de desplegar en GitHub Pages
+- estatico
+- rapido
+- facil de desplegar en GitHub Pages
 - sencillo de mantener
 
-El proyecto quedó orientado a crecimiento futuro, pero sin introducir complejidad prematura.
+El proyecto quedo orientado a crecimiento futuro, pero sin introducir complejidad prematura.
 
-## Por qué no se usó Tailwind
+## Por que no se uso Tailwind
 
-En esta fase convenía una base más explícita y controlada:
+En esta fase convenia una base mas explicita y controlada:
 
 - menos ruido visual en el markup
-- tokens centralizados fáciles de ajustar
-- menor fricción para otra IA que entre a refinar el look
-- menos dependencia de utilidades para una sola landing
+- tokens centralizados faciles de ajustar
+- menor friccion para futuras iteraciones
+- menos dependencia de utilidades para un sitio corporativo estatico
 
-Se optó por CSS nativo con variables y componentes encapsulados porque deja una estructura limpia y suficientemente flexible para la Fase 2.
+Se opto por CSS nativo con variables y componentes encapsulados porque deja una estructura limpia y suficientemente flexible para evolucionar el sitio sin rehacer la base visual.
 
 ## Estructura del proyecto
 
-Se separó el proyecto en cuatro capas prácticas:
+Se separo el proyecto en cuatro capas practicas:
 
 - `src/data/*` para contenido editable
 - `src/components/ui/*` para piezas reutilizables
-- `src/components/sections/*` para bloques de la landing
-- `src/layouts/*` y `src/pages/*` para composición y SEO
+- `src/components/sections/*` para bloques reutilizables por pagina
+- `src/layouts/*` y `src/pages/*` para composicion y SEO
 
-Esto permite modificar contenido, estilos y composición sin mezclar responsabilidades.
+Esto permite modificar contenido, estilos y composicion sin mezclar responsabilidades.
 
-## Preparación para Gemini en Fase 2
+## Evolucion de la portada
 
-Se dejó una base visual sobria, pero intencional:
+La portada se simplifico a una estructura mas compacta:
 
-- paleta corporativa y técnica
-- jerarquía clara
-- placeholders locales reemplazables
-- secciones bien segmentadas
+- header
+- hero
+- footer
 
-Gemini podrá enfocarse en refinamiento visual trabajando sobre:
+Las secciones adicionales siguen existiendo en el proyecto cuando conviene reutilizarlas o retomarlas, pero la home actual prioriza una entrada mas directa.
 
-- `src/styles/tokens.css`
-- `src/styles/global.css`
-- componentes de sección y UI
+## Navegacion y branding
 
-sin tener que reconstruir la arquitectura ni reorganizar los datos.
+La navegacion usa una estructura de items con `kind: "route"` centralizada en `src/data/site.ts`.
 
-## Preparación para futuras subpáginas
+Eso permite:
 
-La navegación ya usa una estructura de items con `kind: "anchor" | "route"`.
-Esto permite migrar después de anclas a rutas reales como `/servicios`, `/proyectos` o `/contacto` con cambios mínimos.
+- mantener header y footer sincronizados
+- resaltar la ruta activa desde un solo origen
+- ajustar rutas sin duplicar configuracion
 
-Además:
+El branding principal tambien depende de `src/data/site.ts`, mientras que el logo visual vive en `src/assets/branding/logo.png`.
+
+## Preparacion para futuras subpaginas
+
+La base sigue lista para crecer:
 
 - los servicios tienen `slug`
 - los proyectos tienen `slug`
-- el servicio de agregados conserva `futureDetails`
+- Terracerias ya contempla estructura por capas
+- el layout mantiene SEO base y rutas canonicas
 
-Eso deja el contenido listo para crecer a fichas, acordeones o páginas individuales.
+Eso deja el contenido listo para crecer a nuevas iteraciones sin redisenar la arquitectura.
 
 ## GitHub Pages
 
-La configuración quedó preparada para un sitio de proyecto:
+La configuracion quedo preparada para un sitio de proyecto:
 
 - `site: https://luexi.github.io`
 - `base: /SADEY`
 
 Esto evita rutas rotas en Pages mientras el sitio viva dentro del repositorio `SADEY`.
 
-Cuando exista dominio propio, bastará con:
+Cuando exista dominio propio, bastara con:
 
 - cambiar `site`
 - cambiar `basePath` en `src/data/site.ts`
@@ -81,13 +84,12 @@ Cuando exista dominio propio, bastará con:
 
 ## Alcance evitado deliberadamente
 
-No se agregó:
+No se agrego:
 
 - backend
 - formulario funcional
-- librerías extra
 - CMS
-- subpáginas reales
-- branding final
+- dependencias visuales pesadas
+- integraciones innecesarias
 
-La intención fue entregar una base profesional, no una solución sobrecargada ni improvisada.
+La intencion fue entregar una base profesional, clara y facil de mantener, no una solucion sobrecargada.
