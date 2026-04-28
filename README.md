@@ -4,6 +4,18 @@ Sitio web corporativo multipagina para **SADEY LABORATORIO PARA LA CONSTRUCCION*
 
 Estado actual: sitio en produccion con header y footer refinados, portada compacta enfocada en hero, y navegacion superior con chips que resaltan la ruta activa con contorno dorado.
 
+## Guia rapida para agentes
+
+Antes de modificar el proyecto:
+
+1. Lee este `README.md` para entender rutas, estructura y archivos de contenido.
+2. Lee `DESIGN.md` antes de tocar UI, estilos, componentes visuales o copy que afecte la identidad.
+3. Si cambias colores, tipografia, espaciado, header, hero, footer, botones, cards o reglas visuales, actualiza `DESIGN.md` en el mismo cambio.
+4. Si cambias decisiones de arquitectura o alcance, actualiza `docs/decisions.md`.
+5. Ejecuta `npm run check` antes de dar el trabajo por terminado.
+
+Regla importante: `DESIGN.md` es el contrato visual para agentes. No introduzcas una direccion estetica nueva sin reflejarla ahi.
+
 ## Objetivo del proyecto
 
 Presentar las pruebas especificas, servicios y proyectos de SADEY LABORATORIO con una arquitectura web profesional, escalable y lista para crecer.
@@ -89,12 +101,23 @@ npm run preview
 |   `-- utils/
 |       `-- paths.ts           withBase() para GitHub Pages
 |-- astro.config.mjs
+|-- DESIGN.md              <- contrato visual para agentes
 |-- package.json
 |-- roadmap.md
 `-- tsconfig.json
 ```
 
 ## Identidad visual
+
+La fuente de verdad para identidad visual es `DESIGN.md`. Ese archivo documenta los tokens, componentes y reglas que deben seguir los agentes cuando modifiquen la UI.
+
+Cuando un cambio visual altere el estado real del sitio, actualiza tambien `DESIGN.md`:
+
+- colores o nuevos tokens visuales
+- tipografia, tracking, radios, sombras o espaciado
+- header, navegacion, hero, footer, botones, cards o galerias
+- reglas de responsive o comportamiento movil que afecten la experiencia visual
+- decisiones de "hacer / no hacer" que deban guiar futuras iteraciones
 
 ### Header
 
@@ -105,7 +128,7 @@ npm run preview
 
 ### Hero
 
-- Titulo principal: **¿A que nos dedicamos?**
+- Titulo principal: **A que nos dedicamos?**
 - Imagen de fondo principal desde `src/assets/hero/hero-main.jpeg`.
 - Badge de marca visible en desktop y oculto en movil.
 - Sin CTA dentro del hero.
@@ -189,6 +212,7 @@ En el repositorio: `Settings > Pages > Source` -> `GitHub Actions`.
 
 ## Documentacion adicional
 
+- Contrato visual para agentes: `DESIGN.md`
 - Roadmap del proyecto: `roadmap.md`
 - Auditoria editorial: `docs/content-audit.md`
 - Decisiones tecnicas: `docs/decisions.md`
