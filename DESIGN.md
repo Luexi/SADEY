@@ -214,11 +214,20 @@ Las cards claras son calidas y limpias. Las cards oscuras usan azul profundo, no
 
 **Service Media**
 
-Las fotos de servicios usan WebP optimizado, captions breves y una grilla de una columna en movil. Las galerias de servicios y proyectos deben entrar al repo como WebP maximo 1280 px, calidad aproximada 74 y sin metadata; hero/covers pueden llegar a 1600 px cuando necesitan cubrir paneles grandes. El video de Diseno Protocolo AMAAC debe renderizarse con controles, `muted`, `playsinline`, `preload="metadata"` y poster ligero; no debe incluir audio.
+Las fotos de servicios usan WebP optimizado, captions breves y burbujas colapsables por prueba para reducir el largo movil. Las galerias de servicios y proyectos deben entrar al repo como WebP maximo 1280 px, calidad aproximada 74 y sin metadata; hero/covers pueden llegar a 1600 px cuando necesitan cubrir paneles grandes. El video de Diseno Protocolo AMAAC debe renderizarse con controles, `muted`, `playsinline`, `preload="metadata"` y poster ligero dentro de su burbuja de prueba; no debe incluir audio.
+
+**Service Test Bubbles**
+
+En `/servicios`, cada prueba con registro visual se muestra como una burbuja `<details>` abrible y cerrable. La primera burbuja de cada servicio inicia abierta; las demas quedan cerradas para que el usuario explore sin recorrer listas duplicadas. La burbuja usa borde suave, fondo calido, contador de fotos y chevron dorado. El foco de teclado en `<summary>` debe ser visible.
+
+- No renderizar una lista principal de pruebas y luego repetir las mismas pruebas con fotos.
+- Las pruebas sin registro visual se conservan en un resumen secundario colapsable: "Otras pruebas sin registro visual".
+- SIAC, al no tener galerias, conserva un resumen compacto de "Servicios incluidos".
+- Terracerias muestra una burbuja unica por prueba visual y chips "Aplica a" para las capas relacionadas; no debe volver al acordeon largo por capas como bloque principal.
 
 **Service Carousel**
 
-Cada prueba con varias fotos se muestra como un carrusel mobile-first dentro del bloque "Registros visuales" del servicio. El carrusel debe ser ligero y funcionar sin librerias.
+Dentro de cada burbuja, las pruebas con varias fotos usan un carrusel mobile-first. El carrusel debe ser ligero y funcionar sin librerias.
 
 - Track horizontal con `scroll-snap-type: x mandatory`; cada slide ocupa ~88% del ancho en movil y ~50%/33% en `>=720px`/`>=980px`.
 - `aspect-ratio: 4 / 3` fijo en cada slide para evitar layout shift.
@@ -226,7 +235,7 @@ Cada prueba con varias fotos se muestra como un carrusel mobile-first dentro del
 - Indicadores de posicion con dots compactos calculados con `IntersectionObserver`.
 - Tap o click sobre cualquier slide abre un visor `<dialog>` con flechas, contador y soporte de teclado (`ArrowLeft`, `ArrowRight`, `Esc`).
 - Imagenes en `loading="lazy"` y `decoding="async"`; cap de ~6 fotos por prueba para mantener la pagina liviana.
-- Para Terracerias el carrusel se renderiza una sola vez por prueba, fuera del acordeon de capas, para evitar duplicar las mismas fotos en varias capas.
+- Para Terracerias el carrusel se renderiza una sola vez por prueba, con chips de capas, para evitar duplicar las mismas fotos.
 
 **Project Before/After**
 

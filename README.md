@@ -151,12 +151,10 @@ Cuando un cambio visual altere el estado real del sitio, actualiza tambien `DESI
 Cada categoria (Concretos, Agregados petreos, Mezcla asfaltica, Terracerias, SIAC) se renderiza con `ServiceCategoryBlock`.
 
 - Descripcion corta en la cabecera.
-- Una sola columna bajo el rubro **Pruebas especificas** o el label custom definido en `detailsLabel`.
-- **Terracerias** es un caso especial: agrupa capas repetidas en un panel combinado con chips "Aplica a" para evitar duplicar pruebas y fotos.
-- Las pruebas por capa viven en `testsByCapa[]` y se renderizan como cards numeradas.
-- **SIAC** reutiliza `futureDetails` con `detailsLabel: "Servicios incluidos"`.
-- Mezcla Asfaltica incluye el video optimizado de Diseno Protocolo AMAAC, sin audio, con poster y `preload="metadata"` para no castigar la carga movil.
-- Cada prueba con material visual se muestra como un carrusel mobile-first dentro del bloque "Registros visuales" del servicio. En Terracerias los carruseles se renderizan una sola vez por prueba, fuera del acordeon de capas, para no repetir las mismas fotos por capa.
+- Una sola seccion **Pruebas con registro visual** con burbujas colapsables por prueba; la primera burbuja de cada servicio inicia abierta y las demas quedan cerradas para reducir el largo movil.
+- Cada burbuja contiene contador de fotos, carrusel mobile-first y, cuando aplica, video. Mezcla Asfaltica incluye el video optimizado de Diseno Protocolo AMAAC dentro de su burbuja, sin audio, con poster y `preload="metadata"` para no castigar la carga movil.
+- Las pruebas sin fotos ya no se duplican arriba: se conservan al final en **Otras pruebas sin registro visual**. **SIAC** reutiliza este resumen compacto con `detailsLabel: "Servicios incluidos"` porque no tiene galerias.
+- **Terracerias** renderiza una sola burbuja por prueba visual. Las capas relacionadas se muestran como chips "Aplica a", calculados desde `testsByCapa[]`, para no repetir listas largas ni fotos.
 
 ## Donde editar contenido
 
