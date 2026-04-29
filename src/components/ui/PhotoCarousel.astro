@@ -1,0 +1,485 @@
+---
+import { Image, getImage } from 'astro:assets';
+import type { CarouselImage } from '../../data/types';
+
+interface Props {
+	id: string;
+	label: string;
+	images: CarouselImage[];
+}
+
+const { id, label, images } = Astro.props;
+
+const fullImages = await Promise.all(
+	images.map(async (img) => {
+		const full = await getImage({
+			src: img.src,
+			widths: [960, 1600],
+			format: 'webp',
+		});
+		return {
+			alt: img.alt,
+			fullSrc: full.src,
+			fullSrcset: full.srcSet.attribute,
+		};
+	}),
+);
+---
+
+<section
+	class="carousel"
+	data-carousel-id={id}
+	role="region"
+	aria-roledescription="carrusel"
+	aria-label={label}
+>
+	<div class="carousel__viewport">
+		<button type="button" class="carousel__nav carousel__nav--prev" aria-label="Foto anterior" data-carousel-prev>
+			<span aria-hidden="true">‹</span>
+		</button>
+
+		<ul class="carousel__track" data-carousel-track>
+			{images.map((img, i) => (
+				<li
+					class="carousel__slide"
+					data-carousel-slide={i}
+					role="group"
+					aria-roledescription="diapositiva"
+					aria-label={`${i + 1} de ${images.length}`}
+				>
+					<button
+						type="button"
+						class="carousel__trigger"
+						data-carousel-index={i}
+						data-full-src={fullImages[i].fullSrc}
+						data-full-srcset={fullImages[i].fullSrcset}
+						data-full-alt={fullImages[i].alt}
+						aria-label={`Abrir foto ${i + 1} de ${images.length}: ${img.alt}`}
+					>
+						<Image
+							src={img.src}
+							alt={img.alt}
+							widths={[480, 720, 960, 1280]}
+							sizes="(max-width: 720px) 88vw, 32rem"
+							loading="lazy"
+							decoding="async"
+							class="carousel__img"
+						/>
+					</button>
+				</li>
+			))}
+		</ul>
+
+		<button type="button" class="carousel__nav carousel__nav--next" aria-label="Foto siguiente" data-carousel-next>
+			<span aria-hidden="true">›</span>
+		</button>
+	</div>
+
+	<ol class="carousel__dots" data-carousel-dots aria-hidden="true">
+		{images.map((_, i) => (
+			<li class={`carousel__dot${i === 0 ? ' is-active' : ''}`} data-carousel-dot={i}></li>
+		))}
+	</ol>
+
+	<dialog class="carousel__dialog" aria-label={`Visor: ${label}`} data-carousel-dialog>
+		<div class="carousel__viewer">
+			<button type="button" class="carousel__close" aria-label="Cerrar visor" data-carousel-close>✕</button>
+			<button type="button" class="carousel__viewer-nav carousel__viewer-nav--prev" aria-label="Foto anterior" data-carousel-viewer-prev>‹</button>
+			<figure class="carousel__figure">
+				<img class="carousel__full" alt="" sizes="100vw" />
+				<figcaption class="carousel__caption" aria-live="polite"></figcaption>
+			</figure>
+			<button type="button" class="carousel__viewer-nav carousel__viewer-nav--next" aria-label="Foto siguiente" data-carousel-viewer-next>›</button>
+		</div>
+	</dialog>
+</section>
+
+<script>
+	const setup = (root: HTMLElement) => {
+		const track = root.querySelector<HTMLElement>('[data-carousel-track]');
+		const slides = Array.from(root.querySelectorAll<HTMLElement>('[data-carousel-slide]'));
+		const dotsContainer = root.querySelector<HTMLElement>('[data-carousel-dots]');
+		const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-carousel-dot]'));
+		const prevBtn = root.querySelector<HTMLButtonElement>('[data-carousel-prev]');
+		const nextBtn = root.querySelector<HTMLButtonElement>('[data-carousel-next]');
+		const dialog = root.querySelector<HTMLDialogElement>('[data-carousel-dialog]');
+		const fullImg = root.querySelector<HTMLImageElement>('.carousel__full');
+		const caption = root.querySelector<HTMLElement>('.carousel__caption');
+		const viewerPrev = root.querySelector<HTMLButtonElement>('[data-carousel-viewer-prev]');
+		const viewerNext = root.querySelector<HTMLButtonElement>('[data-carousel-viewer-next]');
+		const closeBtn = root.querySelector<HTMLButtonElement>('[data-carousel-close]');
+		const triggers = Array.from(root.querySelectorAll<HTMLButtonElement>('.carousel__trigger'));
+
+		if (!track || slides.length === 0) return;
+
+		if (slides.length <= 1) {
+			prevBtn?.setAttribute('hidden', '');
+			nextBtn?.setAttribute('hidden', '');
+			dotsContainer?.setAttribute('hidden', '');
+		}
+
+		const scrollToSlide = (index: number) => {
+			const target = slides[index];
+			if (!target) return;
+			const left = target.offsetLeft - track.offsetLeft;
+			track.scrollTo({ left, behavior: 'smooth' });
+		};
+
+		const setActive = (index: number) => {
+			dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
+		};
+
+		if ('IntersectionObserver' in window) {
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+							const idx = Number((entry.target as HTMLElement).dataset.carouselSlide ?? '0');
+							setActive(idx);
+						}
+					});
+				},
+				{ root: track, threshold: [0.6] },
+			);
+			slides.forEach((slide) => observer.observe(slide));
+		}
+
+		const currentSlide = () => {
+			const trackLeft = track.scrollLeft;
+			let best = 0;
+			let bestDelta = Number.POSITIVE_INFINITY;
+			slides.forEach((slide, i) => {
+				const delta = Math.abs(slide.offsetLeft - track.offsetLeft - trackLeft);
+				if (delta < bestDelta) {
+					bestDelta = delta;
+					best = i;
+				}
+			});
+			return best;
+		};
+
+		prevBtn?.addEventListener('click', () => {
+			const idx = currentSlide();
+			scrollToSlide(Math.max(0, idx - 1));
+		});
+		nextBtn?.addEventListener('click', () => {
+			const idx = currentSlide();
+			scrollToSlide(Math.min(slides.length - 1, idx + 1));
+		});
+
+		dots.forEach((dot, i) => {
+			dot.addEventListener('click', () => scrollToSlide(i));
+		});
+
+		if (!dialog || !fullImg || triggers.length === 0) return;
+
+		let viewerIndex = 0;
+
+		const showViewer = (index: number) => {
+			viewerIndex = (index + triggers.length) % triggers.length;
+			const trigger = triggers[viewerIndex];
+			const src = trigger.dataset.fullSrc ?? '';
+			const srcset = trigger.dataset.fullSrcset ?? '';
+			const alt = trigger.dataset.fullAlt ?? '';
+			fullImg.src = src;
+			if (srcset) fullImg.srcset = srcset;
+			fullImg.alt = alt;
+			if (caption) {
+				caption.textContent = `${viewerIndex + 1} / ${triggers.length} · ${alt}`;
+			}
+		};
+
+		const open = (index: number) => {
+			showViewer(index);
+			if (typeof dialog.showModal === 'function') {
+				dialog.showModal();
+			} else {
+				dialog.setAttribute('open', '');
+			}
+			document.body.style.overflow = 'hidden';
+		};
+
+		const close = () => {
+			if (typeof dialog.close === 'function') {
+				dialog.close();
+			} else {
+				dialog.removeAttribute('open');
+			}
+			document.body.style.overflow = '';
+		};
+
+		triggers.forEach((trigger) => {
+			trigger.addEventListener('click', () => {
+				const idx = Number(trigger.dataset.carouselIndex ?? '0');
+				open(idx);
+			});
+		});
+
+		viewerPrev?.addEventListener('click', (e) => {
+			e.stopPropagation();
+			showViewer(viewerIndex - 1);
+		});
+		viewerNext?.addEventListener('click', (e) => {
+			e.stopPropagation();
+			showViewer(viewerIndex + 1);
+		});
+		closeBtn?.addEventListener('click', close);
+
+		dialog.addEventListener('click', (e) => {
+			if (e.target === dialog) close();
+		});
+
+		dialog.addEventListener('cancel', (e) => {
+			e.preventDefault();
+			close();
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (!dialog.open) return;
+			if (e.key === 'ArrowLeft') showViewer(viewerIndex - 1);
+			if (e.key === 'ArrowRight') showViewer(viewerIndex + 1);
+		});
+	};
+
+	document.querySelectorAll<HTMLElement>('.carousel').forEach(setup);
+</script>
+
+<style>
+	.carousel {
+		display: grid;
+		gap: 0.55rem;
+	}
+
+	.carousel__viewport {
+		position: relative;
+	}
+
+	.carousel__track {
+		display: flex;
+		gap: 0.6rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scroll-padding-inline: 0.25rem;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+	}
+
+	.carousel__track::-webkit-scrollbar {
+		display: none;
+	}
+
+	.carousel__slide {
+		flex: 0 0 88%;
+		scroll-snap-align: start;
+	}
+
+	.carousel__trigger {
+		display: block;
+		width: 100%;
+		padding: 0;
+		margin: 0;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		box-shadow: var(--shadow-xs);
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.carousel__trigger:hover,
+	.carousel__trigger:focus-visible {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-soft);
+		outline: none;
+	}
+
+	.carousel__trigger:focus-visible {
+		outline: 2px solid var(--color-secondary);
+		outline-offset: 3px;
+	}
+
+	.carousel__img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+		background: var(--color-surface-alt);
+	}
+
+	.carousel__nav {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		display: none;
+		align-items: center;
+		justify-content: center;
+		width: 2.4rem;
+		height: 2.4rem;
+		border: none;
+		border-radius: 999px;
+		background: rgba(11, 23, 48, 0.78);
+		color: var(--color-on-primary);
+		font-size: 1.4rem;
+		line-height: 1;
+		cursor: pointer;
+		z-index: 1;
+		transition: background 0.2s ease;
+	}
+
+	.carousel__nav:hover,
+	.carousel__nav:focus-visible {
+		background: var(--color-primary-deep);
+		outline: none;
+	}
+
+	.carousel__nav:focus-visible {
+		outline: 2px solid var(--color-secondary-strong);
+		outline-offset: 2px;
+	}
+
+	.carousel__nav--prev {
+		left: 0.4rem;
+	}
+
+	.carousel__nav--next {
+		right: 0.4rem;
+	}
+
+	.carousel__dots {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		justify-content: center;
+	}
+
+	.carousel__dot {
+		width: 0.45rem;
+		height: 0.45rem;
+		border-radius: 999px;
+		background: rgba(11, 23, 48, 0.22);
+		cursor: pointer;
+		transition: background 0.2s ease, transform 0.2s ease;
+	}
+
+	.carousel__dot.is-active {
+		background: var(--color-secondary);
+		transform: scale(1.25);
+	}
+
+	.carousel__dialog {
+		padding: 0;
+		border: none;
+		background: transparent;
+		max-width: 100vw;
+		max-height: 100vh;
+		width: 100vw;
+		height: 100vh;
+		color: #fff;
+	}
+
+	.carousel__dialog::backdrop {
+		background: rgba(4, 8, 20, 0.92);
+		backdrop-filter: blur(8px);
+	}
+
+	.carousel__viewer {
+		position: relative;
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+		padding: 1rem;
+		gap: 0.5rem;
+	}
+
+	.carousel__figure {
+		position: relative;
+		display: grid;
+		grid-template-rows: 1fr auto;
+		gap: 0.75rem;
+		width: 100%;
+		height: 100%;
+		min-width: 0;
+		margin: 0;
+	}
+
+	.carousel__full {
+		width: 100%;
+		height: 100%;
+		min-height: 0;
+		object-fit: contain;
+	}
+
+	.carousel__caption {
+		text-align: center;
+		font-size: 0.85rem;
+		color: rgba(255, 255, 255, 0.82);
+	}
+
+	.carousel__viewer-nav,
+	.carousel__close {
+		appearance: none;
+		border: none;
+		background: rgba(255, 255, 255, 0.12);
+		color: #fff;
+		font-size: 1.8rem;
+		line-height: 1;
+		width: 2.8rem;
+		height: 2.8rem;
+		border-radius: 999px;
+		cursor: pointer;
+		transition: background 0.2s ease;
+	}
+
+	.carousel__viewer-nav:hover,
+	.carousel__close:hover,
+	.carousel__viewer-nav:focus-visible,
+	.carousel__close:focus-visible {
+		background: rgba(255, 255, 255, 0.24);
+		outline: none;
+	}
+
+	.carousel__close {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		z-index: 2;
+		font-size: 1.2rem;
+	}
+
+	@media (min-width: 720px) {
+		.carousel__slide {
+			flex: 0 0 calc((100% - 1.2rem) / 2);
+		}
+
+		.carousel__nav {
+			display: inline-flex;
+		}
+	}
+
+	@media (min-width: 980px) {
+		.carousel__slide {
+			flex: 0 0 calc((100% - 1.8rem) / 3);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.carousel__viewer {
+			padding: 0.5rem;
+		}
+
+		.carousel__viewer-nav {
+			width: 2.4rem;
+			height: 2.4rem;
+			font-size: 1.5rem;
+		}
+	}
+</style>

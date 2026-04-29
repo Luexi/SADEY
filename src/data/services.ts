@@ -1,7 +1,5 @@
 import type { ServiceItem } from './types';
-import amaacProtocolImage from '../assets/services/mezcla-asfaltica/protocolo-amaac.webp';
-import cbrLaboratorioImage from '../assets/services/terracerias/cbr-laboratorio.webp';
-import compactacionAashtoImage from '../assets/services/terracerias/compactacion-aashto.webp';
+import { serviceGalleriesBySlug } from './service-galleries.generated';
 
 const testsTerraplen = [
 	'Muestreo de Materiales',
@@ -18,7 +16,7 @@ const testsTerraplen = [
 	'Grado de Compactacion',
 ];
 
-export const services: ServiceItem[] = [
+const baseServices: ServiceItem[] = [
 	{
 		slug: 'concretos',
 		title: 'Concretos',
@@ -84,14 +82,6 @@ export const services: ServiceItem[] = [
 			'Diseno Protocolo AMAAC',
 		],
 		media: {
-			images: [
-				{
-					src: amaacProtocolImage,
-					alt: 'Proceso de laboratorio para diseno Protocolo AMAAC.',
-					title: 'Diseno Protocolo AMAAC',
-					caption: 'Registro visual optimizado del proceso de diseno y control de mezcla asfaltica.',
-				},
-			],
 			video: {
 				title: 'Video del procedimiento AMAAC',
 				description: 'Video comprimido, sin audio y listo para consulta mobile-first.',
@@ -184,22 +174,6 @@ export const services: ServiceItem[] = [
 				],
 			},
 		],
-		media: {
-			images: [
-				{
-					src: compactacionAashtoImage,
-					alt: 'Equipo y material durante prueba de compactacion AASHTO.',
-					title: 'Compactacion AASHTO',
-					caption: 'Imagen optimizada para representar las pruebas compartidas por capas.',
-				},
-				{
-					src: cbrLaboratorioImage,
-					alt: 'Registro de prueba CBR en laboratorio.',
-					title: 'CBR en laboratorio',
-					caption: 'Se muestra una vez para evitar repetir fotos en capas con las mismas pruebas.',
-				},
-			],
-		},
 		metaDescription:
 			'Pruebas especificas de terracerias por capa: terraplenes, subbase, base hidraulica y base tratada.',
 	},
@@ -218,3 +192,9 @@ export const services: ServiceItem[] = [
 			'Soporte SIAC: reportes de laboratorio y manejo de plataforma documental.',
 	},
 ];
+
+export const services: ServiceItem[] = baseServices.map((service) => {
+	const galleries = serviceGalleriesBySlug[service.slug];
+	if (!galleries || galleries.length === 0) return service;
+	return { ...service, testGalleries: galleries };
+});

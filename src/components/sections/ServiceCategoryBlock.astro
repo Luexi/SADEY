@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import type { ServiceItem } from '../../data/types';
 import { siteConfig } from '../../data/site';
 import { withBase } from '../../utils/paths';
+import PhotoCarousel from '../ui/PhotoCarousel.astro';
 
 interface Props {
 	service: ServiceItem;
@@ -14,7 +15,9 @@ const hasCapas = Array.isArray(service.testsByCapa) && service.testsByCapa.lengt
 const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureDetails.length > 0;
 const mediaImages = service.media?.images ?? [];
 const mediaVideo = service.media?.video;
-const hasMedia = mediaImages.length > 0 || Boolean(mediaVideo);
+const testGalleries = service.testGalleries ?? [];
+const hasGalleries = testGalleries.length > 0;
+const hasMedia = mediaImages.length > 0 || Boolean(mediaVideo) || hasGalleries;
 ---
 
 <article class="service-category" id={service.slug}>
@@ -79,8 +82,8 @@ const hasMedia = mediaImages.length > 0 || Boolean(mediaVideo);
 	{hasMedia && (
 		<div class="service-category__media">
 			<div class="service-category__media-header">
-				<h3 class="service-category__rubric">Registro visual</h3>
-				<p>Fotos y video optimizados para carga rapida en movil.</p>
+				<h3 class="service-category__rubric">Registros visuales</h3>
+				<p>Fotos por prueba y video optimizados para carga rapida en movil.</p>
 			</div>
 
 			{mediaImages.length > 0 && (
@@ -99,6 +102,24 @@ const hasMedia = mediaImages.length > 0 || Boolean(mediaVideo);
 								{item.caption && <span>{item.caption}</span>}
 							</figcaption>
 						</figure>
+					))}
+				</div>
+			)}
+
+			{hasGalleries && (
+				<div class="service-category__galleries">
+					{testGalleries.map((gallery) => (
+						<div class="service-category__gallery">
+							<div class="service-category__gallery-head">
+								<h4>{gallery.testTitle}</h4>
+								<span class="service-category__gallery-count">{gallery.images.length} {gallery.images.length === 1 ? 'foto' : 'fotos'}</span>
+							</div>
+							<PhotoCarousel
+								id={`${service.slug}-${gallery.testSlug}`}
+								label={`Fotos de ${gallery.testTitle}`}
+								images={gallery.images}
+							/>
+						</div>
 					))}
 				</div>
 			)}
@@ -412,6 +433,40 @@ const hasMedia = mediaImages.length > 0 || Boolean(mediaVideo);
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 0.85rem;
+	}
+
+	.service-category__galleries {
+		display: grid;
+		gap: 1.4rem;
+	}
+
+	.service-category__gallery {
+		display: grid;
+		gap: 0.55rem;
+	}
+
+	.service-category__gallery-head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.6rem;
+	}
+
+	.service-category__gallery-head h4 {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: 1rem;
+		line-height: 1.2;
+		color: var(--color-primary);
+	}
+
+	.service-category__gallery-count {
+		flex-shrink: 0;
+		font-size: 0.74rem;
+		font-weight: 700;
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
+		color: var(--color-on-surface-variant);
 	}
 
 	.service-category__media-card,

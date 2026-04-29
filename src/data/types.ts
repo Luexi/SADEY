@@ -109,6 +109,17 @@ export interface ServiceVideo {
 	poster: string;
 }
 
+export interface CarouselImage {
+	src: ImageMetadata;
+	alt: string;
+}
+
+export interface TestGallery {
+	testSlug: string;
+	testTitle: string;
+	images: CarouselImage[];
+}
+
 export interface ServiceItem {
 	slug: string;
 	title: string;
@@ -117,6 +128,7 @@ export interface ServiceItem {
 	futureDetails?: string[];
 	detailsLabel?: string;
 	testsByCapa?: TestsByCapa[];
+	testGalleries?: TestGallery[];
 	media?: {
 		images?: ServiceMediaImage[];
 		video?: ServiceVideo;

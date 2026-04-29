@@ -154,6 +154,7 @@ Cada categoria (Concretos, Agregados petreos, Mezcla asfaltica, Terracerias, SIA
 - Las pruebas por capa viven en `testsByCapa[]` y se renderizan como cards numeradas.
 - **SIAC** reutiliza `futureDetails` con `detailsLabel: "Servicios incluidos"`.
 - Mezcla Asfaltica incluye el video optimizado de Diseno Protocolo AMAAC, sin audio, con poster y `preload="metadata"` para no castigar la carga movil.
+- Cada prueba con material visual se muestra como un carrusel mobile-first dentro del bloque "Registros visuales" del servicio. En Terracerias los carruseles se renderizan una sola vez por prueba, fuera del acordeon de capas, para no repetir las mismas fotos por capa.
 
 ## Donde editar contenido
 
@@ -189,7 +190,20 @@ Las fuentes pesadas del cliente viven localmente en `FOTOS PRUEBAS/` y no se deb
 npm run prepare:service-media
 ```
 
-El script `scripts/prepare-service-media.mjs` genera WebP para servicios y CHILIXX, ademas del video `public/assets/video/protocolo-amaac.mp4` sin audio y su poster. Si cambian las fotos marcadas por el cliente o el video AMAAC, actualiza el script y vuelve a correrlo.
+El script `scripts/prepare-service-media.mjs` hace tres cosas:
+
+1. Optimiza las fotos de cada prueba bajo `src/assets/services/<servicio>/<prueba-slug>/NN.webp` (WebP, ancho maximo 1600 px, calidad 78, sin metadata). Por defecto toma hasta 6 fotos por prueba ordenadas alfabeticamente; AMAAC se cierra a 4 porque el video lleva el peso narrativo.
+2. Regenera `src/data/service-galleries.generated.ts`, un indice TypeScript con los imports y la estructura `serviceGalleriesBySlug` que `src/data/services.ts` mergea automaticamente en cada `ServiceItem` como `testGalleries`.
+3. Optimiza el video AMAAC (`public/assets/video/protocolo-amaac.mp4`) sin audio, su poster y las fotos antes/despues de CHILIXX.
+
+Para agregar o reorganizar pruebas:
+
+1. Coloca las fotos del cliente en `FOTOS PRUEBAS/<SERVICIO>/<NOMBRE DE PRUEBA>/`.
+2. Si la prueba es nueva, agrega una entrada en el array `galleryConfig` de `scripts/prepare-service-media.mjs` con `testSlug`, `testTitle`, `folder` y un `cap` opcional.
+3. Ejecuta `npm run prepare:service-media`.
+4. Verifica con `npm run check` y `npm run build` que el indice generado no contenga imports rotos.
+
+`src/data/service-galleries.generated.ts` se regenera siempre desde cero, no se debe editar a mano. Las pruebas declaradas en `services.ts` que no tienen carpeta correspondiente o cuya carpeta esta vacia se omiten silenciosamente con un aviso en consola.
 
 ## Donde reemplazar imagenes placeholder
 

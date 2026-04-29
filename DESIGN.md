@@ -115,6 +115,11 @@ components:
     textColor: "{colors.on-primary}"
     rounded: "{rounded.md}"
     padding: 2.25rem
+  service-carousel:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.on-surface}"
+    rounded: "{rounded.md}"
+    padding: 0.55rem
 ---
 
 ## Overview
@@ -210,6 +215,18 @@ Las cards claras son calidas y limpias. Las cards oscuras usan azul profundo, no
 **Service Media**
 
 Las fotos de servicios usan WebP optimizado, captions breves y una grilla de una columna en movil. El video de Diseno Protocolo AMAAC debe renderizarse con controles, `muted`, `playsinline`, `preload="metadata"` y poster ligero; no debe incluir audio.
+
+**Service Carousel**
+
+Cada prueba con varias fotos se muestra como un carrusel mobile-first dentro del bloque "Registros visuales" del servicio. El carrusel debe ser ligero y funcionar sin librerias.
+
+- Track horizontal con `scroll-snap-type: x mandatory`; cada slide ocupa ~88% del ancho en movil y ~50%/33% en `>=720px`/`>=980px`.
+- `aspect-ratio: 4 / 3` fijo en cada slide para evitar layout shift.
+- Botones prev/next solo visibles `>=720px`; en movil el usuario hace swipe.
+- Indicadores de posicion con dots compactos calculados con `IntersectionObserver`.
+- Tap o click sobre cualquier slide abre un visor `<dialog>` con flechas, contador y soporte de teclado (`ArrowLeft`, `ArrowRight`, `Esc`).
+- Imagenes en `loading="lazy"` y `decoding="async"`; cap de ~6 fotos por prueba para mantener la pagina liviana.
+- Para Terracerias el carrusel se renderiza una sola vez por prueba, fuera del acordeon de capas, para evitar duplicar las mismas fotos en varias capas.
 
 **Project Before/After**
 

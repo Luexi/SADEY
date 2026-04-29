@@ -90,6 +90,16 @@ Se agrego un pipeline repetible en `scripts/prepare-service-media.mjs` para conv
 
 La carpeta `FOTOS PRUEBAS/` es fuente local pesada y queda fuera del repo. Solo se versionan los outputs optimizados que usa el sitio.
 
+## Carruseles por prueba en /servicios
+
+Cada prueba con material visual se muestra como un carrusel mobile-first dentro del bloque "Registros visuales" del servicio. Las decisiones detras:
+
+- **Indice generado.** Las galerias viven en `src/data/service-galleries.generated.ts`, escrito por `scripts/prepare-service-media.mjs`. `src/data/services.ts` lo importa y lo mergea en cada `ServiceItem` como `testGalleries`. Asi `services.ts` se mantiene editable a mano y los cientos de imports estaticos de Astro no contaminan la fuente semantica.
+- **Mapping explicito.** El script tiene un `galleryConfig` con `testSlug`, `testTitle` y `folder` por prueba. Las carpetas vacias o ausentes en `FOTOS PRUEBAS/` se omiten con un aviso. El cliente puede renombrar carpetas sin romper el sitio mientras se actualice el mapping.
+- **Cap por prueba.** Default 6 fotos, AMAAC cerrado a 4 porque el video ya cuenta el procedimiento. Asi mantenemos el peso del repo acotado (~25-30 MB para todas las galerias) y la pagina ligera en movil.
+- **Una sola galeria por prueba.** En Terracerias muchas capas comparten pruebas (Compactacion AASHTO, CBR, Granulometria...). Para evitar repetir las mismas fotos hasta cuatro veces, los carruseles se renderizan a nivel servicio, fuera del acordeon de capas, una vez por prueba.
+- **Sin librerias.** El componente `src/components/ui/PhotoCarousel.astro` resuelve todo con CSS scroll-snap, `IntersectionObserver` para los dots y un `<dialog>` nativo para el visor. Es accesible (roles ARIA, teclado) y agrega ~3 KB al bundle.
+
 ## Limpieza de pruebas redundantes
 
 Terracerias combina `Terraplenes de Acceso en Puentes`, `Cuerpo de Terraplen`, `Capa Subyacente` y `Capa Subrasante` en un solo panel con chips "Aplica a". Esa decision evita repetir las mismas pruebas y fotos.
