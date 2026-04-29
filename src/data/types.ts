@@ -91,7 +91,22 @@ export interface GalleryImage {
 export interface TestsByCapa {
 	capaSlug: string;
 	capaTitle: string;
+	appliesTo?: string[];
 	tests: string[];
+}
+
+export interface ServiceMediaImage {
+	src: ImageMetadata;
+	alt: string;
+	title: string;
+	caption?: string;
+}
+
+export interface ServiceVideo {
+	title: string;
+	description: string;
+	src: string;
+	poster: string;
 }
 
 export interface ServiceItem {
@@ -102,8 +117,19 @@ export interface ServiceItem {
 	futureDetails?: string[];
 	detailsLabel?: string;
 	testsByCapa?: TestsByCapa[];
+	media?: {
+		images?: ServiceMediaImage[];
+		video?: ServiceVideo;
+	};
 	icon?: string;
 	metaDescription?: string;
+}
+
+export interface ProjectComparison {
+	title: string;
+	description: string;
+	before: GalleryImage;
+	after: GalleryImage;
 }
 
 export interface ProjectCase {
@@ -118,6 +144,7 @@ export interface ProjectCase {
 		alt: string;
 	};
 	tags: string[];
+	comparison?: ProjectComparison;
 	gallery: GalleryImage[];
 	metaDescription?: string;
 }

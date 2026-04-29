@@ -125,6 +125,8 @@ La identidad actual combina azul profundo, dorado tecnico y superficies calidas.
 
 La portada actual es intencionalmente compacta: `header`, `hero` y `footer`. No debe reconstruirse como landing larga salvo que exista una nueva decision explicita.
 
+El proyecto es **mobile-first por peticion del cliente**. Cada cambio visual se valida primero en telefono: header, chips, fotos, video, galerias, comparativos y footer deben cargar ligero, no desbordar y conservar lectura clara antes de afinar la version desktop.
+
 ## Colors
 
 La paleta se basa en contraste fuerte y calidez controlada.
@@ -158,6 +160,7 @@ El sitio usa una composicion centrada con ancho maximo cercano a `1180px`, espac
 - Mantener `header + hero + footer` en `/`.
 - Usar paneles y secciones de ancho contenido, no bloques flotantes innecesarios.
 - En movil, compactar antes que ocultar contenido critico: marca, navegacion y contacto deben seguir encontrables.
+- Las fotos y videos nuevos deben llegar optimizados para movil antes de entrar al repo; las fuentes pesadas viven fuera del commit.
 - Las rutas internas pueden usar secciones completas, cards y galerias, pero la portada debe seguir directa.
 
 ## Elevation & Depth
@@ -204,6 +207,14 @@ El primario usa dorado y texto blanco; el secundario usa superficie clara y text
 
 Las cards claras son calidas y limpias. Las cards oscuras usan azul profundo, no negro puro. Usarlas para contenido repetible o informacion realmente enmarcada, no para envolver secciones completas sin necesidad.
 
+**Service Media**
+
+Las fotos de servicios usan WebP optimizado, captions breves y una grilla de una columna en movil. El video de Diseno Protocolo AMAAC debe renderizarse con controles, `muted`, `playsinline`, `preload="metadata"` y poster ligero; no debe incluir audio.
+
+**Project Before/After**
+
+El comparativo CHILIXX muestra antes y despues apilados en movil y lado a lado en desktop. Mantener labels simples, fotos reales y relacion visual directa; no convertirlo en una pieza editorial pesada.
+
 ## Do's and Don'ts
 
 **Do**
@@ -213,7 +224,9 @@ Las cards claras son calidas y limpias. Las cards oscuras usan azul profundo, no
 - Mantener los cuatro botones de navegacion alineados en un solo renglon cuando el espacio lo permita.
 - Resaltar la seccion actual con contorno dorado.
 - Priorizar claridad movil, menor altura vertical y contacto facil de encontrar.
+- Validar primero en movil porque el proyecto es mobile-first por peticion del cliente.
 - Usar fotos reales del laboratorio, obra o proyectos cuando la imagen ayude a entender el servicio.
+- Mantener `DESIGN.md` sincronizado cuando cambien UI, media, responsive o criterios visuales.
 
 **Don't**
 
@@ -223,3 +236,4 @@ Las cards claras son calidas y limpias. Las cards oscuras usan azul profundo, no
 - No duplicar CTAs en el header movil y antes del footer.
 - No usar paletas nuevas dominantes, especialmente morados, azules electricos o negros puros.
 - No crear menus desplegables si la navegacion visible resuelve mejor la experiencia actual.
+- No commitear fuentes pesadas de cliente como `FOTOS PRUEBAS/`; solo los assets web optimizados.

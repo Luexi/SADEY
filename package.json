@@ -7,6 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prepare:service-media": "node scripts/prepare-service-media.mjs",
     "check": "astro check",
     "build": "astro build",
     "preview": "astro preview",
@@ -18,6 +19,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "sharp": "^0.34.5",
     "typescript": "^5.9.3"
   }
 }

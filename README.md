@@ -4,15 +4,18 @@ Sitio web corporativo multipagina para **SADEY LABORATORIO PARA LA CONSTRUCCION*
 
 Estado actual: sitio en produccion con header y footer refinados, portada compacta enfocada en hero, y navegacion superior con chips que resaltan la ruta activa con contorno dorado.
 
+El proyecto es **mobile-first por peticion del cliente**. Toda modificacion visual debe validarse primero en telefono: navegacion, fotos, video, galerias y altura de secciones tienen que conservar claridad y carga ligera antes de optimizar desktop.
+
 ## Guia rapida para agentes
 
 Antes de modificar el proyecto:
 
 1. Lee este `README.md` para entender rutas, estructura y archivos de contenido.
 2. Lee `DESIGN.md` antes de tocar UI, estilos, componentes visuales o copy que afecte la identidad.
-3. Si cambias colores, tipografia, espaciado, header, hero, footer, botones, cards o reglas visuales, actualiza `DESIGN.md` en el mismo cambio.
-4. Si cambias decisiones de arquitectura o alcance, actualiza `docs/decisions.md`.
-5. Ejecuta `npm run check` antes de dar el trabajo por terminado.
+3. Valida primero en movil. El cliente pidio una experiencia mobile-first, asi que no des por bueno un cambio solo porque luce bien en desktop.
+4. Si cambias colores, tipografia, espaciado, header, hero, footer, botones, cards, galerias, media o reglas responsive, actualiza `DESIGN.md` en el mismo cambio.
+5. Si cambias decisiones de arquitectura o alcance, actualiza `docs/decisions.md`.
+6. Ejecuta `npm run check` antes de dar el trabajo por terminado.
 
 Regla importante: `DESIGN.md` es el contrato visual para agentes. No introduzcas una direccion estetica nueva sin reflejarla ahi.
 
@@ -38,6 +41,7 @@ Presentar las pruebas especificas, servicios y proyectos de SADEY LABORATORIO co
 ```bash
 npm install
 npm run dev
+npm run prepare:service-media
 npm run check
 npm run build
 npm run preview
@@ -61,7 +65,7 @@ npm run preview
 |-- public/
 |   |-- assets/
 |   |   |-- projects/          <- fotos por proyecto (por slug)
-|   |   `-- services/          <- imagenes de servicio
+|   |   `-- video/             <- videos optimizados para web
 |   |-- placeholders/stock/
 |   |-- favicon.svg
 |   `-- robots.txt
@@ -70,7 +74,8 @@ npm run preview
 |   |   |-- about/
 |   |   |-- branding/          <- logo.png (MTHA)
 |   |   |-- hero/
-|   |   `-- projects/
+|   |   |-- projects/
+|   |   `-- services/          <- imagenes optimizadas de servicios
 |   |-- components/
 |   |   |-- layout/            Header, Footer
 |   |   |-- sections/          Hero, About, WhySadey, PageHero,
@@ -145,9 +150,10 @@ Cada categoria (Concretos, Agregados petreos, Mezcla asfaltica, Terracerias, SIA
 
 - Descripcion corta en la cabecera.
 - Una sola columna bajo el rubro **Pruebas especificas** o el label custom definido en `detailsLabel`.
-- **Terracerias** es un caso especial: muestra 7 paneles `<details>` desplegables, uno por capa.
+- **Terracerias** es un caso especial: agrupa capas repetidas en un panel combinado con chips "Aplica a" para evitar duplicar pruebas y fotos.
 - Las pruebas por capa viven en `testsByCapa[]` y se renderizan como cards numeradas.
 - **SIAC** reutiliza `futureDetails` con `detailsLabel: "Servicios incluidos"`.
+- Mezcla Asfaltica incluye el video optimizado de Diseno Protocolo AMAAC, sin audio, con poster y `preload="metadata"` para no castigar la carga movil.
 
 ## Donde editar contenido
 
@@ -174,6 +180,16 @@ Para reemplazarlo, sobreescribe ese archivo con un nuevo PNG o SVG. Astro regene
 
 1. Crea una carpeta en `public/assets/projects/<slug>/` o coloca los archivos en `src/assets/projects/<slug>/`.
 2. Edita `src/data/projects.ts` para llenar el array `gallery` del proyecto.
+
+## Donde preparar fotos y video de servicios
+
+Las fuentes pesadas del cliente viven localmente en `FOTOS PRUEBAS/` y no se deben commitear. Para regenerar las versiones ligeras:
+
+```bash
+npm run prepare:service-media
+```
+
+El script `scripts/prepare-service-media.mjs` genera WebP para servicios y CHILIXX, ademas del video `public/assets/video/protocolo-amaac.mp4` sin audio y su poster. Si cambian las fotos marcadas por el cliente o el video AMAAC, actualiza el script y vuelve a correrlo.
 
 ## Donde reemplazar imagenes placeholder
 

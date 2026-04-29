@@ -27,3 +27,6 @@ pnpm-debug.log*
 
 # editor settings
 .vscode/
+
+# local client source media; optimized outputs live under src/assets and public/assets
+FOTOS PRUEBAS/

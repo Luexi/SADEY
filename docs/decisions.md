@@ -11,6 +11,19 @@ Se eligio Astro como framework principal para mantener el proyecto:
 
 El proyecto quedo orientado a crecimiento futuro, pero sin introducir complejidad prematura.
 
+## Mobile-first por peticion del cliente
+
+El sitio se mantiene mobile-first porque el cliente revisa y valida principalmente desde telefono.
+
+Toda decision visual nueva debe comprobar primero:
+
+- que header, navegacion y marca no se oculten
+- que fotos, galerias y video no desborden
+- que el peso de los assets sea razonable para movil
+- que las secciones se compacten antes de alargar innecesariamente la experiencia
+
+Cuando una decision visual cambie este contrato, tambien debe actualizarse `DESIGN.md`.
+
 ## Por que no se uso Tailwind
 
 En esta fase convenia una base mas explicita y controlada:
@@ -65,6 +78,27 @@ La base sigue lista para crecer:
 - el layout mantiene SEO base y rutas canonicas
 
 Eso deja el contenido listo para crecer a nuevas iteraciones sin redisenar la arquitectura.
+
+## Medios optimizados de servicios y CHILIXX
+
+Se agrego un pipeline repetible en `scripts/prepare-service-media.mjs` para convertir fuentes locales del cliente en assets ligeros:
+
+- imagenes WebP con ancho maximo controlado
+- video AMAAC MP4 H.264 sin audio
+- poster ligero para carga inicial
+- carpetas administradas bajo `src/assets/services/`, `src/assets/projects/modernizacion-chilixx/featured/` y `public/assets/video/`
+
+La carpeta `FOTOS PRUEBAS/` es fuente local pesada y queda fuera del repo. Solo se versionan los outputs optimizados que usa el sitio.
+
+## Limpieza de pruebas redundantes
+
+Terracerias combina `Terraplenes de Acceso en Puentes`, `Cuerpo de Terraplen`, `Capa Subyacente` y `Capa Subrasante` en un solo panel con chips "Aplica a". Esa decision evita repetir las mismas pruebas y fotos.
+
+Agregados Petreos conserva pruebas propias de agregados y materiales petreos. Las pruebas de comportamiento de terracerias se movieron fuera de esa categoria para evitar duplicidad editorial.
+
+## Video AMAAC
+
+El video de Diseno Protocolo AMAAC se publica sin audio, con `controls`, `muted`, `playsinline`, `preload="metadata"` y poster. La decision busca respetar la peticion del cliente y mantener una experiencia liviana en movil.
 
 ## GitHub Pages
 

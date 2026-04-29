@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
 import ProjectDetailHero from '../../components/sections/ProjectDetailHero.astro';
 import EmptyGalleryState from '../../components/ui/EmptyGalleryState.astro';
 import Gallery from '../../components/ui/Gallery.astro';
@@ -76,6 +77,52 @@ const posterUrl = withBase('/assets/video/adquisicion-mezcla-poster.jpg', siteCo
 			</div>
 		</Container>
 	</section>
+
+	{project.comparison && (
+		<section class="project-comparison section-shell">
+			<Container>
+				<SectionHeading
+					eyebrow="Antes y despues"
+					title={project.comparison.title}
+				/>
+				<p class="project-comparison__description">
+					{project.comparison.description}
+				</p>
+
+				<div class="project-comparison__grid">
+					<figure class="project-comparison__figure">
+						<Image
+							src={project.comparison.before.src}
+							alt={project.comparison.before.alt}
+							widths={[480, 720, 960]}
+							sizes="(min-width: 760px) 50vw, 100vw"
+							loading="lazy"
+							decoding="async"
+						/>
+						<figcaption>
+							<strong>{project.comparison.before.caption || 'Antes'}</strong>
+							<span>{project.comparison.before.alt}</span>
+						</figcaption>
+					</figure>
+
+					<figure class="project-comparison__figure">
+						<Image
+							src={project.comparison.after.src}
+							alt={project.comparison.after.alt}
+							widths={[480, 720, 960]}
+							sizes="(min-width: 760px) 50vw, 100vw"
+							loading="lazy"
+							decoding="async"
+						/>
+						<figcaption>
+							<strong>{project.comparison.after.caption || 'Despues'}</strong>
+							<span>{project.comparison.after.alt}</span>
+						</figcaption>
+					</figure>
+				</div>
+			</Container>
+		</section>
+	)}
 
 	{hasVideo && (
 		<section class="project-video section-shell">
@@ -195,6 +242,62 @@ const posterUrl = withBase('/assets/video/adquisicion-mezcla-poster.jpg', siteCo
 		background: var(--color-surface);
 	}
 
+	.project-comparison {
+		background: var(--color-bg);
+	}
+
+	.project-comparison__description {
+		max-width: 720px;
+		margin: 0.75rem 0 0;
+		color: var(--color-on-surface-variant);
+		line-height: 1.65;
+	}
+
+	.project-comparison__grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+		margin-top: var(--space-lg);
+	}
+
+	.project-comparison__figure {
+		display: grid;
+		gap: 0.8rem;
+		margin: 0;
+		padding: 0.7rem;
+		background: var(--color-surface-strong);
+		border: 1px solid rgba(181, 135, 63, 0.22);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.project-comparison__figure :global(img) {
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+		border-radius: var(--radius-md);
+	}
+
+	.project-comparison__figure figcaption {
+		display: grid;
+		gap: 0.25rem;
+		padding: 0 0.25rem 0.25rem;
+	}
+
+	.project-comparison__figure strong {
+		color: var(--color-secondary);
+		font-family: var(--font-heading);
+		font-size: 0.82rem;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+	}
+
+	.project-comparison__figure span {
+		color: var(--color-on-surface-variant);
+		font-size: 0.92rem;
+		line-height: 1.5;
+	}
+
 	.project-video__player {
 		display: block;
 		width: 100%;
@@ -216,6 +319,12 @@ const posterUrl = withBase('/assets/video/adquisicion-mezcla-poster.jpg', siteCo
 	@media (max-width: 860px) {
 		.project-detail__grid {
 			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (min-width: 760px) {
+		.project-comparison__grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 	}
 </style>

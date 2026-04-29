@@ -1,14 +1,20 @@
 ---
+import { Image } from 'astro:assets';
 import type { ServiceItem } from '../../data/types';
+import { siteConfig } from '../../data/site';
+import { withBase } from '../../utils/paths';
 
 interface Props {
 	service: ServiceItem;
 }
 
 const { service } = Astro.props;
-const detailsLabel = service.detailsLabel ?? 'Pruebas específicas';
+const detailsLabel = service.detailsLabel ?? 'Pruebas especificas';
 const hasCapas = Array.isArray(service.testsByCapa) && service.testsByCapa.length > 0;
 const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureDetails.length > 0;
+const mediaImages = service.media?.images ?? [];
+const mediaVideo = service.media?.video;
+const hasMedia = mediaImages.length > 0 || Boolean(mediaVideo);
 ---
 
 <article class="service-category" id={service.slug}>
@@ -27,7 +33,7 @@ const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureD
 	{hasCapas && (
 		<div class="service-category__body">
 			<h3 class="service-category__rubric">{detailsLabel}</h3>
-			<p class="service-category__hint">Selecciona una capa para ver las pruebas específicas que le corresponden.</p>
+			<p class="service-category__hint">Selecciona una capa para ver las pruebas especificas que le corresponden.</p>
 
 			<div class="service-category__capa-panels">
 				{service.testsByCapa!.map((capa) => (
@@ -37,6 +43,11 @@ const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureD
 							<span class="material-symbols-outlined service-category__capa-chevron" aria-hidden="true">expand_more</span>
 						</summary>
 						<div class="service-category__capa-content">
+							{capa.appliesTo && capa.appliesTo.length > 0 && (
+								<ul class="service-category__applies" aria-label="Capas agrupadas">
+									{capa.appliesTo.map((item) => <li>{item}</li>)}
+								</ul>
+							)}
 							{capa.tests.length > 0 ? (
 								<ol class="service-category__tests-grid">
 									{capa.tests.map((test, idx) => (
@@ -62,6 +73,54 @@ const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureD
 			<ul class={`service-category__details-list${service.futureDetails!.length > 10 ? ' service-category__details-list--dense' : ''}`}>
 				{service.futureDetails!.map((detail) => <li>{detail}</li>)}
 			</ul>
+		</div>
+	)}
+
+	{hasMedia && (
+		<div class="service-category__media">
+			<div class="service-category__media-header">
+				<h3 class="service-category__rubric">Registro visual</h3>
+				<p>Fotos y video optimizados para carga rapida en movil.</p>
+			</div>
+
+			{mediaImages.length > 0 && (
+				<div class="service-category__media-grid">
+					{mediaImages.map((item) => (
+						<figure class="service-category__media-card">
+							<Image
+								src={item.src}
+								alt={item.alt}
+								widths={[480, 720, 960]}
+								sizes="(max-width: 720px) 100vw, 50vw"
+								loading="lazy"
+							/>
+							<figcaption>
+								<strong>{item.title}</strong>
+								{item.caption && <span>{item.caption}</span>}
+							</figcaption>
+						</figure>
+					))}
+				</div>
+			)}
+
+			{mediaVideo && (
+				<figure class="service-category__video-card">
+					<video
+						controls
+						muted
+						playsinline
+						preload="metadata"
+						poster={withBase(mediaVideo.poster, siteConfig.basePath)}
+					>
+						<source src={withBase(mediaVideo.src, siteConfig.basePath)} type="video/mp4" />
+						Tu navegador no soporta video HTML5.
+					</video>
+					<figcaption>
+						<strong>{mediaVideo.title}</strong>
+						<span>{mediaVideo.description}</span>
+					</figcaption>
+				</figure>
+			)}
 		</div>
 	)}
 </article>
@@ -149,7 +208,8 @@ const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureD
 		color: var(--color-on-surface-variant);
 	}
 
-	.service-category__body {
+	.service-category__body,
+	.service-category__media {
 		display: grid;
 		gap: 1rem;
 		padding-top: 0.5rem;
@@ -166,10 +226,16 @@ const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureD
 		color: var(--color-secondary);
 	}
 
-	.service-category__hint {
+	.service-category__hint,
+	.service-category__media-header p {
 		margin: 0;
 		font-size: 0.88rem;
 		color: var(--color-on-surface-variant);
+	}
+
+	.service-category__media-header {
+		display: grid;
+		gap: 0.35rem;
 	}
 
 	.service-category__details-list {
@@ -270,6 +336,24 @@ const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureD
 		padding: 0 1rem 1rem;
 	}
 
+	.service-category__applies {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		margin: 0 0 0.85rem;
+		padding: 0;
+		list-style: none;
+	}
+
+	.service-category__applies li {
+		padding: 0.36rem 0.62rem;
+		border-radius: 999px;
+		background: var(--color-secondary-soft);
+		font-size: 0.74rem;
+		font-weight: 700;
+		color: var(--color-secondary);
+	}
+
 	.service-category__tests-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
@@ -324,6 +408,61 @@ const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureD
 		font-style: italic;
 	}
 
+	.service-category__media-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.85rem;
+	}
+
+	.service-category__media-card,
+	.service-category__video-card {
+		margin: 0;
+		overflow: hidden;
+		border: 1px solid var(--color-line);
+		border-radius: var(--radius-lg);
+		background: var(--color-surface);
+		box-shadow: var(--shadow-xs);
+	}
+
+	.service-category__media-card :global(img) {
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+	}
+
+	.service-category__video-card video {
+		display: block;
+		width: 100%;
+		max-height: min(75vh, 42rem);
+		background: var(--color-primary-deep);
+	}
+
+	.service-category__media-card figcaption,
+	.service-category__video-card figcaption {
+		display: grid;
+		gap: 0.25rem;
+		padding: 0.9rem 1rem;
+	}
+
+	.service-category__media-card strong,
+	.service-category__video-card strong {
+		font-family: var(--font-display);
+		font-size: 0.96rem;
+		color: var(--color-primary);
+	}
+
+	.service-category__media-card span,
+	.service-category__video-card span {
+		font-size: 0.86rem;
+		color: var(--color-on-surface-variant);
+	}
+
+	@media (min-width: 720px) {
+		.service-category__media-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
 	@media (max-width: 720px) {
 		.service-category__details-list--dense {
 			column-count: 1;
@@ -331,6 +470,14 @@ const hasFutureDetails = Array.isArray(service.futureDetails) && service.futureD
 	}
 
 	@media (max-width: 560px) {
+		.service-category {
+			padding: 1.45rem 1.1rem;
+		}
+
+		.service-category__header {
+			gap: 0.9rem;
+		}
+
 		.service-category__tests-grid {
 			grid-template-columns: 1fr;
 		}
