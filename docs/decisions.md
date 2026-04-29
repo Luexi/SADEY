@@ -90,6 +90,15 @@ Se agrego un pipeline repetible en `scripts/prepare-service-media.mjs` para conv
 
 La carpeta `FOTOS PRUEBAS/` es fuente local pesada y queda fuera del repo. Solo se versionan los outputs optimizados que usa el sitio.
 
+## Auditoria y optimizacion de imagenes
+
+Se agregaron scripts reproducibles para controlar el peso de media trackeada:
+
+- `npm run audit:media` lee `git ls-files` y reporta peso, dimensiones, formato, referencias directas, referencias por `import.meta.glob`, top de archivos pesados y assets sin referencia.
+- `npm run optimize:media` optimiza imagenes trackeadas de servicios, proyecto, hero, about, OG y posters. No recomprime videos.
+- Las galerias de servicios y proyectos usan WebP como formato canonico porque mantiene buen soporte y evita complejidad de fallback. AVIF queda descartado para esta pasada aunque ahorre mas bytes en algunas muestras.
+- Los perfiles quedan asi: galerias WebP 1280 px/q74, comparativos WebP 1280 px/q76, hero y covers WebP 1600 px/q78, OG/posters JPEG 1200-1280 px/q74-76.
+
 ## Carruseles por prueba en /servicios
 
 Cada prueba con material visual se muestra como un carrusel mobile-first dentro del bloque "Registros visuales" del servicio. Las decisiones detras:

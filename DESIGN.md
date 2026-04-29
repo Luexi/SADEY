@@ -214,7 +214,7 @@ Las cards claras son calidas y limpias. Las cards oscuras usan azul profundo, no
 
 **Service Media**
 
-Las fotos de servicios usan WebP optimizado, captions breves y una grilla de una columna en movil. El video de Diseno Protocolo AMAAC debe renderizarse con controles, `muted`, `playsinline`, `preload="metadata"` y poster ligero; no debe incluir audio.
+Las fotos de servicios usan WebP optimizado, captions breves y una grilla de una columna en movil. Las galerias de servicios y proyectos deben entrar al repo como WebP maximo 1280 px, calidad aproximada 74 y sin metadata; hero/covers pueden llegar a 1600 px cuando necesitan cubrir paneles grandes. El video de Diseno Protocolo AMAAC debe renderizarse con controles, `muted`, `playsinline`, `preload="metadata"` y poster ligero; no debe incluir audio.
 
 **Service Carousel**
 
@@ -243,6 +243,7 @@ El comparativo CHILIXX muestra antes y despues apilados en movil y lado a lado e
 - Priorizar claridad movil, menor altura vertical y contacto facil de encontrar.
 - Validar primero en movil porque el proyecto es mobile-first por peticion del cliente.
 - Usar fotos reales del laboratorio, obra o proyectos cuando la imagen ayude a entender el servicio.
+- Mantener fotos web optimizadas con `npm run audit:media`, `npm run optimize:media` y `npm run prepare:service-media` antes de cerrar cambios de media.
 - Mantener `DESIGN.md` sincronizado cuando cambien UI, media, responsive o criterios visuales.
 
 **Don't**

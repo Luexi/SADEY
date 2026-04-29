@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Copia los assets reales desde cliente/ hacia src/assets/ y public/assets/
-# Normaliza nombres a 01.jpeg, 02.jpeg, ... en orden alfabetico.
-# Idempotente: limpia los destinos antes de copiar.
+# Copia los assets reales desde cliente/ hacia src/assets/ y public/assets/.
+# Normaliza galerias a 01.jpeg, 02.jpeg, ... y luego ejecuta el
+# optimizador para dejar las salidas web como WebP/JPEG ligeros.
+# Idempotente: limpia los destinos administrados antes de copiar.
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 CLIENTE="$ROOT/cliente"
@@ -21,7 +22,12 @@ mkdir -p "$SRC_BRAND" "$SRC_HERO" "$SRC_ADQ" "$SRC_AMAAC" "$SRC_CHIL" "$PUB_VIDE
 
 # Limpieza previa (solo los destinos que este script administra)
 rm -f "$SRC_BRAND"/logo.* "$SRC_HERO"/hero-main.* 2>/dev/null || true
-find "$SRC_ADQ" "$SRC_AMAAC" "$SRC_CHIL" -type f -name "*.jpeg" -delete 2>/dev/null || true
+find "$SRC_ADQ" "$SRC_AMAAC" "$SRC_CHIL" -type f \( \
+  -name "[0-9][0-9].jpeg" -o \
+  -name "[0-9][0-9].jpg" -o \
+  -name "[0-9][0-9].png" -o \
+  -name "[0-9][0-9].webp" \
+\) -delete 2>/dev/null || true
 rm -f "$PUB_VIDEO"/*.mp4 "$PUB_VIDEO"/*.jpg "$PUB_OG"/og-default.* 2>/dev/null || true
 
 # 1. Logo
@@ -62,6 +68,10 @@ copy_gallery "$CLIENTE/PROYECTO CHILIXX" "$SRC_CHIL"
 
 # Poster del video: primera foto de la galeria adquisicion
 cp "$SRC_ADQ/01.jpeg" "$PUB_VIDEO/adquisicion-mezcla-poster.jpg"
+
+echo ""
+echo "Optimizando imagenes web..."
+(cd "$ROOT" && npm run optimize:media)
 
 echo ""
 echo "Sync completado."

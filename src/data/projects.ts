@@ -8,15 +8,15 @@ import reposicionCover from '../assets/projects/reposicion-amaac/_cover.webp';
 type ImageModule = { default: ImageMetadata };
 
 const adquisicionImages = import.meta.glob<ImageModule>(
-	'../assets/projects/adquisicion-mezcla/*.jpeg',
+	'../assets/projects/adquisicion-mezcla/[0-9][0-9].webp',
 	{ eager: true },
 );
 const amaacImages = import.meta.glob<ImageModule>(
-	'../assets/projects/reposicion-amaac/*.jpeg',
+	'../assets/projects/reposicion-amaac/[0-9][0-9].webp',
 	{ eager: true },
 );
 const chilixxImages = import.meta.glob<ImageModule>(
-	'../assets/projects/modernizacion-chilixx/*.jpeg',
+	'../assets/projects/modernizacion-chilixx/[0-9][0-9].webp',
 	{ eager: true },
 );
 

@@ -1,6 +1,6 @@
 import type { SiteConfig } from './types';
-import heroImage from '../assets/hero/hero-main.jpeg';
-import aboutImage from '../assets/about/about-main.jpg';
+import heroImage from '../assets/hero/hero-main.webp';
+import aboutImage from '../assets/about/about-main.webp';
 
 const WHATSAPP_NUMBER = '527531200374';
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesa solicitar información sobre los servicios de SADEY LABORATORIO.')}`;

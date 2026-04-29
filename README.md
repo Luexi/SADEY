@@ -41,6 +41,8 @@ Presentar las pruebas especificas, servicios y proyectos de SADEY LABORATORIO co
 ```bash
 npm install
 npm run dev
+npm run audit:media
+npm run optimize:media
 npm run prepare:service-media
 npm run check
 npm run build
@@ -134,7 +136,7 @@ Cuando un cambio visual altere el estado real del sitio, actualiza tambien `DESI
 ### Hero
 
 - Titulo principal: **A que nos dedicamos?**
-- Imagen de fondo principal desde `src/assets/hero/hero-main.jpeg`.
+- Imagen de fondo principal desde `src/assets/hero/hero-main.webp`.
 - Badge de marca visible en desktop y oculto en movil.
 - Sin CTA dentro del hero.
 
@@ -192,7 +194,7 @@ npm run prepare:service-media
 
 El script `scripts/prepare-service-media.mjs` hace tres cosas:
 
-1. Optimiza las fotos de cada prueba bajo `src/assets/services/<servicio>/<prueba-slug>/NN.webp` (WebP, ancho maximo 1600 px, calidad 78, sin metadata). Por defecto toma hasta 6 fotos por prueba ordenadas alfabeticamente; AMAAC se cierra a 4 porque el video lleva el peso narrativo.
+1. Optimiza las fotos de cada prueba bajo `src/assets/services/<servicio>/<prueba-slug>/NN.webp` (WebP, ancho maximo 1280 px, calidad 74, sin metadata). Por defecto toma hasta 6 fotos por prueba ordenadas alfabeticamente; AMAAC se cierra a 4 porque el video lleva el peso narrativo.
 2. Regenera `src/data/service-galleries.generated.ts`, un indice TypeScript con los imports y la estructura `serviceGalleriesBySlug` que `src/data/services.ts` mergea automaticamente en cada `ServiceItem` como `testGalleries`.
 3. Optimiza el video AMAAC (`public/assets/video/protocolo-amaac.mp4`) sin audio, su poster y las fotos antes/despues de CHILIXX.
 
@@ -207,8 +209,30 @@ Para agregar o reorganizar pruebas:
 
 ## Donde reemplazar imagenes placeholder
 
-- Hero: `src/assets/hero/hero-main.jpeg`
-- Sobre nosotros: `src/assets/about/about-main.jpg` (actualmente no se usa en la portada, pero sigue disponible)
+- Hero: `src/assets/hero/hero-main.webp`
+- Sobre nosotros: `src/assets/about/about-main.webp` (actualmente no se usa en la portada, pero sigue disponible)
+
+## Auditoria y optimizacion de imagenes
+
+Los assets web del sitio deben mantenerse ligeros y reproducibles:
+
+```bash
+npm run audit:media
+npm run optimize:media
+npm run prepare:service-media
+```
+
+- `npm run audit:media` audita solo archivos trackeados por Git en `src/assets/services/`, `src/assets/projects/`, `src/assets/hero/`, `src/assets/about/` y `public/assets/`. Reporta peso, dimensiones, formato, referencias directas y referencias por `import.meta.glob`.
+- `npm run optimize:media` optimiza imagenes trackeadas del sitio. Convierte galerias y fotos principales a WebP cuando es seguro, conserva JPEG para OG/posters y no toca videos MP4.
+- `npm run prepare:service-media` regenera las galerias de servicios desde `FOTOS PRUEBAS/`; las salidas son WebP con ancho maximo 1280 px, calidad 74 y sin metadata.
+
+Politica actual:
+
+- Hero y covers de proyecto: WebP, ancho maximo 1600 px, calidad 78.
+- Galerias de servicios y proyectos: WebP, ancho maximo 1280 px, calidad 74.
+- Comparativos antes/despues: WebP, ancho maximo 1280 px, calidad 76; la imagen principal de CHILIXX puede conservar 1600 px si funciona como hero.
+- OG y posters de video: JPEG optimizado, ancho maximo 1200-1280 px, calidad 74-76.
+- Videos: no se recomprimen en esta pasada; quedan como riesgo residual de peso.
 
 ## GitHub Pages
 

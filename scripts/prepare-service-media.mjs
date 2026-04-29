@@ -138,7 +138,7 @@ function resetDir(dir) {
 	mkdirSync(dir, { recursive: true });
 }
 
-async function optimizeImage(input, output, width = 1600, quality = 78) {
+async function optimizeImage(input, output, width = 1280, quality = 74) {
 	await sharp(input)
 		.rotate()
 		.resize({ width, withoutEnlargement: true })

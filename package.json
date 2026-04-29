@@ -7,6 +7,8 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "audit:media": "node scripts/audit-site-media.mjs",
+    "optimize:media": "node scripts/optimize-site-media.mjs",
     "prepare:service-media": "node scripts/prepare-service-media.mjs",
     "check": "astro check",
     "build": "astro build",
